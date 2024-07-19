@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7xc3eciJuKE=",
+  "dgSpecHash": "m5sdFLi6inw=",
   "success": true,
-  "projectFilePath": "D:\\MiniProject\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+  "projectFilePath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Shirish.Nalawade\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Shirish.Nalawade\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

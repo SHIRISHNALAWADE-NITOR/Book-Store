@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MiniProject\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {}
+    "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {}
   },
   "projects": {
-    "D:\\MiniProject\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {
+    "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MiniProject\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+        "projectUniqueName": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
         "projectName": "BookStoreBackEnd",
-        "projectPath": "D:\\MiniProject\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+        "projectPath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
         "packagesPath": "C:\\Users\\Shirish.Nalawade\\.nuget\\packages\\",
-        "outputPath": "D:\\MiniProject\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
+        "outputPath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Shirish.Nalawade\\AppData\\Roaming\\NuGet\\NuGet.Config",
