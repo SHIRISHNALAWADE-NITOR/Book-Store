@@ -1,12 +1,343 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721180938_TestMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BookStoreBackEnd\\Migrations\\20240721180938_TestMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\dbcontext\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\dbcontext\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721180040_TestMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BookStoreBackEnd\\Migrations\\20240721180040_TestMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721175649_TestMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BookStoreBackEnd\\Migrations\\20240721175649_TestMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\dbcontext\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\dbcontext\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\dtos\\orderitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\dtos\\orderitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|d:\\miniproject\\app\\book-store\\bookstorebackend\\bookstorebackend\\dtos\\bookdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D47F2A6C-B278-413D-9A97-0C64A51C2424}|BookStoreBackEnd\\BookStoreBackEnd.csproj|solutionrelative:bookstorebackend\\dtos\\bookdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20240721180938_TestMigration.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721180938_TestMigration.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Migrations\\20240721180938_TestMigration.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721180938_TestMigration.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Migrations\\20240721180938_TestMigration.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T18:09:38.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Order.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Models\\Order.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Models\\Order.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Models\\Order.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:57:33.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Book.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Models\\Book.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Models\\Book.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Models\\Book.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Models\\Book.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAA7wAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:57:09.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Controllers\\UsersController.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Controllers\\UsersController.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAYwD8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:46:17.288Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserDTO.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\UserDTO.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\DTOs\\UserDTO.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\UserDTO.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\DTOs\\UserDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:32:24.767Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Models\\User.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Models\\User.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Models\\User.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Models\\User.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAwA8AAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T18:05:22.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20240721180040_TestMigration.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721180040_TestMigration.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Migrations\\20240721180040_TestMigration.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721180040_TestMigration.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Migrations\\20240721180040_TestMigration.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T18:00:40.653Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DBContext\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\DBContext\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DBContext\\ApplicationDbContext.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\DBContext\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAE4AAAAAAAAAAAAgwE8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:36:13.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20240721175649_TestMigration.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721175649_TestMigration.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Migrations\\20240721175649_TestMigration.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Migrations\\20240721175649_TestMigration.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Migrations\\20240721175649_TestMigration.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:56:49.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Program.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Program.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Program.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:46:52.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\appsettings.json",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\appsettings.json",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\appsettings.json",
+              "RelativeToolTip": "BookStoreBackEnd\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-21T17:54:16.345Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AutoMapperProfile.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DBContext\\AutoMapperProfile.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\DBContext\\AutoMapperProfile.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DBContext\\AutoMapperProfile.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\DBContext\\AutoMapperProfile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:49:15.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Services\\UserService.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Services\\UserService.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Services\\UserService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:42:26.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Services\\IUserService.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Services\\IUserService.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Services\\IUserService.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Services\\IUserService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:41:36.009Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Repositories\\UserRepository.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Repositories\\UserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:40:31.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Repositories\\IRepository.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\Repositories\\IRepository.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\Repositories\\IRepository.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\Repositories\\IRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:38:56.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "OrderItemDTO.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\OrderItemDTO.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\DTOs\\OrderItemDTO.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\OrderItemDTO.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\DTOs\\OrderItemDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:34:12.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "OrderDTO.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\OrderDTO.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\DTOs\\OrderDTO.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\OrderDTO.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\DTOs\\OrderDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:33:38.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "BookDTO.cs",
+              "DocumentMoniker": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\BookDTO.cs",
+              "RelativeDocumentMoniker": "BookStoreBackEnd\\DTOs\\BookDTO.cs",
+              "ToolTip": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\DTOs\\BookDTO.cs",
+              "RelativeToolTip": "BookStoreBackEnd\\DTOs\\BookDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:33:12.496Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
