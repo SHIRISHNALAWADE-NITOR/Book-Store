@@ -14,6 +14,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<CartItem> CartItems { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<BookFile> BookFiles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

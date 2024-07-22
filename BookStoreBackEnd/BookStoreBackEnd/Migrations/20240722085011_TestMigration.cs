@@ -43,6 +43,28 @@ namespace BookStoreBackEnd.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BookFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AudioFile = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    VideoFile = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    PdfFile = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BookFiles_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -206,6 +228,11 @@ namespace BookStoreBackEnd.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BookFiles_BookId",
+                table: "BookFiles",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CartItems_BookId",
                 table: "CartItems",
                 column: "BookId");
@@ -266,6 +293,9 @@ namespace BookStoreBackEnd.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BookFiles");
+
             migrationBuilder.DropTable(
                 name: "CartItems");
 
