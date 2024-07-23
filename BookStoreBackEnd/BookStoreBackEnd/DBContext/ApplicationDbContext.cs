@@ -76,5 +76,10 @@ public class ApplicationDbContext : DbContext
         .WithMany(u => u.Orders)
         .HasForeignKey(o => o.UserId)
         .OnDelete(DeleteBehavior.NoAction);
+        
+        modelBuilder.Entity<Address>()
+            .HasOne(o => o.User)
+            .WithMany(u => u.Addresses)
+            .HasForeignKey(a => a.UserId);
     }
 }
