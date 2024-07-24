@@ -6,6 +6,10 @@ public class Book
 {
     [Key]
     public int BookId { get; set; }
+    public int Isbn { get; set; }
+    public string Category { get; set; }
+    public int NumberOfPages { get; set; }
+    public int Rating { get; set; }
 
     [Required]
     public string? Title { get; set; }
