@@ -11,6 +11,7 @@ public class AutoMapperProfile : Profile
         CreateMap<Address, AddressDTO>().ReverseMap();
         CreateMap<CartItem, CartItemDTO>().ReverseMap();
         CreateMap<Review, ReviewDTO>().ReverseMap();
+        CreateMap<Role, RoleDTO>().ReverseMap();
 
     }
 }

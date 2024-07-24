@@ -20,8 +20,8 @@ public class OrderItem
 
     // Navigation properties
     [ForeignKey("OrderId")]
-    public Order? Order { get; set; }
+    public Order Order { get; set; }
 
     [ForeignKey("BookId")]
-    public Book? Book { get; set; }
+    public Book Book { get; set; }
 }

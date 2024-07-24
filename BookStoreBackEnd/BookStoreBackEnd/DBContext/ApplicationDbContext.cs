@@ -62,6 +62,9 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Book>()
             .Property(b => b.Price)
             .HasColumnType("decimal(18, 2)");
+        modelBuilder.Entity<Book>()
+            .Property(b => b.Rating)
+            .HasColumnType("decimal(18, 2)");
 
         modelBuilder.Entity<Order>()
             .Property(o => o.TotalAmount)

@@ -21,13 +21,14 @@ public class JsonService : IJsonService
         //Console.WriteLine(bookDataList);
         Console.WriteLine("----------------------------------");
         //bookDataList.ForEach(b => Console.WriteLine(b));
-
+        //(int)Math.Round(b.Average_Rating * 100)
         var books = bookDataList.Select(b => new Book
         {
-            Isbn = int.Parse(b.Isbn10),
+            Isbn = $"{b.Isbn13}",
             Category = b.Categories,
+            Title = b.Title,
             NumberOfPages = b.Num_Pages,
-            Rating = (int)Math.Round(b.Average_Rating * 100),
+            Rating = b.Average_Rating,
             Author = b.Authors,
             Price = DigitsAsDecimal(long.Parse(b.Isbn10)),
             Description = b.Description,
@@ -57,16 +58,16 @@ public class JsonService : IJsonService
         //source.ForEach(b=> Console.WriteLine(b));
         List<Book> books = source.Select(b => new Book
         {
-            Isbn = int.Parse(b.Isbn10),
+            Isbn = $"{b.Isbn13}",
             Category = b.Categories,
             Title = b.Title,
             NumberOfPages = b.Num_Pages,
-            Rating = (int)Math.Round(b.Average_Rating* 100),
+            Rating = b.Average_Rating,
             Author = b.Authors,
             Price = DigitsAsDecimal(long.Parse(b.Isbn10)),
             Description = b.Description,
             ImageUrl = b.Thumbnail,
-            CreatedAt = new DateTime(b.Published_Year,10,10)
+            CreatedAt = new DateTime(b.Published_Year, 10, 10)
         }).ToList();
         //books.ForEach(book => {Console.WriteLine(book);});
         //source.ForEach(b => Console.WriteLine(b));
@@ -80,11 +81,10 @@ public class JsonService : IJsonService
     {
         long lastFourDigits = number % 1000;
         Random random = new Random();
-        decimal plus = random.Next(10, 99 + 1)/100;
-
+        decimal plus = random.Next(10, 99 + 1);
         decimal result = Convert.ToDecimal(lastFourDigits);
-
-        return result+plus;
+        //Console.WriteLine(result+(plus/100));
+        return result + (plus / 100);
     }
 }
 
