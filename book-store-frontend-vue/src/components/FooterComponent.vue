@@ -33,6 +33,7 @@
     position: relative;
     left: 0;
     bottom: 0;
+    padding-top: 5px;
     width: 100%;
   }
   
@@ -46,7 +47,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    
   }
   
   .footer-nav ul {
@@ -67,3 +68,5 @@
   }
   </style>
   
+
+
