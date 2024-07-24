@@ -1,4 +1,6 @@
-﻿public interface IUserService
+﻿using BookStoreBackEnd.JwtSecurity;
+
+public interface IUserService
 {
     Task<IEnumerable<UserDTO>> GetAllUsers();
     Task<UserDTO> GetUserById(int id);

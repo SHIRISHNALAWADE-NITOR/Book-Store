@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {}
+    "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {}
   },
   "projects": {
-    "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {
+    "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+        "projectUniqueName": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
         "projectName": "BookStoreBackEnd",
-        "projectPath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
-        "packagesPath": "C:\\Users\\Shirish.Nalawade\\.nuget\\packages\\",
-        "outputPath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
+        "projectPath": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+        "packagesPath": "C:\\Users\\Shantanu.Koyalkar\\.nuget\\packages\\",
+        "outputPath": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Shirish.Nalawade\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Shantanu.Koyalkar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -49,6 +49,14 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
