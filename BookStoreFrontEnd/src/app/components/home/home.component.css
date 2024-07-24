@@ -1,7 +1,17 @@
+*{
+  margin: 0;
+  overflow-x: hidden;
+}
 .row {
   /* Adjust according to your navbar height */
     display: flex;
     flex-direction: row;
+    
+  }
+
+  .landingpage{
+    margin: 0;
+    padding: 0%;
     
   }
   .sidebar{
@@ -9,8 +19,9 @@
     flex-direction: column;
   }
 .books-data{
-    margin-top: 5px;
-    margin-left: 50px;
+    margin: 0%;
+    padding: 0%;
+    
     width: 100%;
   }
   

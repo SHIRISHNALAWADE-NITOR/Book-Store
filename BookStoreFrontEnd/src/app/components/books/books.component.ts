@@ -20,11 +20,13 @@ export class BooksComponent implements OnInit {
 
   fetchBooks(): void {
     //const apiUrl = 'https://jsonplaceholder.typicode.com/albums'; // Replace with your API URL
-    const apiUrl='assets/books.json';
+    // const apiUrl='assets/books.json';
+    const apiUrl='http://localhost:5134/api/Book'
     this.http.get<any[]>(apiUrl)
       .subscribe(
         (data) => {
           this.books = data;
+          console.log(data)
           console.log('Books fetched successfully:', this.books);
         },
         (error) => {

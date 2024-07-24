@@ -11,6 +11,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component'; 
+import { CarouselComponent } from './components/carousel/carousel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { FooterComponent } from './components/footer/footer.component';
     SidebarComponent,
     LoginComponent,
     FooterComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
