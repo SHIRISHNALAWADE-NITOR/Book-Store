@@ -1,19 +1,25 @@
 ﻿using AutoMapper;
+using BookStoreBackEnd.JwtSecurity;
+using Microsoft.AspNetCore.Identity;
 
 public class UserService : IUserService
 {
     private readonly IRepository<User> _userRepository;
+    private readonly IPasswordHasher _passwordHasher;
     private readonly IMapper _mapper;
 
-    public UserService(IRepository<User> userRepository, IMapper mapper)
+
+    
+    public UserService(IRepository<User> userRepository, IMapper mapper,IPasswordHasher passwordHasher)
     {
         _userRepository = userRepository;
+        _passwordHasher = passwordHasher;
         _mapper = mapper;
     }
-
+    
     public async Task<IEnumerable<UserDTO>> GetAllUsers()
     {
-        var users = await _userRepository.GetAll();
+        var users = await _userRepository.GetAllUsers();
         return _mapper.Map<IEnumerable<UserDTO>>(users);
     }
 
