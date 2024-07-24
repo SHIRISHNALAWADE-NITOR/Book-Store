@@ -9,7 +9,12 @@ public class UserRepository : IRepository<User>
         _context = context;
     }
 
-    public async Task<IEnumerable<User>> GetAll()
+    public User GetByUsername(string username)
+    {
+        return _context.Users.FirstOrDefault(u => u.Username == username);
+    }
+
+    public async Task<IEnumerable<User>> GetAllUsers()
     {
         return await _context.Users.Include(u => u.Role).ToListAsync();
     }
