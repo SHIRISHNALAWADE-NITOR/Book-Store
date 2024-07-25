@@ -12,6 +12,8 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component'; 
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { SignupComponent } from './components/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     LoginComponent,
     FooterComponent,
     CarouselComponent,
+    InventoryComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,7 @@ namespace BookStoreBackEnd.JwtSecurity
                 {
                     // Authentication successful, generate JWT token
                     var token = GenerateJwtToken(user.Username);
-                    return new AuthenticationResponse { Username = user.Username, Token = token };
+                    return new AuthenticationResponse { Username = user.Username, Token = token ,RoleId=user.RoleId};
                 }
                 else
                 {

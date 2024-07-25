@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,42 +10,27 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  roleId: number = 0; // Define roleId variable to store role from backend (assuming default is 0 for unknown)
   isLoggedIn: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    const apiUrl = 'http://localhost:5134/api/auth/authenticate';
-    const body = {
-      username: this.username,
-      password: this.password
-    };
-
-    this.http.post(apiUrl, body).subscribe(
+    this.authService.login(this.username, this.password).subscribe(
       (response: any) => {
-        // Handle successful authentication here (e.g., store token in localStorage)
-        console.log('Authentication successful');
-        console.log('Token:', response.token);
-
-        // Store token in localStorage (example)
-        localStorage.setItem('token', response.token);
-
-        // Set isLoggedIn flag to true
         this.isLoggedIn = true;
-
-        // Redirect to home page
-        this.router.navigate(['/home']);
+        localStorage.setItem("roleId", response.roleId.toString())
+        this.roleId = response.roleId; // Store roleId received from backend
       },
       (error) => {
-        // Handle authentication error (e.g., display error message)
-        console.error('Authentication error:', error);
+        console.error('Login failed:', error);
       }
     );
   }
 
   logout() {
-    // Clear localStorage or perform logout actions
-    localStorage.removeItem('token');
+    this.authService.logout();
     this.isLoggedIn = false;
+    this.roleId=0;
   }
 }
