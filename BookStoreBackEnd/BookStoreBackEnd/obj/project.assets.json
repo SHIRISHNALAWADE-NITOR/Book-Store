@@ -4320,19 +4320,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Shantanu.Koyalkar\\.nuget\\packages\\": {}
+    "C:\\Users\\Shirish.Nalawade\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+      "projectUniqueName": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
       "projectName": "BookStoreBackEnd",
-      "projectPath": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
-      "packagesPath": "C:\\Users\\Shantanu.Koyalkar\\.nuget\\packages\\",
-      "outputPath": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
+      "projectPath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+      "packagesPath": "C:\\Users\\Shirish.Nalawade\\.nuget\\packages\\",
+      "outputPath": "D:\\MiniProject\\App\\Book-Store\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Shantanu.Koyalkar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Shirish.Nalawade\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
