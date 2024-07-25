@@ -7,17 +7,13 @@ import PrivacyPolicyView from '../views/PrivacyPolicyView.vue';
 import TermsOfServiceView from '../views/TermsOfServiceView.vue';
 import SignupComponent from '@/views/SignupComponent.vue';
 import LoginComponent from '@/views/LoginComponent.vue';
+import IndividualProductView from '@/views/IndividualProductView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeView
-  },
-  {
-    path: '/books',
-    name: 'Books',
-    component: BooksView
   },
   {
     path: '/about',
@@ -48,7 +44,17 @@ const routes = [
     path: '/login',
     name: 'LoginComponent',
     component: LoginComponent
-
+  },
+  {
+    path: '/books',
+    name: 'Books',
+    component: BooksView
+  },
+  {
+    path: '/product/:id',
+    name: 'ProductDetail',
+    component: IndividualProductView,
+    props: true 
   }
 ];
 
