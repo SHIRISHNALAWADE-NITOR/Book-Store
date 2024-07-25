@@ -32,7 +32,7 @@ namespace BookStoreBackEnd.Controllers
 
             _logger.LogInformation($"User authenticated successfully: {model.Username}");
 
-            return Ok(new { username = response.Username, token = response.Token });
+            return Ok(new { username = response.Username, token = response.Token,roleId=response.RoleId });
         }
     }
 }

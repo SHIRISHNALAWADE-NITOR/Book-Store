@@ -1,11 +1,16 @@
 <nav class="navbar">
-  <div class="appname"><h1>PUSTAK PARADISE</h1></div>
+  <div class="appname">
+    <h1>PUSTAK PARADISE</h1>
+  </div>
   <div class="navbtn">
     <div class="cart">
       <a routerLink="/home/cart">Cart</a>
     </div>
     <div class="login">
-      <a routerLink="/home/login">Login</a>
+      <a *ngIf="!isLoggedIn" routerLink="/home/login">Login</a>
+      <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+      <a *ngIf="isLoggedIn && roleId === 1" (click)="manageBooks()">Add Books</a>
     </div>
+    
   </div>
 </nav>
