@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { IndividualBookComponent } from './components/individual-book/individual-book.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { SignupComponent } from './components/signup/signup.component';
     CarouselComponent,
     InventoryComponent,
     SignupComponent,
+    IndividualBookComponent
   ],
   imports: [
     BrowserModule,
