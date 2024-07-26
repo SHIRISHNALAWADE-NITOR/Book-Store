@@ -205,8 +205,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\Services\\BookService.cs",
               "ViewState": "AQIAABQAAAAAAAAAAAA3wAsAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-25T20:36:32.255Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-25T20:36:32.255Z"
             },
             {
               "$type": "Document",
@@ -218,8 +217,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\Models\\Book.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAowCAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-22T17:48:38.979Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T17:48:38.979Z"
             },
             {
               "$type": "Document",
@@ -231,8 +229,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\Controllers\\BookController.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAwwCQAAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-24T04:24:52.655Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T04:24:52.655Z"
             },
             {
               "$type": "Document",
@@ -244,8 +241,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\DBContext\\ApplicationDbContext.cs",
               "ViewState": "AQIAADEAAAAAAAAAAAAcwAgAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-22T08:42:06.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T08:42:06.608Z"
             },
             {
               "$type": "Document",
@@ -257,8 +253,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\Controllers\\JsonController.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAuwAcAAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T04:59:00.381Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-23T04:59:00.381Z"
             },
             {
               "$type": "Document",
@@ -268,7 +263,7 @@
               "RelativeDocumentMoniker": "BookStoreBackEnd\\Services\\JsonService.cs",
               "ToolTip": "D:\\ProjectData\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\Services\\JsonService.cs",
               "RelativeToolTip": "BookStoreBackEnd\\Services\\JsonService.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAA5wCQAAAAdAAAA",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAgwCQAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-23T04:51:32.182Z",
               "EditorCaption": ""
@@ -283,8 +278,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\Services\\UserService.cs",
               "ViewState": "AQIAAAUAAAAAAAAAAAAQwBIAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T18:21:26.442Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-23T18:21:26.442Z"
             },
             {
               "$type": "Document",
@@ -296,8 +290,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\DTOs\\BookDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T04:30:57.282Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-23T04:30:57.282Z"
             },
             {
               "$type": "Document",
@@ -309,8 +302,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\DTOs\\UserDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAA+wAUAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T19:11:56.962Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-23T19:11:56.962Z"
             },
             {
               "$type": "Document",
@@ -334,8 +326,7 @@
               "RelativeToolTip": "BookStoreBackEnd\\JwtSecurity\\AuthenticationResponse.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-24T05:12:58.241Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T05:12:58.241Z"
             },
             {
               "$type": "Document",
