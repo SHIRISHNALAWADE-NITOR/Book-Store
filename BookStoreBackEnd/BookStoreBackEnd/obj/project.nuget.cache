@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rFOE14tNU+U=",
+  "dgSpecHash": "IUm1n6O97Zs=",
   "success": true,
-  "projectFilePath": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+  "projectFilePath": "D:\\ProjectData\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Shantanu.Koyalkar\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Shantanu.Koyalkar\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",

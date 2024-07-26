@@ -4325,11 +4325,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+      "projectUniqueName": "D:\\ProjectData\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
       "projectName": "BookStoreBackEnd",
-      "projectPath": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
+      "projectPath": "D:\\ProjectData\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\BookStoreBackEnd.csproj",
       "packagesPath": "C:\\Users\\Shantanu.Koyalkar\\.nuget\\packages\\",
-      "outputPath": "D:\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
+      "outputPath": "D:\\ProjectData\\ProjectNitor\\BookStoreBackEnd\\BookStoreBackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Shantanu.Koyalkar\\AppData\\Roaming\\NuGet\\NuGet.Config",

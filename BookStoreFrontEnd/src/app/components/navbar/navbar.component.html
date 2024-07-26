@@ -9,7 +9,7 @@
     <div class="login">
       <a *ngIf="!isLoggedIn" routerLink="/home/login">Login</a>
       <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
-      <a *ngIf="isLoggedIn && roleId === 1" (click)="manageBooks()">Add Books</a>
+      <a *ngIf="isLoggedIn && roleId === 1" (click)="manageBooks()">Inventory</a>
     </div>
     
   </div>
