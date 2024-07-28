@@ -23,6 +23,7 @@ export class IndividualBookComponent implements OnInit {
     if (this.bookId) {
       this.fetchBookDetails();
     }
+    
   }
 
   fetchBookDetails(): void {
