@@ -14,11 +14,15 @@ public class TokenService : ITokenService
 
     public string CreateToken(User user)
     {
+        // Determine role based on RoleId
+        var role = user.RoleId == 1 ? "admin" : "user";
+
+        // Create claims
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
             new Claim(ClaimTypes.Name, user.Username),
-            // Add other claims as needed (e.g., roles)
+            new Claim(ClaimTypes.Role, role) // Ensure role is added to claims
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -43,13 +47,12 @@ public class TokenService : ITokenService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-            new Claim(ClaimTypes.Role, user.Role.ToString()),
-                // Add more claims as needed
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Role, user.RoleId == 1 ? "admin" : "user") // Ensure correct role assignment
             }),
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-            Issuer = _configuration["Jwt:Issuer"], // Add this line
+            Issuer = _configuration["Jwt:Issuer"],
             Audience = _configuration["Jwt:Audience"]
         };
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -15,6 +15,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { IndividualBookComponent } from './components/individual-book/individual-book.component';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './services/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,14 @@ import { IndividualBookComponent } from './components/individual-book/individual
     AppRoutingModule,
     FormsModule // Import FormsModule here
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
