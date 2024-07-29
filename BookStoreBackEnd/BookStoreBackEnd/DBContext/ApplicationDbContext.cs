@@ -71,6 +71,10 @@ public class ApplicationDbContext : DbContext
             .Property(oi => oi.Price)
             .HasColumnType("decimal(18, 2)");
 
+        modelBuilder.Entity<Book>()
+            .Property(b => b.Rating)
+            .HasColumnType("decimal(18,2)");
+
         modelBuilder.Entity<Order>()
         .HasOne(o => o.User)
         .WithMany(u => u.Orders)
