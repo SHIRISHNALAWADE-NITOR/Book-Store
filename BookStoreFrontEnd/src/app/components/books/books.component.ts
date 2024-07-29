@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -8,11 +8,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BooksComponent implements OnInit {
 
+  
   books: any[] = []; // Array to hold fetched books
   currentPage: number = 1;
   itemsPerPage: number = 10; // Number of items per page (9 records)
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   ngOnInit(): void {
     this.fetchBooks();
@@ -58,5 +59,10 @@ export class BooksComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.books.slice(startIndex, startIndex + this.itemsPerPage);
   }
+
+  navigateToBook(id: number): void {
+    this.router.navigate(['/home/individualBook', id.toString()]);
+  }
+  
 
 }

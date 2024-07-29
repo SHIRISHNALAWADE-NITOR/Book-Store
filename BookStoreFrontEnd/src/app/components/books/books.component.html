@@ -3,11 +3,12 @@
     <h2>Books List</h2>
   </div> -->
   <ul class="list-unstyled">
-    <li *ngFor="let book of currentBooks">
+    <li *ngFor="let book of currentBooks" (click)="navigateToBook(book.bookId)">
       <!-- <img [src]="'../' + book.imageLink" alt="{{ book.title }}" class="book-image"> -->
        <img [src]="book.imageUrl" class="book-image">
       <div class="book-details">
         <h3>{{ book.title }}</h3>
+        <!-- <h3>{{book.bookId}}</h3> -->
         <p><strong>Author:</strong> {{ book.author }}</p>
         <!-- <p><strong>Country:</strong> {{ book.country }}</p>
         <p><strong>Language:</strong> {{ book.language }}</p>
