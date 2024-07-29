@@ -9,7 +9,7 @@ public class Book
     public int Isbn { get; set; }
     public string Category { get; set; }
     public int NumberOfPages { get; set; }
-    public int Rating { get; set; }
+    public decimal Rating { get; set; }
 
     [Required]
     public string? Title { get; set; }
