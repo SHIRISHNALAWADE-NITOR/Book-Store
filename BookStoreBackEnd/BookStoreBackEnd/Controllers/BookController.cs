@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -47,6 +48,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "RequireAdminRole")]
     public async Task<IActionResult> AddBook([FromBody] BookDTO bookDto)
     {
         try
@@ -77,7 +79,7 @@ public class BookController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
         }
     }
-
+    [Authorize(Policy = "RequireAdminRole")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBook(int id)
     {
