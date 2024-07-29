@@ -29,9 +29,9 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string): Observable<any> {
-    const apiUrl = 'http://localhost:5134/api/auth/authenticate';
-    const body = { username, password };
+  login(email: string, password: string): Observable<any> {
+    const apiUrl = 'http://localhost:5134/api/auth/Lopgin';
+    const body = { email, password };
 
     return this.http.post(apiUrl, body).pipe(
       tap((response: any) => {

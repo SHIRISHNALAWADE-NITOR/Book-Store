@@ -2,6 +2,9 @@
   <div>
     <CarouselComponent/>
     <h1>Categories</h1>
+
+    <h1>Bestseller</h1>
+
   </div>
 </template>
 

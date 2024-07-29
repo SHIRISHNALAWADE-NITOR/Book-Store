@@ -1,8 +1,6 @@
-﻿namespace BookStoreBackEnd.JwtSecurity
+﻿public interface IAuthService
 {
-    public interface IAuthService
-    {
-        public AuthenticationResponse Authenticate(AuthenticationModel authenticationModel);
-    
-    }
+    //Task<AuthResponse> Register(UserDTO userDto);
+    Task<AuthResponse> RegisterAsync(UserDTO userDto);
+    Task<AuthResponse> Login(LoginDTO loginDto);
 }

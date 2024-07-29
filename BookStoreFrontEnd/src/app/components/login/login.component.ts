@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
   roleId: number = 0; // Define roleId variable to store role from backend (assuming default is 0 for unknown)
   isLoggedIn: boolean = false;
@@ -16,7 +16,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    this.authService.login(this.username, this.password).subscribe(
+    this.authService.login(this.email, this.password).subscribe(
       (response: any) => {
         this.isLoggedIn = true;
         localStorage.setItem("roleId", response.roleId.toString())

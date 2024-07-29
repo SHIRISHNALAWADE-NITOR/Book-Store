@@ -23,7 +23,7 @@ export class SignupComponent {
       };
 
       // Replace 'http://your-backend-api-url/register' with your actual backend API endpoint
-      this.http.post('http://localhost:5134/api/Users', userData)
+      this.http.post('http://localhost:5134/api/Auth/Register', userData)
         .subscribe(
           response => {
             console.log('User registration successful:', response);

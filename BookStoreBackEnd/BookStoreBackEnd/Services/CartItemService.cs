@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class CartItemService : ICartItemService
 {
@@ -14,47 +17,87 @@ public class CartItemService : ICartItemService
 
     public async Task<IEnumerable<CartItemDTO>> GetAllCartItemsAsync()
     {
-        var cartItems = await _context.CartItems.ToListAsync();
-        return _mapper.Map<IEnumerable<CartItemDTO>>(cartItems);
+        try
+        {
+            var cartItems = await _context.CartItems.ToListAsync();
+            return _mapper.Map<IEnumerable<CartItemDTO>>(cartItems);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving cart items.", ex);
+        }
     }
 
     public async Task<CartItemDTO> GetCartItemByIdAsync(int id)
     {
-        var cartItem = await _context.CartItems.FindAsync(id);
-        return _mapper.Map<CartItemDTO>(cartItem);
+        try
+        {
+            var cartItem = await _context.CartItems.FindAsync(id);
+            if (cartItem == null)
+            {
+                throw new KeyNotFoundException($"Cart item with ID {id} not found.");
+            }
+
+            return _mapper.Map<CartItemDTO>(cartItem);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while retrieving cart item with ID {id}.", ex);
+        }
     }
 
     public async Task<CartItemDTO> AddCartItemAsync(CartItemDTO cartItemDto)
     {
-        var cartItem = _mapper.Map<CartItem>(cartItemDto);
-        _context.CartItems.Add(cartItem);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<CartItemDTO>(cartItem);
+        try
+        {
+            var cartItem = _mapper.Map<CartItem>(cartItemDto);
+            _context.CartItems.Add(cartItem);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<CartItemDTO>(cartItem);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while adding the cart item.", ex);
+        }
     }
 
     public async Task<CartItemDTO> UpdateCartItemAsync(int id, CartItemDTO cartItemDto)
     {
-        var cartItem = await _context.CartItems.FindAsync(id);
-        if (cartItem == null)
+        try
         {
-            return null;
-        }
+            var cartItem = await _context.CartItems.FindAsync(id);
+            if (cartItem == null)
+            {
+                throw new KeyNotFoundException($"Cart item with ID {id} not found.");
+            }
 
-        _mapper.Map(cartItemDto, cartItem);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<CartItemDTO>(cartItem);
+            _mapper.Map(cartItemDto, cartItem);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<CartItemDTO>(cartItem);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while updating cart item with ID {id}.", ex);
+        }
     }
 
     public async Task<bool> DeleteCartItemAsync(int id)
     {
-        var cartItem = await _context.CartItems.FindAsync(id);
-        if (cartItem == null)
+        try
         {
-            return false;
-        }
+            var cartItem = await _context.CartItems.FindAsync(id);
+            if (cartItem == null)
+            {
+                throw new KeyNotFoundException($"Cart item with ID {id} not found.");
+            }
 
-        _context.CartItems.Remove(cartItem);
-        await _context.SaveChangesAsync();
-        return true;
+            _context.CartItems.Remove(cartItem);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while deleting cart item with ID {id}.", ex);
+        }
     }
 }

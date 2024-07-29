@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -15,48 +17,112 @@ public class OrderItemController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllOrderItems()
     {
-        var orderItems = await _orderItemService.GetAllOrderItemsAsync();
-        return Ok(orderItems);
+        try
+        {
+            var orderItems = await _orderItemService.GetAllOrderItemsAsync();
+            return Ok(orderItems);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOrderItemById(int id)
     {
-        var orderItem = await _orderItemService.GetOrderItemByIdAsync(id);
-        if (orderItem == null)
+        try
         {
-            return NotFound();
+            var orderItem = await _orderItemService.GetOrderItemByIdAsync(id);
+            if (orderItem == null)
+            {
+                return NotFound(new { Message = $"Order item with ID {id} not found." });
+            }
+            return Ok(orderItem);
         }
-        return Ok(orderItem);
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> AddOrderItem([FromBody] OrderItemDTO orderItemDto)
     {
-        var orderItem = await _orderItemService.AddOrderItemAsync(orderItemDto);
-        return CreatedAtAction(nameof(GetOrderItemById), new { id = orderItem.OrderItemId }, orderItem);
+        if (orderItemDto == null)
+        {
+            return BadRequest("Order item data is missing.");
+        }
+
+        try
+        {
+            var orderItem = await _orderItemService.AddOrderItemAsync(orderItemDto);
+            return CreatedAtAction(nameof(GetOrderItemById), new { id = orderItem.OrderItemId }, orderItem);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateOrderItem(int id, [FromBody] OrderItemDTO orderItemDto)
     {
-        var orderItem = await _orderItemService.UpdateOrderItemAsync(id, orderItemDto);
-        if (orderItem == null)
+        if (orderItemDto == null)
         {
-            return NotFound();
+            return BadRequest("Order item data is missing.");
         }
-        return NoContent();
+
+        try
+        {
+            var orderItem = await _orderItemService.UpdateOrderItemAsync(id, orderItemDto);
+            if (orderItem == null)
+            {
+                return NotFound(new { Message = $"Order item with ID {id} not found." });
+            }
+            return NoContent();
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteOrderItem(int id)
     {
-        var result = await _orderItemService.DeleteOrderItemAsync(id);
-        if (!result)
+        try
         {
-            return NotFound();
+            var result = await _orderItemService.DeleteOrderItemAsync(id);
+            if (!result)
+            {
+                return NotFound(new { Message = $"Order item with ID {id} not found." });
+            }
+            return NoContent();
         }
-        return NoContent();
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 }
-

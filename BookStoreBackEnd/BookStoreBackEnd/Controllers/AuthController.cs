@@ -1,38 +1,66 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BookStoreBackEnd.JwtSecurity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace BookStoreBackEnd.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly ILogger<AuthController> _logger;
-
-        public AuthController(IAuthService authService, ILogger<AuthController> logger)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _logger = logger;
         }
-
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] AuthenticationModel model)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromBody] UserDTO userDto)
         {
-            _logger.LogInformation($"Attempting to authenticate user: {model.Username}");
-
-            var response = _authService.Authenticate(model);
-
-            if (response == null)
+            //AuthResponse authResponse = await _authService.RegisterAsync(userDto);
+            //return Ok(authResponse);
+            if (!ModelState.IsValid)
             {
-                _logger.LogWarning($"Failed to authenticate user: {model.Username}");
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(ModelState);
             }
 
-            _logger.LogInformation($"User authenticated successfully: {model.Username}");
+            try
+            {
+                AuthResponse authResponse = await _authService.RegisterAsync(userDto);
+                return Ok(authResponse);
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+            }
+        }
 
-            return Ok(new { username = response.Username, token = response.Token,roleId=response.RoleId });
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            //AuthResponse authResponse = await _authService.Login(request);
+            //return Ok(authResponse);
+            try
+            {
+                AuthResponse authResponse = await _authService.Login(request);
+                return Ok(authResponse);
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+            }
         }
     }
 }

@@ -1,50 +1,113 @@
 ﻿using AutoMapper;
-using BookStoreBackEnd.JwtSecurity;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class UserService : IUserService
 {
-    private readonly IRepository<User> _userRepository;
-    private readonly IPasswordHasher _passwordHasher;
+    private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-
-    
-    public UserService(IRepository<User> userRepository, IMapper mapper,IPasswordHasher passwordHasher)
+    public UserService(IMapper mapper, ApplicationDbContext context)
     {
-        _userRepository = userRepository;
-        _passwordHasher = passwordHasher;
         _mapper = mapper;
+        _context = context;
     }
-    
+
     public async Task<IEnumerable<UserDTO>> GetAllUsers()
     {
-        var users = await _userRepository.GetAllUsers();
-        return _mapper.Map<IEnumerable<UserDTO>>(users);
+        try
+        {
+            var users = await _context.Users.Include(u => u.Role).ToListAsync();
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all users.", ex);
+        }
     }
 
     public async Task<UserDTO> GetUserById(int id)
     {
-        var user = await _userRepository.GetById(id);
-        return _mapper.Map<UserDTO>(user);
+        try
+        {
+            var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.UserId == id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with ID {id} not found.");
+            }
+            return _mapper.Map<UserDTO>(user);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving the user by ID.", ex);
+        }
     }
 
     public async Task<UserDTO> AddUser(UserDTO userDto)
     {
-        var user = _mapper.Map<User>(userDto);
-        user = await _userRepository.Add(user);
-        return _mapper.Map<UserDTO>(user);
+        try
+        {
+            var user = _mapper.Map<User>(userDto);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<UserDTO>(user);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while adding the user.", ex);
+        }
     }
 
     public async Task<UserDTO> UpdateUser(UserDTO userDto)
     {
-        var user = _mapper.Map<User>(userDto);
-        user = await _userRepository.Update(user);
-        return _mapper.Map<UserDTO>(user);
+        try
+        {
+            var user = _mapper.Map<User>(userDto);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<UserDTO>(user);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while updating the user.", ex);
+        }
     }
 
-    public async Task DeleteUser(int id)
+    public async Task<bool> DeleteUser(int id)
     {
-        await _userRepository.Delete(id);
+        try
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with ID {id} not found.");
+            }
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while deleting the user.", ex);
+        }
+    }
+
+    public async Task<User> GetUserByEmail(string email)
+    {
+        try
+        {
+            var user = await _context.Users.Include(x => x.Role).FirstOrDefaultAsync(x => x.Email == email);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with email {email} not found.");
+            }
+            return user;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving the user by email.", ex);
+        }
     }
 }

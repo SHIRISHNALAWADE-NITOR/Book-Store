@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace BookStoreBackEnd.Controllers
 {
@@ -19,15 +21,17 @@ namespace BookStoreBackEnd.Controllers
         {
             try
             {
-                //await _jsonService.InitializeDatabaseAsync();
                 await _jsonService.InitDatabaseAsync();
                 return Ok("Database initialized successfully.");
             }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
             }
         }
-        
     }
 }

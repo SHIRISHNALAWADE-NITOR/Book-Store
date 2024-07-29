@@ -1,20 +1,12 @@
-﻿using BCrypt.Net;
-
-namespace BookStoreBackEnd.JwtSecurity
+﻿public class BCryptPasswordHasher : IPasswordHasher
 {
-
-    public class BCryptPasswordHasher : IPasswordHasher
+    public string HashPassword(string password)
     {
-        public string HashPassword(string password)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(password);
-        }
-
-        public bool VerifyPassword(string hashedPassword, string password)
-        {
-            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
-        }
+        return BCrypt.Net.BCrypt.HashPassword(password);
     }
 
-
+    public bool VerifyPassword(string hashedPassword, string password)
+    {
+        return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+    }
 }
