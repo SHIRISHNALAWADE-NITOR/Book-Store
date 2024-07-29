@@ -6,11 +6,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-
-
-
 builder.Services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
 
 
@@ -19,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin",
-                      builder => builder.WithOrigins("http://localhost:4200")
+                      builder => builder.WithOrigins("http://localhost:8080")
                                         .AllowAnyHeader()
                                         .AllowAnyMethod());
 });
