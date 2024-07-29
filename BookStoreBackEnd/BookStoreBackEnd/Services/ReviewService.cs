@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class ReviewService : IReviewService
 {
@@ -14,48 +17,86 @@ public class ReviewService : IReviewService
 
     public async Task<IEnumerable<ReviewDTO>> GetAllReviewsAsync()
     {
-        var reviews = await _context.Reviews.ToListAsync();
-        return _mapper.Map<IEnumerable<ReviewDTO>>(reviews);
+        try
+        {
+            var reviews = await _context.Reviews.ToListAsync();
+            return _mapper.Map<IEnumerable<ReviewDTO>>(reviews);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all reviews.", ex);
+        }
     }
 
     public async Task<ReviewDTO> GetReviewByIdAsync(int id)
     {
-        var review = await _context.Reviews.FindAsync(id);
-        return _mapper.Map<ReviewDTO>(review);
+        try
+        {
+            var review = await _context.Reviews.FindAsync(id);
+            if (review == null)
+            {
+                throw new KeyNotFoundException($"Review with ID {id} not found.");
+            }
+            return _mapper.Map<ReviewDTO>(review);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving the review by ID.", ex);
+        }
     }
 
     public async Task<ReviewDTO> AddReviewAsync(ReviewDTO reviewDto)
     {
-        var review = _mapper.Map<Review>(reviewDto);
-        _context.Reviews.Add(review);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<ReviewDTO>(review);
+        try
+        {
+            var review = _mapper.Map<Review>(reviewDto);
+            _context.Reviews.Add(review);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<ReviewDTO>(review);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while adding the review.", ex);
+        }
     }
 
     public async Task<ReviewDTO> UpdateReviewAsync(int id, ReviewDTO reviewDto)
     {
-        var review = await _context.Reviews.FindAsync(id);
-        if (review == null)
+        try
         {
-            return null;
-        }
+            var review = await _context.Reviews.FindAsync(id);
+            if (review == null)
+            {
+                throw new KeyNotFoundException($"Review with ID {id} not found.");
+            }
 
-        _mapper.Map(reviewDto, review);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<ReviewDTO>(review);
+            _mapper.Map(reviewDto, review);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<ReviewDTO>(review);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while updating the review.", ex);
+        }
     }
 
     public async Task<bool> DeleteReviewAsync(int id)
     {
-        var review = await _context.Reviews.FindAsync(id);
-        if (review == null)
+        try
         {
-            return false;
-        }
+            var review = await _context.Reviews.FindAsync(id);
+            if (review == null)
+            {
+                return false;
+            }
 
-        _context.Reviews.Remove(review);
-        await _context.SaveChangesAsync();
-        return true;
+            _context.Reviews.Remove(review);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while deleting the review.", ex);
+        }
     }
 }
-

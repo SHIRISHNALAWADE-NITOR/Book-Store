@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -15,48 +17,102 @@ public class OrderController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllOrders()
     {
-        var orders = await _orderService.GetAllOrdersAsync();
-        return Ok(orders);
+        try
+        {
+            var orders = await _orderService.GetAllOrdersAsync();
+            return Ok(orders);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOrderById(int id)
     {
-        var order = await _orderService.GetOrderByIdAsync(id);
-        if (order == null)
+        try
         {
-            return NotFound();
+            var order = await _orderService.GetOrderByIdAsync(id);
+            if (order == null)
+            {
+                return NotFound(new { Message = $"Order with ID {id} not found." });
+            }
+            return Ok(order);
         }
-        return Ok(order);
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> AddOrder([FromBody] OrderDTO orderDto)
     {
-        var order = await _orderService.AddOrderAsync(orderDto);
-        return CreatedAtAction(nameof(GetOrderById), new { id = order.OrderId }, order);
+        try
+        {
+            var order = await _orderService.AddOrderAsync(orderDto);
+            return CreatedAtAction(nameof(GetOrderById), new { id = order.OrderId }, order);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateOrder(int id, [FromBody] OrderDTO orderDto)
     {
-        var order = await _orderService.UpdateOrderAsync(id, orderDto);
-        if (order == null)
+        try
         {
-            return NotFound();
+            var order = await _orderService.UpdateOrderAsync(id, orderDto);
+            if (order == null)
+            {
+                return NotFound(new { Message = $"Order with ID {id} not found." });
+            }
+            return NoContent();
         }
-        return NoContent();
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteOrder(int id)
     {
-        var result = await _orderService.DeleteOrderAsync(id);
-        if (!result)
+        try
         {
-            return NotFound();
+            var result = await _orderService.DeleteOrderAsync(id);
+            if (!result)
+            {
+                return NotFound(new { Message = $"Order with ID {id} not found." });
+            }
+            return NoContent();
         }
-        return NoContent();
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
     }
 }
-

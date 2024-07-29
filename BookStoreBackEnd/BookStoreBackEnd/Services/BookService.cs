@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class BookService : IBookService
 {
@@ -14,47 +17,87 @@ public class BookService : IBookService
 
     public async Task<IEnumerable<BookDTO>> GetAllBooksAsync()
     {
-        var books = await _context.Books.ToListAsync();
-        return _mapper.Map<IEnumerable<BookDTO>>(books);
+        try
+        {
+            var books = await _context.Books.ToListAsync();
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all books.", ex);
+        }
     }
 
     public async Task<BookDTO> GetBookByIdAsync(int id)
     {
-        var book = await _context.Books.FindAsync(id);
-        return _mapper.Map<BookDTO>(book);
+        try
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                throw new KeyNotFoundException($"Book with ID {id} not found.");
+            }
+
+            return _mapper.Map<BookDTO>(book);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while retrieving the book with ID {id}.", ex);
+        }
     }
 
     public async Task<BookDTO> AddBookAsync(BookDTO bookDto)
     {
-        var book = _mapper.Map<Book>(bookDto);
-        _context.Books.Add(book);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<BookDTO>(book);
+        try
+        {
+            var book = _mapper.Map<Book>(bookDto);
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<BookDTO>(book);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while adding a new book.", ex);
+        }
     }
 
     public async Task<BookDTO> UpdateBookAsync(int id, BookDTO bookDto)
     {
-        var book = await _context.Books.FindAsync(id);
-        if (book == null)
+        try
         {
-            return null;
-        }
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                throw new KeyNotFoundException($"Book with ID {id} not found.");
+            }
 
-        _mapper.Map(bookDto, book);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<BookDTO>(book);
+            _mapper.Map(bookDto, book);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<BookDTO>(book);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while updating the book with ID {id}.", ex);
+        }
     }
 
     public async Task<bool> DeleteBookAsync(int id)
     {
-        var book = await _context.Books.FindAsync(id);
-        if (book == null)
+        try
         {
-            return false;
-        }
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return false;
+            }
 
-        _context.Books.Remove(book);
-        await _context.SaveChangesAsync();
-        return true;
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while deleting the book with ID {id}.", ex);
+        }
     }
 }

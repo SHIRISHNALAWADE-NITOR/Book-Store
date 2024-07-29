@@ -8,6 +8,7 @@ import TermsOfServiceView from '../views/TermsOfServiceView.vue';
 import SignupComponent from '@/views/SignupComponent.vue';
 import LoginComponent from '@/views/LoginComponent.vue';
 import IndividualProductView from '@/views/IndividualProductView.vue';
+import AdminView from '@/views/AdminView.vue';
 
 const routes = [
   {
@@ -54,7 +55,13 @@ const routes = [
     path: '/product/:id',
     name: 'ProductDetail',
     component: IndividualProductView,
-    props: true 
+    props: true
+  },
+  {
+    path: '/admin',
+    name: 'AdminPage',
+    component: AdminView,
+    meta: { requiresAuth: true, requiresAdmin: true }
   }
 ];
 

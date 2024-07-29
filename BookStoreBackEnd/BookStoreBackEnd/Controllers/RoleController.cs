@@ -5,24 +5,24 @@ using System.Threading.Tasks;
 
 namespace BookStoreBackEnd.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    [ApiController]
+    public class RoleController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IRoleService _roleService;
 
-        public UsersController(IUserService userService)
+        public RoleController(IRoleService roleService)
         {
-            _userService = userService;
+            _roleService = roleService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllRoles()
         {
             try
             {
-                var users = await _userService.GetAllUsers();
-                return Ok(users);
+                var roles = await _roleService.GetAllRoles();
+                return Ok(roles);
             }
             catch (ApplicationException ex)
             {
@@ -35,16 +35,16 @@ namespace BookStoreBackEnd.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
+        public async Task<IActionResult> GetRoleById(int id)
         {
             try
             {
-                var user = await _userService.GetUserById(id);
-                if (user == null)
+                var role = await _roleService.GetRoleById(id);
+                if (role == null)
                 {
-                    return NotFound(new { Message = $"User with ID {id} not found." });
+                    return NotFound(new { Message = $"Role with ID {id} not found." });
                 }
-                return Ok(user);
+                return Ok(role);
             }
             catch (ApplicationException ex)
             {
@@ -57,7 +57,7 @@ namespace BookStoreBackEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] UserDTO userDto)
+        public async Task<IActionResult> AddRole([FromBody] RoleDTO roleDto)
         {
             if (!ModelState.IsValid)
             {
@@ -66,8 +66,8 @@ namespace BookStoreBackEnd.Controllers
 
             try
             {
-                var user = await _userService.AddUser(userDto);
-                return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
+                var role = await _roleService.AddRole(roleDto);
+                return CreatedAtAction(nameof(GetRoleById), new { id = role.RoleId }, role);
             }
             catch (ApplicationException ex)
             {
@@ -80,21 +80,21 @@ namespace BookStoreBackEnd.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO userDto)
+        public async Task<IActionResult> UpdateRole(int id, [FromBody] RoleDTO roleDto)
         {
-            if (id != userDto.UserId || !ModelState.IsValid)
+            if (id != roleDto.RoleId || !ModelState.IsValid)
             {
-                return BadRequest(new { Message = "Invalid user ID or model state is invalid." });
+                return BadRequest(new { Message = "Invalid role ID or model state is invalid." });
             }
 
             try
             {
-                var user = await _userService.UpdateUser(userDto);
-                if (user == null)
+                var role = await _roleService.UpdateRole(roleDto);
+                if (role == null)
                 {
-                    return NotFound(new { Message = $"User with ID {id} not found." });
+                    return NotFound(new { Message = $"Role with ID {id} not found." });
                 }
-                return Ok(user);
+                return Ok(role);
             }
             catch (ApplicationException ex)
             {
@@ -107,14 +107,15 @@ namespace BookStoreBackEnd.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteRole(int id)
         {
             try
             {
-                var result = await _userService.DeleteUser(id);
+                var result = await _roleService.DeleteRole(id);
+
                 if (!result)
                 {
-                    return NotFound(new { Message = $"User with ID {id} not found." });
+                    return NotFound(new { Message = $"Role with ID {id} not found." });
                 }
                 return NoContent();
             }

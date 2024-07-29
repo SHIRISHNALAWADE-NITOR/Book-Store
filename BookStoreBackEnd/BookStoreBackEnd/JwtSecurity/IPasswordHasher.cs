@@ -1,8 +1,5 @@
-﻿namespace BookStoreBackEnd.JwtSecurity
+﻿public interface IPasswordHasher
 {
-    public interface IPasswordHasher
-    {
-        string HashPassword(string password);
-        bool VerifyPassword(string hashedPassword, string password);
-    }
+    string HashPassword(string password);
+    bool VerifyPassword(string hashedPassword, string password);
 }
