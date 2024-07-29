@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    const apiUrl = 'http://localhost:5134/api/auth/Lopgin';
+    const apiUrl = 'http://localhost:5134/api/auth/Login';
     const body = { email, password };
 
     return this.http.post(apiUrl, body).pipe(

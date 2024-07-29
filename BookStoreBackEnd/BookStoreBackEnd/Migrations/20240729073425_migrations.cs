@@ -20,7 +20,7 @@ namespace BookStoreBackEnd.Migrations
                     Isbn = table.Column<int>(type: "int", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfPages = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
+                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -74,6 +74,9 @@ namespace BookStoreBackEnd.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),

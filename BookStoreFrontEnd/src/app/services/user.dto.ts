@@ -1,12 +1,15 @@
 export class UserDTO {
-    userId: number | undefined;
-    username: string | undefined;
-    email: string | undefined;
-    roleId: number;
-    password: string | undefined;
-    passwordConfirm: string | undefined;
-  
-    constructor() {
-      this.roleId = 2; // Default role id
-    }
+  userId: number = 0; // Default to 0
+  name?: string; // Ensure `name` is included
+  dateOfBirth?: string;
+  phoneNumber?: string;
+  username?: string;
+  email?: string;
+  roleId: number = 2; // Default role id
+  passwordHash?: string;
+  passwordConfirm?: string;
+
+  constructor() {
+    this.roleId=2;
   }
+}
