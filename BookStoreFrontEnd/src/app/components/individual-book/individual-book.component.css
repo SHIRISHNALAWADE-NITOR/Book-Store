@@ -1,0 +1,92 @@
+.flex-container{
+    display: flex;
+   
+}
+
+.book-cover{
+    
+    padding: 2%;
+}
+img{
+    width: 200px;
+}
+.title{
+    font-size: 30px;
+    
+}
+*{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   
+}
+
+.author{
+    color:#1f4f95;
+}
+.price{
+    font-size: 28px;
+
+}
+.tax{
+    color: #5c6874;
+    font-size: 20px;
+}
+
+.quantity-container{
+    margin-left: 5%;
+}
+.quantity{
+    width: 20%;
+}
+
+.btn-outline{
+    color: black;
+    border-color: black;
+    
+}
+
+.btn:hover{
+    background-color: #5c6874;
+}
+
+.qty-label{
+    margin-bottom: 0%;
+}
+
+.both-pin-qty{
+    margin-bottom: 2%;
+}
+
+.cart-btn{
+    margin: 2%;
+    margin-left: 0;
+}
+
+/* Star rating container */
+.rating-container {
+    margin: 10px 0;
+}
+
+.stars {
+    font-size: 1.5rem;
+    color: #ddd;
+}
+
+.stars .filled {
+    color: #f39c12; /* Gold color for filled stars */
+}
+
+.stars span {
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+.stars span:hover,
+.stars span:hover ~ span {
+    color: #f39c12; /* Gold color on hover */
+}
+
+.rating-text {
+    font-size: 1rem;
+    color: #333;
+}

@@ -1,0 +1,30 @@
+<div class="container">
+  <!-- <div class="appname">
+    <h2>Books List</h2>
+  </div> -->
+  <ul class="list-unstyled">
+    <li *ngFor="let book of currentBooks" (click)="navigateToBook(book.bookId)">
+      <!-- <img [src]="'../' + book.imageLink" alt="{{ book.title }}" class="book-image"> -->
+       <img [src]="book.imageUrl" class="book-image">
+      <div class="book-details">
+        <h3>{{ book.title }}</h3>
+        <!-- <h3>{{book.bookId}}</h3> -->
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <!-- <p><strong>Country:</strong> {{ book.country }}</p>
+        <p><strong>Language:</strong> {{ book.language }}</p>
+        <p><strong>Year:</strong> {{ book.year }}</p>
+        <p><strong>Pages:</strong> {{ book.pages }}</p> -->
+      </div>
+    </li>
+  </ul>
+
+  <!-- Pagination controls with arrow icons -->
+  <div class="pagination-buttons">
+    <button class="btn btn-primary mr-2" (click)="prevPage()" [disabled]="currentPage === 1">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <i class="bi bi-arrow-right"></i>
+    </button>
+  </div>
+</div>
