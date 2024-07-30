@@ -1,0 +1,37 @@
+<!-- <nav class="navbar1">
+  <div class="appname">
+    <h1>PUSTAK PARADISE</h1>
+  </div>
+  <div class="navbtn">
+    <div class="cart">
+      <a routerLink="/home/cart">Cart</a>
+    </div>
+    <div class="login">
+      <a *ngIf="!isLoggedIn" routerLink="/home/login">Login</a>
+      <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+      <a *ngIf="isLoggedIn && roleId === 1" (click)="manageBooks()">Inventory</a>
+    </div>
+    
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand anav" href="#">
+      <img src="http://localhost:4200/assets/icon.jpg" alt="" width="50" height="50" class="d-inline-block align-text-top" style="margin-right: 5%;">
+      <strong>Pustak Paradise</strong>
+    </a>
+    <div class="navbtn">
+      <div class="cart">
+        <a routerLink="/home/cart">Cart</a>
+      </div>
+      <div class="login">
+        <a *ngIf="!isLoggedIn" routerLink="/home/login">Login</a>
+        <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+        <a *ngIf="isLoggedIn && roleId === 1" (click)="manageBooks()">Inventory</a>
+      </div>
+      
+    </div>
+  </div>
+  
+</nav>
