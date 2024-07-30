@@ -10,10 +10,12 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private loggedInSubject: BehaviorSubject<boolean>;
   public isLoggedIn$: Observable<boolean>;
+  private token: string | null = null;
 
   constructor(private http: HttpClient, private router: Router) {
     this.loggedInSubject = new BehaviorSubject<boolean>(false);
     this.isLoggedIn$ = this.loggedInSubject.asObservable();
+    this.token = localStorage.getItem('token');
     this.checkLoginStatus();
   }
 
@@ -30,7 +32,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    const apiUrl = 'http://localhost:5134/api/auth/Lopgin';
+    const apiUrl = 'http://localhost:5134/api/auth/Login';
     const body = { email, password };
 
     return this.http.post(apiUrl, body).pipe(
@@ -53,5 +55,20 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return this.loggedInSubject.value;
+  }
+
+
+  getToken(): string | null {
+    return this.token;
+  }
+
+  setToken(token: string): void {
+    this.token = token;
+    localStorage.setItem('token', token);
+  }
+
+  clearToken(): void {
+    this.token = null;
+    localStorage.removeItem('token');
   }
 }

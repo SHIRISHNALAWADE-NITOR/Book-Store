@@ -1,11 +1,17 @@
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #9b596b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #9b596b; /* Fallback color in case the image doesn't load */
+  background-image: url('/assets/background.jpg'); /* Adjust path if necessary */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the image in the container */
+}
+  .girl{
+    width: 40%;
   }
-  
   .form-container {
     background: #fff;
     padding: 40px 30px;
