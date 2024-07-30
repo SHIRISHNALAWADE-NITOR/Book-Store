@@ -44,7 +44,7 @@ export class IndividualBookComponent implements OnInit {
   // Calculate the star rating based on a three-digit number
   calculateRating(): void {
     if (this.bookDetails && this.bookDetails.rating) {
-      this.averageRating = this.bookDetails.rating / 100;
+      this.averageRating = this.bookDetails.rating ;
     }
   }
 

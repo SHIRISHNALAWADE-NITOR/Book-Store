@@ -2,7 +2,7 @@
     <div class="carousel-slides" [ngStyle]="{'transform': 'translateX(-' + (currentSlideIndex * 100) + '%)'}">
       <div class="carousel-slide" *ngFor="let slide of carouselSlides; let i = index" [ngClass]="{'active': i === currentSlideIndex}">
         <img [src]="slide.image" [alt]="slide.caption">
-        <div class="carousel-caption">{{ slide.caption }}</div>
+        <!-- <div class="carousel-caption">{{ slide.caption }}</div> -->
       </div>
     </div>
     <button class="carousel-control prev" (click)="prevSlide()">&#10094;</button>
