@@ -9,6 +9,7 @@ import SignupComponent from '@/views/SignupComponent.vue';
 import LoginComponent from '@/views/LoginComponent.vue';
 import IndividualProductView from '@/views/IndividualProductView.vue';
 import AdminView from '@/views/AdminView.vue';
+import CartView from '@/views/CartView.vue';
 
 const routes = [
   {
@@ -62,6 +63,11 @@ const routes = [
     name: 'AdminPage',
     component: AdminView,
     meta: { requiresAuth: true, requiresAdmin: true }
+  },
+  {
+    path: '/cart',
+    name: 'CartView',
+    component: CartView
   }
 ];
 

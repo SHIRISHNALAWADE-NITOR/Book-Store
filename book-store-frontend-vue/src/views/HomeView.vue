@@ -10,7 +10,6 @@
 
 <script>
 import CarouselComponent from '@/components/CarouselComponent.vue';
-
 export default {
   name: 'HomeView',
   components: {

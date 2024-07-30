@@ -1,147 +1,3 @@
-<!-- <template>
-    <div>
-        <HeaderComponent/>
-        Welcome to Login Page
-        
-    </div>
-</template>
-
-<script>
-
-import HeaderComponent from '@/components/HeaderComponent.vue';
-
-export default{
-    name : 'LoginComponent',
-    components : {
-        HeaderComponent,
-        
-    }
-}
-
-</script>
-
-<style>
-</style> -->
-
-<!-- 
-<template>
-    <div class="login-container">
-      <div class="login-content">
-        <h1>Welcome to Login Page</h1>
-        <form @submit.prevent="login" class="login-form">
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" v-model="username" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" v-model="password" required>
-          </div>
-          <div class="form-group">
-            <button type="submit">Login</button>
-          </div>
-          <div v-if="error" class="error-message">{{ error }}</div>
-        </form>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  
-  export default {
-    name: 'LoginComponent',
-    components: {
-    },
-    data() {
-      return {
-        username: '',
-        password: '',
-        error: ''
-      };
-    },
-    methods: {
-      login() {
-        // Simulate login logic (replace with actual login logic)
-        if (this.username === 'admin' && this.password === 'password') {
-          // Successful login
-          console.log('Login successful');
-          // You can redirect to another page or handle success scenario here
-        } else {
-          // Failed login
-          this.error = 'Invalid username or password';
-          // Clear password field on failed login (optional)
-          this.password = '';
-        }
-      }
-    }
-  }
-  </script>
-  
-  <style scoped>
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-  }
-  
-  .login-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-  }
-  
-  .login-content h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="password"],
-  button {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error-message {
-    color: #dc3545;
-    margin-top: 10px;
-  }
-  </style>
-   -->
-
-   
-
 <template>
   <div class="login-container">
     <img src="../assets/girlreading.png" alt="Login Image" class="girl">
@@ -171,6 +27,10 @@ export default{
 </template>
 
 <script>
+import axios from 'axios';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css'; // Import Toastify CSS
+
 export default {
   name: 'LoginComponent',
   data() {
@@ -180,9 +40,35 @@ export default {
     };
   },
   methods: {
-    login() {
-      // Handle the login logic here
-      console.log('Logging in with', this.email, this.password);
+    async login() {
+      try {
+        const response = await axios.post('https://localhost:7044/api/Auth/Login', {
+          email: this.email,
+          password: this.password,
+        });
+        
+        // Handle successful login
+        console.log('Login successful:', response.data);
+
+        // Example: Store token
+        localStorage.setItem('authToken', response.data.token);
+
+        // Check user role and redirect
+        if (response.data.roleId === 1) {
+          this.$router.push('/adminview'); // Redirect to admin view
+        } else {
+          this.$router.push('/home'); // Redirect to default user dashboard
+        }
+      } catch (error) {
+        // Handle error with Toastify
+        console.error('Login failed:', error.response ? error.response.data : error.message);
+        Toastify({
+          text: error.response ? error.response.data.message : 'An error occurred during login.',
+          backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+          duration: 3000,
+          close: true
+        }).showToast();
+      }
     },
   },
 };

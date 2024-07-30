@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="container">
-      <img src="../assets/PustakParadiselogo.png" class="brandlogo">
+      <img src="../assets/PustakParadiselogo.png" class="brandlogo" alt="Pustak Paradise Logo">
       <div class="logo">
         <h1>Pustak Paradise</h1>
       </div>
@@ -9,8 +9,11 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/books">Books</a></li>
-          <li><a href="/signup">Sign up</a></li>
-          <li><a href="/login">Login</a></li>
+          <!-- Conditionally render Login or Logout based on auth status -->
+          <li>
+            <a v-if="!isLoggedIn" href="/login">Login</a>
+            <a v-else href="#" @click.prevent="logout">Logout</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -18,33 +21,53 @@
 </template>
 
 <script>
+
 export default {
-  name: 'HeaderComponent'
-}
+  name: 'HeaderComponent',
+  data() {
+    return {
+      isLoggedIn: false
+    };
+  },
+  created() {
+    this.checkAuthStatus();
+  },
+  methods: {
+    checkAuthStatus() {
+      // Check if the user is logged in by looking for a token in localStorage
+      this.isLoggedIn = !!localStorage.getItem('authToken');
+    },
+    logout() {
+      // Clear the token and redirect to the login page
+      localStorage.removeItem('authToken');
+      this.isLoggedIn = false;
+      this.$router.push('/login'); // Redirect to login page or home
+    }
+  }
+};
 </script>
+
 <style scoped>
 .header {
-  background-color: #343a40;
+  background-color: #00050b;
   padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: #00050b;
   margin-top: -61px;
 }
 
 .container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  /* Distributes space between logo and navigation */
   max-width: 100%;
-  /* Ensure container does not exceed viewport */
   margin: 0 auto;
   padding: 0 2%;
-  /* Responsive padding */
 }
 
 .logo {
   display: flex;
-  /* Ensure logo and image are aligned correctly */
   align-items: center;
-  /* Align items vertically */
 }
 
 .logo h1 {
@@ -52,7 +75,11 @@ export default {
   color: #fff;
   margin: 0;
   margin-left: 10px;
-  /* Adjust margin between image and text */
+}
+
+.nav {
+  margin-left: auto;
+  /* Pushes the navigation to the right side */
 }
 
 .nav ul {
@@ -61,8 +88,6 @@ export default {
   gap: 20px;
   margin: 0;
   padding: 0;
-  margin-left: 250%;
-  /* Push navigation to the right */
 }
 
 .nav a {
@@ -70,12 +95,10 @@ export default {
   color: #fff;
   font-weight: bold;
   transition: color 0.3s ease;
-  /* Smooth transition for hover effect */
 }
 
 .nav a:hover {
   color: #007bff;
-  /* Blue color on hover */
 }
 
 .brandlogo {
@@ -94,12 +117,10 @@ export default {
 
   .nav ul {
     flex-direction: column;
-    /* Stack items vertically on smaller screens */
   }
 
   .nav li {
     margin-bottom: 10px;
-    /* Add spacing between stacked menu items */
   }
 }
 </style>
