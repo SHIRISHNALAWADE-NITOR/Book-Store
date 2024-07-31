@@ -10,6 +10,7 @@ public class Book
     public string Category { get; set; }
     public int NumberOfPages { get; set; }
     public decimal Rating { get; set; }
+    public int Quantity { get; set; }
 
     [Required]
     public string? Title { get; set; }

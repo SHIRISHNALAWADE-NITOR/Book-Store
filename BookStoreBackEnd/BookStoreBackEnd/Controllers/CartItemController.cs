@@ -95,4 +95,38 @@ public class CartItemController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
         }
     }
+    [HttpDelete("user/{userId}")]
+    public async Task<IActionResult> DeleteCart(int userId)
+    {
+        try
+        {
+            var result = await _cartItemService.DeleteCartAsync(userId);
+            if (!result)
+            {
+                return NotFound(new { Message = $"CartItem with user ID {userId} not found." });
+            }
+            return NoContent();
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetCartItemByUserId(int userId)
+    {
+        try
+        {
+            var cartItem = await _cartItemService.GetCartItemsByUserIdAsync(userId);
+            if (cartItem == null)
+            {
+                return NotFound(new { Message = $"CartItem with user ID {userId} not found." });
+            }
+            return Ok(cartItem);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
 }

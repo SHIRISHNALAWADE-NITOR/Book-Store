@@ -2,6 +2,7 @@
 {
     Task InitializeDatabaseAsync();
     Task InitDatabaseAsync();
+    Task InitDatabasePreviousAsync();
 }
 
 

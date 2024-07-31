@@ -125,4 +125,53 @@ public class JsonService : IJsonService
             throw new ApplicationException("An error occurred while generating decimal from digits.", ex);
         }
     }
+
+    public async Task InitDatabasePreviousAsync()
+    {
+        try
+        {
+            var jsonFilePath = Path.Combine(_environment.ContentRootPath, "BookDataPrevious.json");
+            if (!File.Exists(jsonFilePath))
+            {
+                throw new FileNotFoundException("JSON file not found.", jsonFilePath);
+            }
+
+            List<Book> source;
+            using (var reader = new StreamReader(jsonFilePath))
+            {
+                var json = await reader.ReadToEndAsync();
+                source = JsonSerializer.Deserialize<List<Book>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (source == null)
+                {
+                    throw new JsonException("Failed to deserialize JSON data.");
+                }
+            }
+
+            var books = source.Select(b => new Book
+            {
+                Isbn =b.Isbn,
+                Category = b.Category,
+                Title = b.Title,
+                NumberOfPages = b.NumberOfPages,
+                //Rating = (int)Math.Round(b.Average_Rating * 100),
+                Rating = b.Rating,
+                Author = b.Author,
+                Price = b.Price,
+                Description = b.Description,
+                ImageUrl = b.ImageUrl,
+                CreatedAt = b.CreatedAt,
+                Quantity = b.Isbn%100,
+            }).ToList();
+
+            if (!_context.Books.Any())
+            {
+                await _context.AddRangeAsync(books);
+                await _context.SaveChangesAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while initializing the database.", ex);
+        }
+    }
 }
