@@ -97,4 +97,38 @@ public class BookController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
         }
     }
+    [HttpGet("category/{category}")]
+    public async Task<IActionResult> GetBookByCategory(string category)
+    {
+        try
+        {
+            var book = await _bookService.GetBooksByCategoryAsync(category);
+            if (book == null)
+            {
+                return NotFound(new { Message = $"Book with Category {category} not found." });
+            }
+            return Ok(book);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
+    [HttpGet("category")]
+    public async Task<IActionResult> GetCategory()
+    {
+        try
+        {
+            var book = await _bookService.GetCategoriesAsync();
+            if (book == null)
+            {
+                return NotFound(new { Message = $"Error while getting categories" });
+            }
+            return Ok(book);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
 }

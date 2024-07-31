@@ -21,7 +21,7 @@ namespace BookStoreBackEnd.Controllers
         {
             try
             {
-                await _jsonService.InitDatabaseAsync();
+                await _jsonService.InitDatabasePreviousAsync();
                 return Ok("Database initialized successfully.");
             }
             catch (ApplicationException ex)

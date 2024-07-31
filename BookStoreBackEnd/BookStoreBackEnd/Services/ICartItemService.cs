@@ -5,5 +5,7 @@
     Task<CartItemDTO> AddCartItemAsync(CartItemDTO cartItemDto);
     Task<CartItemDTO> UpdateCartItemAsync(int id, CartItemDTO cartItemDto);
     Task<bool> DeleteCartItemAsync(int id);
+    Task<bool> DeleteCartAsync(int userId);
+    Task<IEnumerable<CartItemDTO>> GetCartItemsByUserIdAsync(int userId);
 }
 

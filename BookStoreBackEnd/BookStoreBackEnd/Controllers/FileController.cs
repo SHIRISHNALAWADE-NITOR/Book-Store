@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 [Route("api/files")]
@@ -36,15 +37,15 @@ public class FilesController : ControllerBase
         }
     }
 
-    [HttpGet("audio/{fileId}")]
-    public async Task<IActionResult> GetAudioFile(int fileId)
+    [HttpGet("audio/{bookId}")]
+    public async Task<IActionResult> GetAudioFile([FromKeyedServices("audio")] IBookFileService bookFileService, int bookId)
     {
         try
         {
-            var file = await _fileService.GetAudioFileAsync(fileId);
+            var file = await bookFileService.GetFileAsync(bookId);
             if (file == null)
             {
-                return NotFound(new { Message = $"Audio file with ID {fileId} not found." });
+                return NotFound(new { Message = $"Audio file with ID {bookId} not found." });
             }
 
             return File(file, "audio/mp3"); // Adjust MIME type as per your file type
@@ -55,15 +56,15 @@ public class FilesController : ControllerBase
         }
     }
 
-    [HttpGet("video/{fileId}")]
-    public async Task<IActionResult> GetVideoFile(int fileId)
+    [HttpGet("video/{bookId}")]
+    public async Task<IActionResult> GetVideoFile([FromKeyedServices("audio")] IBookFileService bookFileService, int bookId)
     {
         try
         {
-            var file = await _fileService.GetVideoFileAsync(fileId);
+            var file = await bookFileService.GetFileAsync(bookId);
             if (file == null)
             {
-                return NotFound(new { Message = $"Video file with ID {fileId} not found." });
+                return NotFound(new { Message = $"Video file with ID {bookId} not found." });
             }
 
             return File(file, "video/mp4"); // Adjust MIME type as per your file type
@@ -74,15 +75,15 @@ public class FilesController : ControllerBase
         }
     }
 
-    [HttpGet("pdf/{fileId}")]
-    public async Task<IActionResult> GetPdfFile(int fileId)
+    [HttpGet("pdf/{bookId}")]
+    public async Task<IActionResult> GetPdfFile([FromKeyedServices("pdf")] IBookFileService bookFileService, int bookId)
     {
         try
         {
-            var pdfFile = await _fileService.GetPdfFileAsync(fileId);
+            var pdfFile = await _fileService.GetPdfFileAsync(bookId);
             if (pdfFile == null)
             {
-                return NotFound(new { Message = $"PDF file with ID {fileId} not found." });
+                return NotFound(new { Message = $"PDF file with ID {bookId} not found." });
             }
 
             return File(pdfFile, "application/pdf", "filename.pdf"); // Adjust MIME type and filename as per your file type

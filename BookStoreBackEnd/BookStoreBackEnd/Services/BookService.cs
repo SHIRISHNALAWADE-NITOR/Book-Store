@@ -100,4 +100,38 @@ public class BookService : IBookService
             throw new ApplicationException($"An error occurred while deleting the book with ID {id}.", ex);
         }
     }
+
+    public async Task<IEnumerable<BookDTO>> GetBooksByCategoryAsync(string category)
+    {
+        try
+        {
+            var books = await _context.Books
+                                      .Where(b => b.Category == category)
+                                      .ToListAsync();
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all books.", ex);
+        }
+    }
+
+    public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync()
+    {
+        try
+        {
+            var groupedCategories = _context.Books
+                                           .GroupBy(b => b.Category)
+                                           .Select(g => new CategoryDTO
+                                           {
+                                                Category = g.Key,
+                                                Count = g.Count()
+                                           });
+            return groupedCategories;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all books.", ex);
+        }
+    }
 }

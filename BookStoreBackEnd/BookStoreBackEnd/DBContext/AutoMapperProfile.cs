@@ -12,5 +12,8 @@ public class AutoMapperProfile : Profile
         CreateMap<CartItem, CartItemDTO>().ReverseMap();
         CreateMap<Review, ReviewDTO>().ReverseMap();
         CreateMap<Role, RoleDTO>().ReverseMap();
+        //CreateMap<IGrouping<string, Book>, CategoryDTO>()
+        //    .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Key))
+        //    .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.Count()));
     }
 }
