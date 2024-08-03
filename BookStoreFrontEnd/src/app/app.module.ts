@@ -17,6 +17,14 @@ import { SignupComponent } from './components/signup/signup.component';
 import { IndividualBookComponent } from './components/individual-book/individual-book.component';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { CartComponent } from './components/cart/cart.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { FileformComponent } from './components/fileform/fileform.component';
+import { BookFormDialogComponent } from './components/book-form-dialog/book-form-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,13 +38,21 @@ import { AuthInterceptor } from './services/auth.interceptor';
     CarouselComponent,
     InventoryComponent,
     SignupComponent,
-    IndividualBookComponent
+    IndividualBookComponent,
+    CartComponent,
+    PaymentComponent,
+    FileformComponent,
+    BookFormDialogComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule // Import FormsModule here
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    NgbModule, // Add MatDialogModule to imports
+    
   ],
   providers: [
     AuthService,

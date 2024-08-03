@@ -1,64 +1,47 @@
 <div class="flex-container" *ngIf="bookDetails">
+    <div></div>
     <div class="book-cover">
         <img [src]="bookDetails.imageUrl" />
     </div>
-    <div>
+    <div class="title-indi">
         <h2> {{ bookDetails.title }}</h2>
-        <h5>Author: &nbsp;<span>{{ bookDetails.author }}</span></h5>
-        
+        <p><strong>Author</strong> &nbsp;<span>{{ bookDetails.author }}</span></p>
+        <p><strong>Category</strong> {{ bookDetails.category }}</p>
+        <p><strong> No of Pages</strong> {{ bookDetails.numberOfPages }}</p>
         <!-- Star Rating Display -->
         <div class="rating-container">
             <div class="stars">
-                <span *ngFor="let star of stars; let index = index" 
+                <span *ngFor="let star of stars; let index = index"
                       [ngClass]="{'filled': index < averageRating}">
                     ★
                 </span>
             </div>
             <!-- <p class="rating-text">{{ averageRating.toFixed(1) }} / 5</p> -->
         </div>
-        
+       
         <p class="price">₹&nbsp;{{ bookDetails.price }}<span class="tax"> (Inclusive of all taxes)</span></p>
-        
+       
         <div class="flex-container both-pin-qty">
-            <div class="section_2 pincode-box">
-                <div class="check-pincode" id="check-pincode-button">
-                    <label class="no-bold no-caps">
-                        <span class="loc">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10.658" height="13.445" viewBox="0 0 10.658 13.445">
-                                <path id="Path_2998" data-name="Path 2998" d="M24.158,18.262A5.558,5.558,0,0,0,18.829,12.5,5.558,5.558,0,0,0,13.5,18.262c0,2.385,1.681,4.885,4.974,7.555a.557.557,0,0,0,.711,0C22.476,23.147,24.158,20.647,24.158,18.262Zm-7.105,0a1.782,1.782,0,1,1,1.776,1.921A1.853,1.853,0,0,1,17.053,18.262Z" transform="translate(-13.5 -12.5)" fill="#cd3e26"></path>
-                            </svg>
-                        </span>
-                        Enter Your Delivery Pincode
-                    </label>
-                    <br>
-                    <div class="pincode-cross" style="position: relative;">
-                        <div>
-                            <input width="100%" type="tel" id="PostalCode" name="PostalCode" class="input-pincode pincode_ckecker_service number_only pincode_value" placeholder="Pincode" (keypress)="isNumber($event)" minlength="6" maxlength="6">
-                            <button type="button" class="" id="pincode_checker_validation">Check</button>
-                        </div>
-                        <p class="error_message" style="font-size: 12px;margin: 5px;padding: 0; width:100%; max-width:100%;"></p>
-                    </div>
-                </div>
-            </div>
-
+           
+ 
             <div class="quantity-container">
                 <p class="qty-label">Quantity</p>
                 <div class="btn-group">
                     <button class="btn btn-outline-primary btn-outline" type="button" (click)="decrementQuantity()">-</button>
-                    <input class="btn btn-outline-primary btn-outline quantity" type="number" [(ngModel)]="quantity" min="1" />
+                    <input class="btn btn-outline-primary btn-outline quantity"  [(ngModel)]="quantity" min="1" />
                     <button class="btn btn-outline-primary btn-outline" type="button" (click)="incrementQuantity()">+</button>
                 </div>
             </div>
         </div>
-
+ 
         <div>
-            <button type="button" class="btn btn-secondary cart-btn">ADD TO CART</button>
-            <button type="button" class="btn btn-dark">BUY IT NOW</button>
+            <button type="button" class="btn btn-secondary cart-btn" (click)="addToCart()"><i class="bi bi-cart3"></i>&nbsp;ADD TO CART</button>
+            <button type="button" class="btn btn-dark" (click)="addToCart()"><i class="bi bi-bag-fill"></i>&nbsp;BUY IT NOW</button>
         </div>
-        
+       
         <h4>Description</h4>
         <p> {{ bookDetails.description }}</p>
-        <p><strong>Category:</strong> {{ bookDetails.category }}</p>
-        <p><strong> No of Pages:</strong> {{ bookDetails.numberOfPages }}</p>
+       
     </div>
 </div>
+ 

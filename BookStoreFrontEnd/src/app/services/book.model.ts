@@ -1,12 +1,13 @@
 export interface Book {
-    bookId?: number;
+    bookId: number;
     isbn?: number;
     category?: string;
     numberOfPages?: number;
+    quantity?: number; 
     rating?: number;
     title?: string;
     author?: string;
-    price?: number;
+    price: number;
     description?: string;
     imageUrl?: string;
     createdAt?: Date;
