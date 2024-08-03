@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using static System.Net.WebRequestMethods;
 
 public class FileService : IFileService
 {
@@ -63,7 +64,7 @@ public class FileService : IFileService
         try
         {
             var file = await _context.BookFiles
-                .Where(bf => bf.Id == fileId)
+                .Where(bf => bf.BookId == fileId)
                 .Select(bf => bf.AudioFile)
                 .FirstOrDefaultAsync();
 
@@ -85,7 +86,7 @@ public class FileService : IFileService
         try
         {
             var file = await _context.BookFiles
-                .Where(bf => bf.Id == fileId)
+                .Where(bf => bf.BookId == fileId)
                 .Select(bf => bf.VideoFile)
                 .FirstOrDefaultAsync();
 
@@ -107,7 +108,7 @@ public class FileService : IFileService
         try
         {
             var file = await _context.BookFiles
-                .Where(bf => bf.Id == fileId)
+                .Where(bf => bf.BookId == fileId)
                 .Select(bf => bf.PdfFile)
                 .FirstOrDefaultAsync();
 
@@ -121,6 +122,47 @@ public class FileService : IFileService
         catch (Exception ex)
         {
             throw new ApplicationException($"An error occurred while retrieving PDF file with ID {fileId}.", ex);
+        }
+    }
+    public async Task<bool> DeleteFileAsync(int fileId)
+    {
+        try
+        {
+            var fileToRemove = await _context.BookFiles
+                .FirstOrDefaultAsync(bf => bf.BookId == fileId);
+
+            if (fileToRemove != null)
+            {
+                _context.BookFiles.Remove(fileToRemove);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while deleting file with ID {fileId}.", ex);
+        }
+    }
+
+    public async Task<IEnumerable<byte[]>> GetAllFilesAsync()
+    {
+        try
+        {
+            var files = await _context.BookFiles
+                .Select(bf => new { bf.AudioFile, bf.VideoFile, bf.PdfFile })
+                .ToListAsync();
+
+            var allFiles = files
+                .SelectMany(f => new[] { f.AudioFile, f.VideoFile, f.PdfFile })
+                .Where(file => file != null);
+
+            return allFiles;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all files.", ex);
         }
     }
 }

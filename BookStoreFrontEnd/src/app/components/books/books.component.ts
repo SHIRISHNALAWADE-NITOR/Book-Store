@@ -1,39 +1,56 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css']
+  styleUrls: ['./books.component.css'],
+  
 })
 export class BooksComponent implements OnInit {
-
-  
   books: any[] = []; // Array to hold fetched books
+  filteredBooks: any[] = []; // Array to hold filtered books
   currentPage: number = 1;
-  itemsPerPage: number = 10; // Number of items per page (9 records)
-
-  constructor(private http: HttpClient, private router:Router) { }
+  itemsPerPage: number = 10; // Number of items per page (10 records)
+  searchQuery: string = ''; // Property to hold search query
+  stars: number[] = [1, 2, 3, 4, 5]; // Array to represent star ratings
+  averageRating: number = 0; // Average rating out of 5
+  
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.fetchBooks();
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['search'] || '';
+      this.filterBooks();
+    });
   }
 
   fetchBooks(): void {
-    //const apiUrl = 'https://jsonplaceholder.typicode.com/albums'; // Replace with your API URL
-    // const apiUrl='assets/books.json';
-    const apiUrl='http://localhost:5134/api/Book'
-    this.http.get<any[]>(apiUrl)
-      .subscribe(
-        (data) => {
-          this.books = data;
-          console.log(data)
-          console.log('Books fetched successfully:', this.books);
-        },
-        (error) => {
-          console.error('Error fetching books:', error);
-        }
+    const apiUrl = 'http://localhost:5134/api/Book';
+    this.http.get<any[]>(apiUrl).subscribe(
+      (data) => {
+        this.books = data;
+        this.filterBooks(); // Apply search filter after fetching
+        console.log('Books fetched successfully:', this.books);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  }
+
+  filterBooks(): void {
+    if (this.searchQuery) {
+      this.filteredBooks = this.books.filter(book =>
+        book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
+    } else {
+      this.filteredBooks = this.books;
+    }
   }
 
   // Pagination logic
@@ -51,18 +68,23 @@ export class BooksComponent implements OnInit {
 
   // Calculate number of pages based on itemsPerPage
   get totalPages(): number {
-    return Math.ceil(this.books.length / this.itemsPerPage);
+    return Math.ceil(this.filteredBooks.length / this.itemsPerPage);
   }
 
   // Calculate the current page items
   get currentBooks(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.books.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.filteredBooks.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   navigateToBook(id: number): void {
     this.router.navigate(['/home/individualBook', id.toString()]);
   }
-  
 
+   // Method to round book rating
+   roundedRating(rating: number): number {
+    return Math.round(rating);
+  }
 }
+
+

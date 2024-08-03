@@ -40,6 +40,7 @@ export class AuthService {
         console.log(response.roleId);
         localStorage.setItem('token', response.token);
         localStorage.setItem('roleId', response.roleId);
+        localStorage.setItem('userId',response.userId)
         this.loggedInSubject.next(true);
         this.router.navigate(['/home']); // Navigate to home page after successful login
       })
@@ -47,8 +48,10 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.clear();
     localStorage.removeItem('token');
     localStorage.removeItem('roleId');
+    localStorage.removeItem('username')
     this.loggedInSubject.next(false);
     this.router.navigate(['home']); // Navigate to login page after logout
   }
@@ -71,4 +74,12 @@ export class AuthService {
     this.token = null;
     localStorage.removeItem('token');
   }
+
+  getCurrentUserId(): string {
+    // Example: Replace with actual user ID retrieval logic
+    return localStorage.getItem('userId') || 'guest'; // Use localStorage or any method to retrieve the user ID
+  }
+  // isAuthenticated(): boolean {
+  //   return !!localStorage.getItem('userId'); // Example check
+  // }
 }

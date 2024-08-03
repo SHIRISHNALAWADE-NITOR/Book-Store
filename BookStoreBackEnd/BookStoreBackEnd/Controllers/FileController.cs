@@ -93,4 +93,45 @@ public class FilesController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
         }
     }
+
+
+    [HttpDelete("{fileId}")]
+    public async Task<IActionResult> DeleteFileById(int fileId)
+    {
+        try
+        {
+            bool result = await _fileService.DeleteFileAsync(fileId);
+            if (result)
+            {
+                return NoContent(); // Success with no content
+            }
+            else
+            {
+                return NotFound(new { Message = $"File with ID {fileId} not found." });
+            }
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
+    [HttpGet("list")]
+    public async Task<IActionResult> GetListOfAllFiles()
+    {
+        try
+        {
+            var files = await _fileService.GetAllFilesAsync();
+            if (files == null || !files.Any())
+            {
+                return NotFound(new { Message = "No files found." });
+            }
+
+            return Ok(files);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
+
 }
