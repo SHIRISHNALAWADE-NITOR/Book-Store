@@ -30,13 +30,13 @@
         <h2>9. Limitation of Liability</h2>
         <p>To the fullest extent permitted by law, Pustak Paradise shall not be liable for any indirect, incidental, consequential, or punitive damages arising from your use of the website or the purchase of products.</p>
 
-        <h2>10. Governing Law</h2>
-        <p>These terms shall be governed by and construed in accordance with the laws of [Your Jurisdiction]. Any disputes arising from these terms or your use of the website shall be resolved in the courts located in [Your Jurisdiction].</p>
+        <h2>10. Governing Law and Jurisdiction</h2>
+        <p>These terms shall be governed by and construed in accordance with the laws of India. Any disputes arising from these terms or your use of the website shall be resolved in the courts located in [Your City], India.</p>
 
         <h2>11. Contact Us</h2>
         <p>If you have any questions or concerns about these Terms of Service, please contact us at:</p>
         <p>Email: support@pustakparadise.com<br>
-        Address: [Your Address Here]</p>
+        Address: [Your Address Here], [City], [State], [PIN Code], India</p>
 
         <p>Thank you for choosing Pustak Paradise. We hope you enjoy your shopping experience!</p>
     </div>

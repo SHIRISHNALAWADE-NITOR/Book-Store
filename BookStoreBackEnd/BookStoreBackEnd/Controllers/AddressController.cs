@@ -30,14 +30,14 @@ public class AddressController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetAddressById(int id)
+    public async Task<IActionResult> GetAddressByUserId(int id)
     {
         try
         {
-            var address = await _addressService.GetAddressByIdAsync(id);
+            var address = await _addressService.GetAddressesByUserIdAsync(id);
             if (address == null)
             {
-                return NotFound(new { Message = $"Address with ID {id} not found." });
+                return NotFound(new { Message = $"Address with USer ID {id} not found." });
             }
             return Ok(address);
         }
@@ -53,7 +53,7 @@ public class AddressController : ControllerBase
         try
         {
             var address = await _addressService.AddAddressAsync(addressDto);
-            return CreatedAtAction(nameof(GetAddressById), new { id = address.AddressId }, address);
+            return Ok(address);
         }
         catch (ApplicationException ex)
         {
@@ -71,7 +71,7 @@ public class AddressController : ControllerBase
             {
                 return NotFound(new { Message = $"Address with ID {id} not found." });
             }
-            return NoContent();
+            return Ok(address);
         }
         catch (ApplicationException ex)
         {

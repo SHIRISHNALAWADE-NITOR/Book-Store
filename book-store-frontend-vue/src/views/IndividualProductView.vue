@@ -1,137 +1,7 @@
-<!-- <template>
-    <div class="product-detail-container">
-      <div class="product-detail">
-        <div class="product-images">
-          <img src="https://via.placeholder.com/300" alt="Main Image" class="main-image" />
-          <div class="thumbnail-images">
-            <img src="https://via.placeholder.com/50" alt="Thumbnail" v-for="n in 3" :key="n" class="thumbnail-image" />
-          </div>
-        </div>
-        <div class="product-info">
-          <h2>Product Title</h2>
-          <div class="reviews">
-            <span>⭐⭐⭐⭐⭐</span>
-            <span>5 reviews</span>
-          </div>
-          <p class="price">$1232</p>
-          <select class="model-select">
-            <option>Select Model</option>
-            <option>Model 1</option>
-            <option>Model 2</option>
-          </select>
-          <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <button class="add-to-cart-btn">Add To Cart</button>
-        </div>
-      </div>
-      <div class="similar-products">
-        <h3>Similar Products</h3>
-        <div class="similar-product-card" v-for="n in 4" :key="n">
-          <img src="https://via.placeholder.com/100" alt="Similar Product" class="similar-product-image" />
-          <p class="similar-product-name">Product Name</p>
-          <p class="similar-product-price">$300</p>
-          <div class="reviews">
-            <span>⭐⭐⭐⭐</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'IndividualProductView',
-    props: ['id']
-  }
-  </script>
-  
-  <style scoped>
-  .product-detail-container {
-    padding: 20px;
-  }
-  .product-detail {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  .product-images {
-    flex: 1;
-  }
-  .main-image {
-    width: 100%;
-    height: auto;
-  }
-  .thumbnail-images {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-  }
-  .thumbnail-image {
-    width: 50px;
-    height: auto;
-    cursor: pointer;
-  }
-  .product-info {
-    flex: 1;
-    padding-left: 20px;
-  }
-  .reviews span {
-    margin-right: 10px;
-  }
-  .price {
-    font-size: 1.5rem;
-    color: #333;
-  }
-  .model-select {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  .description {
-    margin: 20px 0;
-  }
-  .add-to-cart-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  .similar-products {
-    margin-top: 20px;
-  }
-  .similar-product-card {
-    display: inline-block;
-    width: 23%;
-    background: #f9f9f9;
-    margin: 10px;
-    padding: 15px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  .similar-product-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  .similar-product-name,
-  .similar-product-price {
-    margin: 5px 0;
-  }
-  .reviews span {
-    color: gold;
-  }
-  </style>
-   -->
-
 <template>
   <div class="product-detail-container" v-if="book">
     <div class="product-detail">
+      <!-- Product Images and Info -->
       <div class="product-images">
         <img :src="book.imageUrl" alt="Main Image" class="main-image" />
         <div class="thumbnail-images">
@@ -140,32 +10,48 @@
         </div>
       </div>
       <div class="product-info">
-        <h2>{{ book.title }}</h2>
-        <div class="reviews">
-          <span>{{ book.rating }} ⭐</span>
-          <span>{{ book.reviewsCount }} reviews</span>
+        <!-- Product Info -->
+        <div class="info-header">
+          <h1>{{ book.title }}</h1>
+          <div class="rating">{{ book.rating }} ★</div>
         </div>
+        <p class="author">Author: {{ book.author }}</p>
+        <p class="category"><strong>Category:</strong> {{ book.category }}</p>
+        <p class="pages"><strong>Number of Pages:</strong> {{ book.numberOfPages }}</p>
         <p class="price">{{ book.price }} ₹</p>
-        <p class="description">{{ book.description }}</p>
-        <button class="add-to-cart-btn">Add To Cart</button>
+        <p class="description" @mouseover="showFullDescription" @mouseleave="hideFullDescription"
+          :class="{ 'show-full': isDescriptionFull }">
+          {{ book.description }}
+        </p>
+        <div class="quantity-container">
+          <button @click="decrementQuantity">-</button>
+          <input type="text" v-model.number="quantity" readonly />
+          <button @click="incrementQuantity">+</button>
+        </div>
+        <button class="add-to-cart-btn" @click="handleAddToCart">Add To Cart</button>
       </div>
     </div>
+    <h2>Similar Products</h2>
     <div class="similar-products">
-      <h3>Similar Products</h3>
-      <div class="similar-product-card" v-for="(similar, index) in book.similarProducts" :key="index">
-        <img :src="similar.imageUrl" alt="Similar Product" class="similar-product-image" />
-        <p class="similar-product-name">{{ similar.title }}</p>
-        <p class="similar-product-price">{{ similar.price }} ₹</p>
-        <div class="reviews">
-          <span>{{ similar.rating }} ⭐</span>
+      <div v-if="similarProducts.length > 0" class="similar-product-grid">
+        <div v-for="product in similarProducts" :key="product.bookId" class="similar-product-card">
+          <img :src="product.imageUrl" alt="Similar Product Image" class="similar-product-image" />
+          <div class="similar-product-name">{{ product.title }}</div>
+          <div class="similar-product-price">{{ product.price }} ₹</div>
         </div>
       </div>
+      <div v-else>No similar products found.</div>
     </div>
+
+
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import axios from 'axios';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 export default {
   name: 'IndividualProductView',
@@ -174,13 +60,18 @@ export default {
   },
   data() {
     return {
-      book: null
+      book: null,
+      quantity: 1,
+      isDescriptionFull: false,
+      similarProducts: [] // Data property for similar products
     };
   },
   async created() {
     await this.fetchBookDetails();
+    await this.fetchSimilarProducts(); // Fetch similar products after book details
   },
   methods: {
+    ...mapActions(['addToCart']),
     async fetchBookDetails() {
       try {
         const response = await axios.get(`https://localhost:7044/api/Book/${this.id}`);
@@ -188,110 +79,542 @@ export default {
       } catch (error) {
         console.error('Error fetching book details:', error);
       }
+    },
+    async fetchSimilarProducts() {
+      if (this.book && this.book.category) {
+        try {
+          const response = await axios.get(`https://localhost:7044/api/Book/category/${this.book.category}`);
+          this.similarProducts = response.data.slice(0, 12); // Get top 12 products
+        } catch (error) {
+          console.error('Error fetching similar products:', error);
+        }
+      }
+    },
+    async handleAddToCart() {
+      const userId = localStorage.getItem('userid');
+
+      if (!userId) {
+        Toastify({
+          text: "Please log in to add items to the cart.",
+          backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+          duration: 3000,
+          close: true
+        }).showToast();
+        return;
+      }
+
+      console.log('User ID:', userId); // Debugging line
+
+      if (this.book) {
+        const payload = {
+          cartItemId: 0,
+          userId: userId,
+          bookId: this.id,
+          quantity: this.quantity
+        };
+        try {
+          await axios.post('https://localhost:7044/api/CartItem', payload);
+          Toastify({
+            text: "Added to cart!",
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            duration: 3000,
+            close: true
+          }).showToast();
+        } catch (error) {
+          console.error('Error adding to cart:', error);
+          Toastify({
+            text: "Failed to add to cart.",
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            duration: 3000,
+            close: true
+          }).showToast();
+        }
+      }
+    },
+    incrementQuantity() {
+      this.quantity++;
+    },
+    decrementQuantity() {
+      if (this.quantity > 1) {
+        this.quantity--;
+      }
+    },
+    showFullDescription() {
+      this.isDescriptionFull = true;
+    },
+    hideFullDescription() {
+      this.isDescriptionFull = false;
     }
   }
 };
 </script>
 
-
 <style scoped>
 .product-detail-container {
-  padding: 20px;
+  padding: 40px;
+  background-color: #f5f5f5;
 }
 
 .product-detail {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.product-images {
-  flex: 1;
-}
-
-.main-image {
-  width: 80%; /* Adjust as needed */
-  max-width: 400px; /* Ensures the image doesn't grow too large */
-  height: auto;
-}
-
-.thumbnail-images {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-
-.thumbnail-image {
-  width: 40px; /* Adjusted size for smaller thumbnails */
-  height: auto;
-  cursor: pointer;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .product-info {
   flex: 1;
-  padding-left: 20px;
+  max-width: 600px;
+  text-align: left;
 }
 
-.reviews span {
-  margin-right: 10px;
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.info-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.rating {
+  font-size: 1.5rem;
+  color: #f39c12; /* Gold color for star rating */
+}
+
+.author,
+.category,
+.pages {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .price {
   font-size: 1.5rem;
+  font-weight: bold;
   color: #333;
-}
-
-.model-select {
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .description {
-  margin: 20px 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.description.show-full {
+  white-space: normal;
+  overflow: visible;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quantity-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 0 5px;
+}
+
+.quantity-container input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
 .add-to-cart-btn {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
+}
+
+.product-images {
+  flex: 1;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-image {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.thumbnail-image {
+  width: 60px;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.thumbnail-image:hover {
+  border-color: #007bff;
 }
 
 .similar-products {
-  margin-top: 20px;
+  margin-top: 30px;
+}
+
+.similar-products h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.similar-product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust gap between cards */
 }
 
 .similar-product-card {
-  display: inline-block;
-  width: 23%;
-  background: #f9f9f9;
-  margin: 10px;
-  padding: 15px;
+  flex: 1 1 calc(25% - 10px); /* 25% width minus gap to fit 4 cards per row */
+  background: white;
+  padding: 0; /* Remove padding inside the card */
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 6px; /* Border radius for the card */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Card shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 120px; /* Ensure cards are not too small */
+}
+
+.similar-product-card:hover {
+  transform: translateY(-2px); /* Hover effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.similar-product-image {
+  width: 100%; /* Ensure the image fills the card width */
+  height: 300px; /* Increased height for book cover aspect */
+  object-fit: contain; /* Ensure the entire image is visible */
+  border-radius: 4px 4px 0 0; /* Rounded corners at the top */
+  margin-bottom: 8px; /* Space between image and text */
+}
+
+.similar-product-name {
+  font-size: 0.9rem; /* Adjusted font size */
+  font-weight: bold;
+  margin-bottom: 4px; /* Space below the name */
+}
+
+.similar-product-price {
+  font-size: 0.9rem; /* Adjusted font size */
+  color: #007bff;
+  margin-bottom: 8px; /* Space below the price */
+}
+
+@media (max-width: 1024px) {
+  .similar-product-card {
+    flex: 1 1 calc(33.333% - 10px); /* Adjust for three items per row on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .similar-product-card {
+    flex: 1 1 calc(50% - 10px); /* Adjust for two items per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .similar-product-card {
+    flex: 1 1 100%; /* Single item per row on very small screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .product-detail {
+    flex-direction: column;
+  }
+
+  .product-info {
+    max-width: 100%;
+  }
+
+  .product-images {
+    max-width: 100%;
+    align-items: flex-start;
+  }
+}
+</style>
+
+
+
+<!-- <style scoped>
+.product-detail-container {
+  padding: 40px;
+  background-color: #f5f5f5;
+}
+
+.product-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.product-info {
+  flex: 1;
+  max-width: 600px;
+  text-align: left;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.info-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.rating {
+  font-size: 1.5rem;
+  color: #f39c12; /* Gold color for star rating */
+}
+
+.author,
+.category,
+.pages {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.description.show-full {
+  white-space: normal;
+  overflow: visible;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quantity-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 0 5px;
+}
+
+.quantity-container input {
+  width: 50px;
   text-align: center;
   border: 1px solid #ddd;
   border-radius: 5px;
+  font-size: 1rem;
+}
+
+.add-to-cart-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
+}
+
+.product-images {
+  flex: 1;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-image {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.thumbnail-image {
+  width: 60px;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.thumbnail-image:hover {
+  border-color: #007bff;
+}
+
+.similar-products {
+  margin-top: 30px;
+}
+
+.similar-products h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.similar-product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Reduced gap between cards */
+}
+
+.similar-product-card {
+  flex: 1 1 calc(30% - 10px); /* Adjusts the card width to fit three in a row with reduced spacing */
+  background: white;
+  padding: 10px; /* Reduced padding for smaller cards */
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 6px; /* Slightly reduced border radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow for smaller cards */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 120px; /* Set a minimum width to keep cards from getting too small */
+}
+
+.similar-product-card:hover {
+  transform: translateY(-2px); /* Slightly reduced hover effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 .similar-product-image {
   width: 100%;
   height: auto;
-  transform: scaleY(0.7); /* Scales down the height by 30% */
-  transform-origin: top; /* Ensures scaling happens from the top */
-  margin-bottom: 10px;
+  border-radius: 4px; /* Adjusted border radius for smaller images */
+  margin-bottom: 6px; /* Reduced margin for smaller cards */
 }
 
-.similar-product-name,
+.similar-product-name {
+  font-size: 0.7rem; /* Further reduced font size */
+  font-weight: bold;
+  margin-bottom: 4px; /* Reduced margin for better fit */
+}
+
 .similar-product-price {
-  margin: 5px 0;
+  font-size: 0.8rem; /* Further reduced font size */
+  color: #007bff;
+  margin-bottom: 6px; /* Reduced margin for better fit */
 }
 
-.reviews span {
-  color: gold;
+@media (max-width: 1024px) {
+  .similar-product-card {
+    flex: 1 1 calc(40% - 10px); /* Adjust for four items per row on medium screens */
+  }
 }
 
-</style>
+@media (max-width: 768px) {
+  .similar-product-card {
+    flex: 1 1 calc(50% - 10px); /* Adjust for two items per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .similar-product-card {
+    flex: 1 1 100%; /* Single item per row on very small screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .product-detail {
+    flex-direction: column;
+  }
+
+  .product-info {
+    max-width: 100%;
+  }
+
+  .product-images {
+    max-width: 100%;
+    align-items: flex-start;
+  }
+}
+</style> -->
+

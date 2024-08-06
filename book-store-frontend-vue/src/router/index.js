@@ -1,73 +1,85 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import BooksView from '../views/BooksView.vue';
-import AboutView from '../views/AboutView.vue';
-import ContactView from '../views/ContactView.vue';
-import PrivacyPolicyView from '../views/PrivacyPolicyView.vue';
-import TermsOfServiceView from '../views/TermsOfServiceView.vue';
-import SignupComponent from '@/views/SignupComponent.vue';
-import LoginComponent from '@/views/LoginComponent.vue';
-import IndividualProductView from '@/views/IndividualProductView.vue';
-import AdminView from '@/views/AdminView.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import BooksView from "../views/BooksView.vue";
+import AboutView from "../views/AboutView.vue";
+import ContactView from "../views/ContactView.vue";
+import PrivacyPolicyView from "../views/PrivacyPolicyView.vue";
+import TermsOfServiceView from "../views/TermsOfServiceView.vue";
+import SignupComponent from "@/views/SignupComponent.vue";
+import LoginComponent from "@/views/LoginComponent.vue";
+import IndividualProductView from "@/views/IndividualProductView.vue";
+import CartView from "@/views/CartView.vue";
+import store from "../store";
+import AdminView from "@/views/AdminView.vue";
+import UserProfileVue from "@/views/UserProfileView.vue";
+import OrderSummaryView from "@/views/OrderSummaryView.vue";
+import OrderSuccessView from "@/views/OrderSuccessView.vue";
 
 const routes = [
+  { path: "/", name: "Home", component: HomeView },
+  { path: "/about", name: "About", component: AboutView },
+  { path: "/contact", name: "Contact", component: ContactView },
+  { path: "/privacy", name: "PrivacyPolicy", component: PrivacyPolicyView },
+  { path: "/terms", name: "TermsOfService", component: TermsOfServiceView },
+  { path: "/signup", name: "SignupComponent", component: SignupComponent },
+  { path: "/login", name: "LoginComponent", component: LoginComponent },
   {
-    path: '/',
-    name: 'Home',
-    component: HomeView
+    path: "/books",
+    name: "Books",
+    component: BooksView,
+    props: (route) => ({ query: route.query }),
   },
   {
-    path: '/about',
-    name: 'About',
-    component: AboutView
-  },
-  {
-    path: '/contact',
-    name: 'Contact',
-    component: ContactView
-  },
-  {
-    path: '/privacy',
-    name: 'PrivacyPolicy',
-    component: PrivacyPolicyView
-  },
-  {
-    path: '/terms',
-    name: 'TermsOfService',
-    component: TermsOfServiceView
-  },
-  {
-    path: '/signup',
-    name: 'SignupComponent',
-    component: SignupComponent
-  },
-  {
-    path: '/login',
-    name: 'LoginComponent',
-    component: LoginComponent
-  },
-  {
-    path: '/books',
-    name: 'Books',
-    component: BooksView
-  },
-  {
-    path: '/product/:id',
-    name: 'ProductDetail',
+    path: "/product/:id",
+    name: "ProductDetail",
     component: IndividualProductView,
-    props: true
+    props: true,
+  },
+  { path: "/adminview", name: "AdminView", component: AdminView },
+  { path: "/cart", name: "CartView", component: CartView },
+  {
+    path: "/profile",
+    name: "UserProfile",
+    component: UserProfileVue,
   },
   {
-    path: '/admin',
-    name: 'AdminPage',
-    component: AdminView,
-    meta: { requiresAuth: true, requiresAdmin: true }
-  }
+    path: "/order-summary",
+    name: "OrderSummary",
+    component: OrderSummaryView, // Route for the OrderSummary component
+    props: (route) => ({ cartItems: route.params.cartItems }),
+  },
+  {
+    path: "/order-success",
+    name: "OrderSuccess",
+    component: OrderSuccessView,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = store.getters.isAuthenticated;
+  const currentUser = store.getters.currentUser;
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
+
+  // Check if the route requires authentication
+  if (requiresAuth && !isAuthenticated) {
+    next({ name: "LoginComponent" }); // Redirect to login if not authenticated
+  }
+  // Check if the route requires admin privileges
+  else if (requiresAdmin && (!isAuthenticated || !currentUser.isAdmin)) {
+    next({ name: "Home" }); // Redirect to home if not an admin
+  }
+  // Restrict admin users to admin view only
+  else if (isAuthenticated && currentUser.isAdmin && to.name !== "AdminView") {
+    next({ name: "AdminView" }); // Redirect admin users to AdminView
+  } else {
+    next(); // Allow access to the route
+  }
 });
 
 export default router;
