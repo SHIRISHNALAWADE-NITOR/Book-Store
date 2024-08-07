@@ -26,6 +26,8 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.21",
     "ngx-toaster": "^1.0.1",
+    "primeicons": "^7.0.0",
+    "primeng": "^15.4.1",
     "rxjs": "~7.8.0",
     "tailwind-merge": "^2.4.0",
     "tslib": "^2.3.0",

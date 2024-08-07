@@ -10,6 +10,7 @@ import { IndividualBookComponent } from './components/individual-book/individual
 import { CartComponent } from './components/cart/cart.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { FileformComponent } from './components/fileform/fileform.component';
+import { ProfileComponent } from './components/profile/profile.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'home/books', component: BooksComponent }, // Route for books component
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path:'home/cart',component:CartComponent},
   {path:'home/payment',component:PaymentComponent},
   {path:'home/fileform/:id',component:FileformComponent},
+  {path:'home/profile',component:ProfileComponent},
   // Route for about component
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Redirect to home component by default
 ];

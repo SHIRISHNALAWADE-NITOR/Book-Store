@@ -5,6 +5,8 @@ export interface CartItem {
     userId: number;
     bookId: number;
     quantity: number;
+    title?:string;
+    author?:string;
     book?: Book; // Optional property for the book details
   }
   

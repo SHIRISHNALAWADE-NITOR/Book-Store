@@ -147,6 +147,20 @@ private updateTotals(cartItems: CartItem[]): void {
   getBookById(bookId: number): Observable<Book> {
     return this.http.get<Book>(`${this.bookApiUrl}/${bookId}`);
   }
-
+  clearCart(): Observable<void> {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      return this.http.delete<void>(`${this.apiUrl}/user/${userId}`).pipe(
+        map(() => {
+          this.cartSubject.next([]);
+          this.totalAmountSubject.next(0);
+          this.totalItemsSubject.next(0);
+        }),
+        // Error handling can be added here if needed
+      );
+    } else {
+      throw new Error('User ID is not available.');
+    }
+  }
  
 }
