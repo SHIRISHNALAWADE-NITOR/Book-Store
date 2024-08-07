@@ -27,7 +27,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
 import { MessageService } from 'primeng/api'; // Import MessageService
 import { DialogModule } from 'primeng/dialog'; // Import DialogModule
-import { ButtonModule } from 'primeng/button'; 
+import { ButtonModule } from 'primeng/button';
+import { SlidingCardsComponent } from './components/sliding-cards/sliding-cards.component';
+import { NewArrivalsComponent } from './components/new-arrivals/new-arrivals.component'; 
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { ButtonModule } from 'primeng/button';
     FileformComponent,
     BookFormDialogComponent,
     ProfileComponent,
+    SlidingCardsComponent,
+    NewArrivalsComponent,
   ],
   imports: [
     BrowserModule,

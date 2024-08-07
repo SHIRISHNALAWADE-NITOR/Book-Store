@@ -37,7 +37,7 @@ export default {
 
         const fetchBooks = async () => {
             try {
-                const response = await fetch('https://localhost:7044/api/Book/year/2024');
+                const response = await fetch('http://localhost:5134/api/Book/year/2024');
                 const data = await response.json();
                 console.log('Fetched data:', data);
                 books.value = data;

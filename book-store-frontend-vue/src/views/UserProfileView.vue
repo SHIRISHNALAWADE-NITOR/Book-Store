@@ -111,7 +111,7 @@ export default {
       try {
         const userId = localStorage.getItem('userid');
         if (userId) {
-          const response = await fetch(`https://localhost:7044/api/Users/${userId}`);
+          const response = await fetch(`http://localhost:5134/api/Users/${userId}`);
           if (response.ok) {
             this.user = await response.json();
           } else {
@@ -126,7 +126,7 @@ export default {
       try {
         const userId = localStorage.getItem('userid');
         if (userId) {
-          const response = await fetch(`https://localhost:7044/api/Address/${userId}`);
+          const response = await fetch(`http://localhost:5134/api/Address/${userId}`);
           if (response.ok) {
             this.addresses = await response.json();
           } else if (response.status === 404) {
@@ -166,7 +166,7 @@ export default {
         let response;
 
         if (this.editingAddress) {
-          response = await fetch(`https://localhost:7044/api/Address/${this.editingAddress.addressId}`, {
+          response = await fetch(`http://localhost:5134/api/Address/${this.editingAddress.addressId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
@@ -189,7 +189,7 @@ export default {
             console.error('Failed to update address');
           }
         } else {
-          response = await fetch(`https://localhost:7044/api/Address`, {
+          response = await fetch(`http://localhost:5134/api/Address`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

@@ -173,7 +173,7 @@ export default {
   methods: {
     async fetchBooks() {
       try {
-        const response = await axios.get('https://localhost:7044/api/Book');
+        const response = await axios.get('http://localhost:5134/api/Book');
         this.books = response.data;
       } catch (error) {
         console.error('Error fetching books:', error);

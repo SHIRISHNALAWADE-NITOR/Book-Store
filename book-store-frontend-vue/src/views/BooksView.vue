@@ -34,11 +34,11 @@ export default {
       try {
         const category = route.query.category;
         if (category) {
-          const response = await axios.get(`https://localhost:7044/api/Book/category/${category}`);
+          const response = await axios.get(`http://localhost:5134/api/Book/category/${category}`);
           books.value = response.data;
         } else {
           // Fetch all books if no category is specified
-          const response = await axios.get('https://localhost:7044/api/Book');
+          const response = await axios.get('http://localhost:5134/api/Book');
           books.value = response.data;
         }
         totalPages.value = Math.ceil(books.value.length / booksPerPage);
