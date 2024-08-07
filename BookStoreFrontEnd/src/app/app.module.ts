@@ -24,6 +24,10 @@ import { BookFormDialogComponent } from './components/book-form-dialog/book-form
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileComponent } from 'src/app/components/profile/profile.component';
+import { MessageService } from 'primeng/api'; // Import MessageService
+import { DialogModule } from 'primeng/dialog'; // Import DialogModule
+import { ButtonModule } from 'primeng/button'; 
 
 @NgModule({
   declarations: [
@@ -42,7 +46,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CartComponent,
     PaymentComponent,
     FileformComponent,
-    BookFormDialogComponent
+    BookFormDialogComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,9 +57,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     MatDialogModule,
     NgbModule, // Add MatDialogModule to imports
+    DialogModule, // Include DialogModule here
+    ButtonModule ,
     
   ],
   providers: [
+     MessageService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

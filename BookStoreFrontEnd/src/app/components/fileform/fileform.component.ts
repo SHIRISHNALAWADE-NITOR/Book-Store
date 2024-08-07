@@ -12,7 +12,7 @@ export class FileformComponent implements OnInit {
   audioFile: File | null = null;
   videoFile: File | null = null;
   pdfFile: File | null = null;
-  files: any[] = []; // Array to store file list
+  files: any[] = [];
 
   constructor(
     private fileService: FileService,
@@ -64,7 +64,7 @@ export class FileformComponent implements OnInit {
         console.error('Error loading video file!', error);
       }
     });
-  
+
     // Load PDF file
     this.fileService.getPdfFile(this.bookId).subscribe({
       next: (blob: Blob) => {

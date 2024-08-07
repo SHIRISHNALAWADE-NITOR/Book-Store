@@ -24,7 +24,9 @@
       <div class="login">
         <a *ngIf="!isLoggedIn" routerLink="/home/login"><i class="bi bi-person-fill"></i>&nbsp;Login</a>
         <a *ngIf="isLoggedIn" (click)="logout()"><i class="bi bi-person-fill"></i>&nbsp;Logout</a>
+       
         <a *ngIf="isLoggedIn && roleId === 1" (click)="manageBooks()"><i class="bi bi-briefcase-fill"></i>&nbsp;Inventory</a>
+        <a *ngIf="isLoggedIn" routerLink="home/profile"><i class="bi bi-briefcase-fill"></i>&nbsp;Profile</a>
       </div>
     </div>
   </div>

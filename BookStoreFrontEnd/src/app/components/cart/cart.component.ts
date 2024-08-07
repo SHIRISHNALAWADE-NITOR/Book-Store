@@ -4,6 +4,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { CartItem } from 'src/app/services/cart-item.model';
 import { Subscription } from 'rxjs';
+import { OrderService } from 'src/app/services/order.service';
+// order.service.ts
+export interface OrderItem {
+  orderItemId: number; // Optional, used when receiving an existing OrderItem // Foreign key reference to the Order
+  bookId: number; // Foreign key reference to the Book
+  quantity: number;
+  price: number;
+}
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +29,8 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private orderService:OrderService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +65,27 @@ export class CartComponent implements OnInit, OnDestroy {
 
   checkout(): void {
     if (this.authService.isAuthenticated() && this.cartItems.length > 0) {
+      // Assuming you have an `orderId` from somewhere, e.g., a service or previously created order
+  
+      // Add each order item one by one
+      this.cartItems.forEach(item => {
+        const orderItem: OrderItem = {
+          orderItemId: 0,
+          bookId: item.bookId,
+          quantity: item.quantity,
+          price: item.book?.price || 0,
+        };
+        console.log(orderItem)
+        //this.router.navigate(["home/payment"]);
+        this.orderService.addOrderItem(orderItem).subscribe(() => {
+          // Optionally handle success for each item
+          console.log(`Order item ${orderItem.bookId} added`);
+        }, error => {
+          console.error('Error adding order item:', error);
+        });
+      });
+  
+      // Redirect to payment page after adding all items
       this.router.navigate(["home/payment"]);
     } else if (this.cartItems.length <= 0) {
       this.router.navigate(['home']);
@@ -63,6 +93,8 @@ export class CartComponent implements OnInit, OnDestroy {
       this.router.navigate(['home/login']);
     }
   }
+  
+
 
   adjustQuantity(cartItemId: number, change: number): void {
     const cartItem = this.cartItems.find(item => item.cartItemId === cartItemId);

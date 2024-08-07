@@ -1,0 +1,288 @@
+/* Profile Container Styling */
+.profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  background-color: #f4f4f4; /* Light grey background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Profile Header Styling */
+.profile-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #e0e0e0; /* Light border */
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff; /* White background */
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+/* Profile Info Styling */
+.profile-info {
+  flex: 1;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 26px;
+  color: #333; /* Dark text color */
+}
+
+.profile-info p {
+  margin: 5px 0;
+  color: #666; /* Medium grey text color */
+}
+
+/* Add Address and Orders Buttons Alignment */
+.add-order-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Button Styles */
+.btn {
+  padding: 6px 12px; /* Smaller padding */
+  border: none;
+  border-radius: 4px;
+  font-size: 12px; /* Smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #28a745; /* Green for Add Address */
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.btn-primary:active {
+  background-color: #1e7e34; /* Even darker green on click */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+.btn-secondary {
+  background-color: #17a2b8; /* Teal for Orders */
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #138496; /* Darker teal on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.btn-secondary:active {
+  background-color: #117a8b; /* Even darker teal on click */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.btn-icon:hover {
+  color: #0056b3;
+}
+
+/* Orders Section Styling */
+.orders {
+  margin-top: 20px;
+}
+
+.orders ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.orders li {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Soft shadow */
+}
+
+.orders ul ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.orders ul ul li {
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  padding: 8px;
+}
+
+.orders p {
+  font-style: italic;
+  color: #888;
+}
+
+/* Dialog Styling */
+.p-dialog {
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 50vw;
+  margin: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Overlay Styles */
+.p-dialog .ui-widget-overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Darker overlay */
+  z-index: 1040;
+}
+
+/* Dialog Header Styling */
+.p-dialog .p-dialog-header {
+  background-color: #4caf50; /* Stylish green */
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 12px 12px 0 0;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.p-dialog-header {
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+  flex-shrink: 0;
+  align-self: center;
+  
+}
+/* Dialog Content Styling */
+.dialog-content {
+  padding: 20px;
+  background: #fafafa; /* Light grey background */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Input Styling for Consistency */
+.dialog-content label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333; /* Dark text color */
+}
+
+.dialog-content input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+/* Footer Styling */
+.p-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  box-sizing: border-box;
+  
+}
+
+/* Save Button Styling */
+.btn-save {
+  margin-left: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #28a745; /* Green background */
+  color: #fff; /* White text */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-save:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.p-dialog-header-icons{
+  margin-left: 100%;
+}
+
+.btn-save:active {
+  background-color: #1e7e34; /* Even darker green on click */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+/* Cancel Button Styling */
+.btn-cancel {
+  margin-left: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #dc3545; /* Red background */
+  color: #fff; /* White text */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-cancel:hover {
+  background-color: #c82333; /* Darker red on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.btn-cancel:active {
+  background-color: #bd2130; /* Even darker red on click */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+/* Icon Styling */
+.p-footer .pi {
+  margin-right: 5px; /* Space between icon and text */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 500px) {
+  .p-dialog {
+    width: 90vw;
+    height: auto;
+    max-height: 80vh;
+    top: 10%;
+    transform: translate(-50%, 0);
+  }
+}
+
+
+
