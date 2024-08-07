@@ -108,7 +108,7 @@ export default {
         try {
             const userId = localStorage.getItem('userid');
             if (userId) {
-                const response = await axios.get(`https://localhost:7044/api/Address/${userId}`);
+                const response = await axios.get(`http://localhost:5134/api/Address/${userId}`);
                 this.addresses = response.data;
                 if (this.addresses.length > 0) {
                     this.selectedAddress = this.addresses[0]; 
@@ -160,9 +160,9 @@ export default {
             console.log(this.selectedAddress.id);
             
             try {
-                const response = await axios.post('https://localhost:7044/api/Order', orderData);
+                const response = await axios.post('http://localhost:5134/api/Order', orderData);
                 console.log('Order successful:', response.data);
-                await axios.delete(`https://localhost:7044/api/CartItem/user/${orderData.userId}`);
+                await axios.delete(`http://localhost:5134/api/CartItem/user/${orderData.userId}`);
                 this.showPaymentModal = false;
 
                 // Optionally, redirect or show a success message
@@ -240,6 +240,7 @@ button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {

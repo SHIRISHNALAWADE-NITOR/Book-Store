@@ -117,7 +117,7 @@ export default {
     },
     methods: {
         fetchBooks() {
-            fetch('https://localhost:7044/api/Book')
+            fetch('http://localhost:5134/api/Book')
                 .then(response => response.json())
                 .then(data => {
                     this.books = data;
@@ -158,7 +158,7 @@ export default {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
-            fetch('https://localhost:7044/api/Book', {
+            fetch('http://localhost:5134/api/Book', {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(this.currentBook)
@@ -203,7 +203,7 @@ export default {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
-            fetch(`https://localhost:7044/api/Book/${this.currentBook.bookId}`, {
+            fetch(`http://localhost:5134/api/Book/${this.currentBook.bookId}`, {
                 method: 'PUT',
                 headers: headers,
                 body: JSON.stringify(this.currentBook)
@@ -254,7 +254,7 @@ export default {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
-            fetch(`https://localhost:7044/api/Book/${bookId}`, {
+            fetch(`http://localhost:5134/api/Book/${bookId}`, {
                 method: 'DELETE',
                 headers: headers
             })
