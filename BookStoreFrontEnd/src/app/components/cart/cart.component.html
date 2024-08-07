@@ -1,0 +1,31 @@
+<div class="cart-container">
+  <h2>Your Cart</h2>
+  <ul class="cart-items">
+    <li *ngFor="let item of cartItems" class="cart-item">
+      <img [src]="item.book?.imageUrl" alt="{{ item.book?.title }}" class="cart-item-image"/>
+      <div class="cart-item-details">
+        <h3>{{ item.book?.title }}</h3>
+        <p><strong>Author:</strong> {{ item.book?.author }}</p>
+        <p><strong>Price:</strong> ₹{{ item.book?.price | number:'1.0-0' }}</p>
+        <div class="btn-cart-update">
+          <div class="btn-inc-dec">
+            <strong>Quantity: <span> </span></strong>
+            <button class="btn btn-outline-primary btn-outline" (click)="adjustQuantity(item.cartItemId!, -1)">-</button>
+            <input class="btn btn-outline-primary btn-outline quantity" 
+                   [(ngModel)]="item.quantity" 
+                   min="1" 
+                   [ngModelOptions]="{standalone: true}" 
+                   (ngModelChange)="onQuantityChange(item.cartItemId!, $event)"/>
+            <button class="btn btn-outline-primary btn-outline" (click)="adjustQuantity(item.cartItemId!, 1)">+</button>
+          </div>
+          <button class="btn btn-danger" (click)="removeFromCart(item.cartItemId!)">Remove</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="cart-total">
+    <h3>Total Amount: ₹{{ totalAmount | number:'1.0-0' }}</h3>
+    <h4>Total Items: {{ totalItems }}</h4>
+    <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+  </div>
+</div>

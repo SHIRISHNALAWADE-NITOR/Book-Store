@@ -1,0 +1,128 @@
+<div class="container">
+  <!-- Add New Book Button -->
+ 
+  <div class="container">
+    <div class="headings">
+      <h2>Books Inventory</h2>
+    <button class="btn btn-primary mb-3" (click)="startAdding()">Add Book</button>
+    </div>
+    <!-- Add/Edit Book Form -->
+    <div *ngIf="adding || isEditing" class="form-container">
+      <h3>{{ adding ? 'Add New Book' : 'Edit Book' }}</h3>
+      <form (ngSubmit)="saveBook()">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <label for="isbn" class="form-label">ISBN</label>
+              <input id="isbn" [(ngModel)]="selectedBook.isbn" name="isbn" class="form-control" type="number" required>
+            </div>
+            <div class="dropdown-container">
+              <label for="category-select">Select a Category:</label>
+              <select id="category-select" [(ngModel)]="selectedBook.category" name="category" required>
+                <option value="" disabled selected>Select a category</option>
+                <option *ngFor="let category of categories" [value]="category">
+                  {{ category }}
+                </option>
+              </select>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col">
+              <label for="title" class="form-label">Title</label>
+              <input id="title" [(ngModel)]="selectedBook.title" name="title" class="form-control" type="text" required>
+            </div>
+            <div class="col">
+              <label for="author" class="form-label">Author</label>
+              <input id="author" [(ngModel)]="selectedBook.author" name="author" class="form-control" type="text"
+                required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="price" class="form-label">Price</label>
+              <input id="price" [(ngModel)]="selectedBook.price" name="price" class="form-control" type="number"
+                step="0.01" required>
+            </div>
+            <div class="col"> <label for="numberOfPages" class="form-label">Number of Pages</label>
+              <input id="numberOfPages" [(ngModel)]="selectedBook.numberOfPages" name="numberOfPages"
+                class="form-control" type="number">
+            </div>
+            <div class="col"> <label for="rating" class="form-label">Rating</label>
+              <input id="rating" [(ngModel)]="selectedBook.rating" name="rating" class="form-control" type="number"
+                step="0.1">
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" [(ngModel)]="selectedBook.description" name="description"
+              class="form-control"></textarea>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="imageUrl" class="form-label">Image URL</label>
+              <input id="imageUrl" [(ngModel)]="selectedBook.imageUrl" name="imageUrl" class="form-control" type="text">
+            </div>
+
+            <div class="col">
+              <label for="createdAt" class="form-label">Created At</label>
+              <input id="createdAt" [(ngModel)]="selectedBook.createdAt" name="createdAt" class="form-control"
+                type="datetime-local">
+            </div>
+            <div class="col">
+              <label for="quantity" class="form-label">Quantity </label>
+              <input id="quantity" [(ngModel)]="selectedBook.quantity" name="quantity" class="form-control"
+                type="number">
+            </div>
+
+
+          </div>
+
+          <br>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">{{ adding ? 'Add Book' : 'Update Book' }}</button>
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- List of Books -->
+    <ul class="list-unstyled">
+      <li *ngFor="let book of currentBooks" class="book-card">
+        <img [src]="book.imageUrl" class="book-image">
+        <div class="book-details">
+          <h4>{{ book.title }}</h4>
+          <!-- <p><strong>Author:</strong> {{ book.author }}</p> -->
+          <p><strong>Price:</strong> {{ book.price | currency }}</p>
+          <div class="book-actions">
+            <button class="btn btn-warning btn-sm" (click)="editBook(book)">
+              <i class="bi bi-pencil"></i> 
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteBook(book.bookId || 0)" [disabled]="!book.bookId">
+              <i class="bi bi-trash"></i> 
+            </button>
+            <button class="btn btn-warning btn-sm" (click)="addfiles(book.bookId)">
+              <i class="bi bi-plus-square"></i>
+            </button>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+
+    <!-- Pagination controls -->
+    <div class="pagination-buttons">
+      <button class="btn btn-primary me-2" (click)="prevPage()" [disabled]="currentPage === 1">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <i class="bi bi-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
