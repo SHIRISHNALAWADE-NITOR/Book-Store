@@ -134,4 +134,35 @@ public class BookService : IBookService
             throw new ApplicationException("An error occurred while retrieving all books.", ex);
         }
     }
+
+    public async Task<IEnumerable<BookDTO>> GetTopBooksOfEachCategoryAsync(int no)
+    {
+        try
+        {
+            var books = await _context.Books
+                                      .GroupBy (b => b.Category)
+                                      .Select(g=> g.OrderByDescending(b => b.Rating).FirstOrDefault())
+                                      .ToListAsync();
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all books.", ex);
+        }
+    }
+
+    public async Task<IEnumerable<BookDTO>> GetBooksByYear(int year)
+    {
+        try
+        {
+            var books = await _context.Books
+                                      .Where(b => b.CreatedAt.Year == year)
+                                      .ToListAsync();
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"An error occurred while retrieving {year} books.", ex);
+        }
+    }
 }

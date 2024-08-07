@@ -2,23 +2,30 @@
   <div>
     <CarouselComponent/>
     <h1>Categories</h1>
-
-    <h1>Bestseller</h1>
-
+    
+    <SlidingCards/>
+    <h1>New Arrivals</h1>
+    
+    <NewArrivals/>
+    
   </div>
 </template>
 
 <script>
 import CarouselComponent from '@/components/CarouselComponent.vue';
+import SlidingCards from '@/components/SlidingCards.vue';
+import NewArrivals from '@/components/NewArrivals.vue'; 
+
 
 export default {
   name: 'HomeView',
   components: {
-    CarouselComponent
+    CarouselComponent,
+    SlidingCards,
+    NewArrivals
   }
 };
 </script>
 
 <style scoped>
-/* Scoped styles for HomeView component */
 </style>

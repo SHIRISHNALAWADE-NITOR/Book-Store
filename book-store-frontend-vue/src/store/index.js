@@ -2,32 +2,24 @@ import { createStore } from 'vuex';
 
 const store = createStore({
   state: {
-    user: null, // Default state for user
+    user: JSON.parse(localStorage.getItem('user')) || null // Retrieve user from localStorage if available
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+      localStorage.setItem('user', JSON.stringify(user)); // Store user in localStorage
     },
     logout(state) {
       state.user = null;
+      localStorage.removeItem('user'); // Remove user from localStorage
     }
   },
   actions: {
     login({ commit }, user) {
-      // Simulate login process and set user data
       commit('setUser', user);
-      // Optionally store in localStorage/sessionStorage
-      localStorage.setItem('user', JSON.stringify(user));
     },
     logout({ commit }) {
       commit('logout');
-      localStorage.removeItem('user');
-    },
-    initialize({ commit }) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        commit('setUser', user);
-      }
     }
   },
   getters: {

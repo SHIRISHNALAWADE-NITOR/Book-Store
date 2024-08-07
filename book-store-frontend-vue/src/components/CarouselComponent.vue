@@ -2,7 +2,7 @@
   <div class="carousel-container">
     <div class="carousel-slides" :style="{'transform': 'translateX(-' + (currentSlideIndex * 100) + '%)'}">
       <div class="carousel-slide" v-for="(slide, i) in carouselSlides" :key="i" :class="{'active': i === currentSlideIndex}">
-        <img :src="require(`../../public/c${i + 1}.png`)" :alt="slide.caption">
+        <img :src="require(`../../public/c${i + 1}.jpg`)" :alt="slide.caption">
         <div class="carousel-caption">{{ slide.caption }}</div>
       </div>
     </div>
@@ -20,9 +20,11 @@ export default {
   data() {
     return {
       carouselSlides: [
-        { caption: 'Heavy Discount' },
-        { caption: 'New Additions' },
-        { caption: 'Summer Sale' }
+        { caption: '' },
+        { caption: '' },
+        { caption: '' },
+        { caption: '' },
+        { caption: '' },
       ],
       currentSlideIndex: 0,
       intervalId: null
@@ -40,7 +42,7 @@ export default {
     startAutoSlide() {
       this.intervalId = setInterval(() => {
         this.nextSlide();
-      }, 3000); // Change slide every 3 seconds
+      }, 3000); 
     },
     nextSlide() {
       this.currentSlideIndex = (this.currentSlideIndex + 1) % this.carouselSlides.length;

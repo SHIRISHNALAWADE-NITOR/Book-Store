@@ -63,6 +63,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "RequireAdminRole")]
     public async Task<IActionResult> UpdateBook(int id, [FromBody] BookDTO bookDto)
     {
         try
@@ -72,7 +73,7 @@ public class BookController : ControllerBase
             {
                 return NotFound(new { Message = $"Book with ID {id} not found." });
             }
-            return NoContent();
+            return Ok(book);
         }
         catch (ApplicationException ex)
         {
@@ -90,7 +91,7 @@ public class BookController : ControllerBase
             {
                 return NotFound(new { Message = $"Book with ID {id} not found." });
             }
-            return NoContent();
+            return Ok();
         }
         catch (ApplicationException ex)
         {
@@ -123,6 +124,41 @@ public class BookController : ControllerBase
             if (book == null)
             {
                 return NotFound(new { Message = $"Error while getting categories" });
+            }
+            return Ok(book);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
+
+    [HttpGet("category/topbooks")]
+    public async Task<IActionResult> GetTopBookOfCategory()
+    {
+        try
+        {
+            var book = await _bookService.GetTopBooksOfEachCategoryAsync(1);
+            if (book == null)
+            {
+                return NotFound(new { Message = $"Error getting Top Book of Category." });
+            }
+            return Ok(book);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
+    [HttpGet("year/{year}")]
+    public async Task<IActionResult> GetBookByYear(int year)
+    {
+        try
+        {
+            var book = await _bookService.GetBooksByYear(year);
+            if (book == null)
+            {
+                return NotFound(new { Message = $"Book from {year} not found." });
             }
             return Ok(book);
         }

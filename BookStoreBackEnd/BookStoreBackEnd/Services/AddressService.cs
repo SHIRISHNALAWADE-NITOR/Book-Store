@@ -28,21 +28,23 @@ public class AddressService : IAddressService
         }
     }
 
-    public async Task<AddressDTO> GetAddressByIdAsync(int id)
+    public async Task<IEnumerable<AddressDTO>> GetAddressesByUserIdAsync(int id)
     {
         try
         {
-            var address = await _context.Addresses.FindAsync(id);
+            var address = await _context.Addresses
+                                        .Where(x => x.UserId == id)
+                                        .ToListAsync();
             if (address == null)
             {
-                throw new KeyNotFoundException($"Address with ID {id} not found.");
+                throw new KeyNotFoundException($"Address with User ID {id} not found.");
             }
 
-            return _mapper.Map<AddressDTO>(address);
+            return _mapper.Map<IEnumerable<AddressDTO>>(address);
         }
         catch (Exception ex)
         {
-            throw new ApplicationException($"An error occurred while retrieving the address with ID {id}.", ex);
+            throw new ApplicationException($"An error occurred while retrieving the address service with user ID {id}.", ex);
         }
     }
 

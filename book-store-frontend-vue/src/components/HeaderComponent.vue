@@ -1,16 +1,37 @@
-<template>
+<!-- <template>
   <header class="header">
     <div class="container">
-      <img src="../assets/PustakParadiselogo.png" class="brandlogo">
+      <img src="../assets/PustakParadiselogo.png" class="brandlogo" alt="Pustak Paradise Logo">
       <div class="logo">
         <h1>Pustak Paradise</h1>
+      </div>
+      <div v-if="isBooksPage" class="search-bar">
+        <input 
+          type="text" 
+          placeholder="Search books..." 
+          v-model="searchQuery"
+          @input="performSearch"
+        >
+        <button @click="performSearch">Search</button>
+        <div v-if="searchQuery && searchResults.length" class="search-suggestions">
+          <ul>
+            <li v-for="book in searchResults" :key="book.bookId" @click="viewBookDetails(book)">
+              {{ book.title }}
+            </li>
+          </ul>
+        </div>
       </div>
       <nav class="nav">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/books">Books</a></li>
-          <li><a href="/signup">Sign up</a></li>
-          <li><a href="/login">Login</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/profile">Profile</a></li>
+
+          <li>
+            <a v-if="!isLoggedIn" href="/login">Login</a>
+            <a v-else href="#" @click.prevent="logout">Logout</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -18,33 +39,202 @@
 </template>
 
 <script>
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+import axios from 'axios';
+
 export default {
-  name: 'HeaderComponent'
-}
+  name: 'HeaderComponent',
+  data() {
+    return {
+      isLoggedIn: false,
+      searchQuery: '',
+      books: [],
+      searchResults: [],
+    };
+  },
+  computed: {
+    isBooksPage() {
+      return this.$route.path === '/books';
+    }
+  },
+  created() {
+    this.checkAuthStatus();
+    this.fetchBooks();
+  },
+  methods: {
+    async fetchBooks() {
+      try {
+        const response = await axios.get('https://localhost:7044/api/Book');
+        this.books = response.data;
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    },
+    performSearch() {
+      if (this.searchQuery.trim()) {
+        this.searchResults = this.books
+          .filter(book =>
+            book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+          )
+          .map(book => ({ bookId: book.bookId, title: book.title })) // Only return bookId and title
+          .slice(0, 10); // Limit to top 10 results
+      } else {
+        this.searchResults = [];
+      }
+    },
+    viewBookDetails(book) {
+      this.$router.push({ name: 'ProductDetail', params: { id: book.bookId } });
+    },
+    checkAuthStatus() {
+      this.isLoggedIn = !!localStorage.getItem('authToken');
+    },
+    
+    logout() {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userid');
+      this.isLoggedIn = false;
+      Toastify({
+        text: "Logout successful!",
+        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+        duration: 3000,
+        close: true
+      }).showToast();
+      this.$router.push('/login');
+    }
+  }
+};
+</script> -->
+
+<template>
+  <header class="header">
+    <div class="container">
+      <img src="../assets/PustakParadiselogo.png" class="brandlogo" alt="Pustak Paradise Logo">
+      <div class="logo">
+        <h1>Pustak Paradise</h1>
+      </div>
+      <div v-if="isBooksPage" class="search-bar">
+        <input 
+          type="text" 
+          placeholder="Search books..." 
+          v-model="searchQuery"
+          @input="performSearch"
+        >
+        <button @click="performSearch">Search</button>
+        <div v-if="searchQuery && searchResults.length" class="search-suggestions">
+          <ul>
+            <li v-for="book in searchResults" :key="book.bookId" @click="viewBookDetails(book)">
+              {{ book.title }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <nav class="nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/books">Books</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li v-if="isLoggedIn"><a href="/profile">Profile</a></li>
+
+          <li>
+            <a v-if="!isLoggedIn" href="/login">Login</a>
+            <a v-else href="#" @click.prevent="logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+</template>
+
+<script>
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+import axios from 'axios';
+
+export default {
+  name: 'HeaderComponent',
+  data() {
+    return {
+      isLoggedIn: false,
+      searchQuery: '',
+      books: [],
+      searchResults: [],
+    };
+  },
+  computed: {
+    isBooksPage() {
+      return this.$route.path === '/books';
+    }
+  },
+  created() {
+    this.checkAuthStatus();
+    this.fetchBooks();
+  },
+  methods: {
+    async fetchBooks() {
+      try {
+        const response = await axios.get('https://localhost:7044/api/Book');
+        this.books = response.data;
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    },
+    performSearch() {
+      if (this.searchQuery.trim()) {
+        this.searchResults = this.books
+          .filter(book =>
+            book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+          )
+          .map(book => ({ bookId: book.bookId, title: book.title })) // Only return bookId and title
+          .slice(0, 10); // Limit to top 10 results
+      } else {
+        this.searchResults = [];
+      }
+    },
+    viewBookDetails(book) {
+      this.$router.push({ name: 'ProductDetail', params: { id: book.bookId } });
+    },
+    checkAuthStatus() {
+      this.isLoggedIn = !!localStorage.getItem('authToken');
+    },
+    logout() {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userid');
+      this.isLoggedIn = false;
+      Toastify({
+        text: "Logout successful!",
+        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+        duration: 3000,
+        close: true
+      }).showToast();
+      this.$router.push('/login');
+    }
+  }
+};
 </script>
+
 <style scoped>
 .header {
-  background-color: #343a40;
+  position: relative;
+  background-color: #00050b;
   padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   margin-top: -61px;
 }
 
 .container {
   display: flex;
   align-items: center;
+  justify-content: space-between; 
   max-width: 100%;
-  /* Ensure container does not exceed viewport */
   margin: 0 auto;
   padding: 0 2%;
-  /* Responsive padding */
+  position: relative;
 }
 
 .logo {
   display: flex;
-  /* Ensure logo and image are aligned correctly */
   align-items: center;
-  /* Align items vertically */
 }
 
 .logo h1 {
@@ -52,7 +242,62 @@ export default {
   color: #fff;
   margin: 0;
   margin-left: 10px;
-  /* Adjust margin between image and text */
+}
+
+.brandlogo {
+  width: 80px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1; /* Allows the search bar to grow and occupy available space */
+  justify-content: center; /* Centers the search bar */
+}
+
+.search-bar input {
+  padding: 5px;
+  font-size: 16px;
+  width: 100%; /* Allows the input to stretch within the container */
+  max-width: 300px; /* Limits the maximum width */
+}
+
+.search-bar button {
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  z-index: 1000;
+}
+
+.search-suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-suggestions li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-suggestions li:hover {
+  background-color: #f1f1f1;
+}
+
+.nav {
+  display: flex; /* Ensures that navigation items are aligned */
+  margin-left: auto;
 }
 
 .nav ul {
@@ -61,8 +306,6 @@ export default {
   gap: 20px;
   margin: 0;
   padding: 0;
-  margin-left: 250%;
-  /* Push navigation to the right */
 }
 
 .nav a {
@@ -70,16 +313,10 @@ export default {
   color: #fff;
   font-weight: bold;
   transition: color 0.3s ease;
-  /* Smooth transition for hover effect */
 }
 
 .nav a:hover {
   color: #007bff;
-  /* Blue color on hover */
-}
-
-.brandlogo {
-  width: 80px;
 }
 
 /* Media query for responsiveness */
@@ -94,12 +331,16 @@ export default {
 
   .nav ul {
     flex-direction: column;
-    /* Stack items vertically on smaller screens */
   }
 
   .nav li {
     margin-bottom: 10px;
-    /* Add spacing between stacked menu items */
+  }
+
+  .search-bar {
+    margin: 10px 0; /* Adds margin for spacing on small screens */
   }
 }
+
 </style>
+
