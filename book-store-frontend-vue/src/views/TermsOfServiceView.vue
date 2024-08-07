@@ -51,24 +51,54 @@ export default {
 
 <style scoped>
 .terms-of-service {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 20px auto; /* Centers the container horizontally but not the text */
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
-h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
+.terms-of-service h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  text-align: left;
 }
 
-h2 {
-    font-size: 1.5em;
-    margin-top: 20px;
+.terms-of-service h2 {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #3498db;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  text-align: left;
 }
 
-p {
-    line-height: 1.6;
-    margin-bottom: 10px;
+.terms-of-service p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: left; /* Ensures text alignment is left */
+}
+
+.terms-of-service br {
+  margin: 10px 0; /* Adds spacing between lines for better readability */
+}
+
+.terms-of-service a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.terms-of-service a:hover {
+  text-decoration: underline;
 }
 </style>
+

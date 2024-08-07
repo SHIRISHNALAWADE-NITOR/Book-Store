@@ -58,6 +58,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  // scrollBehavior() {
+  //   // Always scroll to the top of the page
+  //   return { top: 0, behavior: 'smooth' };
+  // },
 });
 
 router.beforeEach((to, from, next) => {
