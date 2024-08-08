@@ -169,6 +169,11 @@ export default {
   created() {
     this.checkAuthStatus();
     this.fetchBooks();
+    // Listen to route changes to update authentication status
+    this.$router.afterEach(() => {
+      this.checkAuthStatus();
+    });
+
   },
   methods: {
     async fetchBooks() {
@@ -185,8 +190,9 @@ export default {
           .filter(book =>
             book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
           )
-          .map(book => ({ bookId: book.bookId, title: book.title })) // Only return bookId and title
-          .slice(0, 10); // Limit to top 10 results
+          .map(book => ({ bookId: book.bookId, title: book.title }))
+          .slice(0, 10);
+
       } else {
         this.searchResults = [];
       }
@@ -197,10 +203,12 @@ export default {
     checkAuthStatus() {
       this.isLoggedIn = !!localStorage.getItem('authToken');
     },
-    logout() {
+    async logout() {
+      await this.$store.dispatch('logout');
       localStorage.removeItem('authToken');
       localStorage.removeItem('userid');
-      this.isLoggedIn = false;
+      this.isLoggedIn = false; // Update state immediately
+
       Toastify({
         text: "Logout successful!",
         backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",

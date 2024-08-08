@@ -1,16 +1,19 @@
 <template>
-  <div>
-    <h1>WELCOME {{ userName }}</h1>
+  <div class="profile-container">
+    <div class="profile-info">
+      <h1>WELCOME {{ userName }}</h1>
+      <div class="user-profile" v-if="user">
+        <h2>User Profile</h2>
+        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Phone Number:</strong> {{ user.phoneNumber }}</p>
+        <p><strong>Date of Birth:</strong> {{ formattedDateOfBirth }}</p>
+        <button @click="viewOrderHistory">Order History</button>
+      </div>
+    </div>
 
-    <div class="user-profile" v-if="user">
-      <h1>User Profile</h1>
-      <p><strong>Name:</strong> {{ user.name }}</p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
-      <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Phone Number:</strong> {{ user.phoneNumber }}</p>
-      <p><strong>Date of Birth:</strong> {{ formattedDateOfBirth }}</p>
-
-      <!-- Address Section -->
+    <div class="address-info">
       <div class="address-section">
         <h2>Addresses</h2>
         <div v-if="addresses.length">
@@ -23,47 +26,40 @@
             <button @click="editAddress(address)">Edit Address</button>
           </div>
         </div>
-        <div v-else>
-          <p>No addresses found.</p>
-          <button @click="openAddDialog">Add Address</button>
+        <button @click="openAddDialog">Add Address</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Dialog -->
+  <div v-if="showAddressDialog" class="dialog-overlay">
+    <div class="dialog-content">
+      <h3>{{ dialogTitle }}</h3>
+      <form @submit.prevent="saveAddress">
+        <div>
+          <label for="street">Street:</label>
+          <input type="text" v-model="addressData.street" required />
         </div>
-      </div>
-    </div>
-
-    <div v-else>
-      <p>Loading...</p>
-    </div>
-
-    <!-- Address Dialog -->
-    <div v-if="showAddressDialog" class="dialog-overlay">
-      <div class="dialog-content">
-        <h3>{{ dialogTitle }}</h3>
-        <form @submit.prevent="saveAddress">
-          <div>
-            <label for="street">Street:</label>
-            <input type="text" v-model="addressData.street" required />
-          </div>
-          <div>
-            <label for="city">City:</label>
-            <input type="text" v-model="addressData.city" required />
-          </div>
-          <div>
-            <label for="state">State:</label>
-            <input type="text" v-model="addressData.state" required />
-          </div>
-          <div>
-            <label for="postalCode">Postal Code:</label>
-            <input type="text" v-model="addressData.postalCode" required pattern="[1-9][0-9]{5}" />
-            <small v-if="!validPostalCode">Please enter a valid postal code.</small>
-          </div>
-          <div>
-            <label for="country">Country:</label>
-            <input type="text" v-model="addressData.country" required />
-          </div>
-          <button type="submit">Save</button>
-          <button @click="closeAddressDialog" type="button">Cancel</button>
-        </form>
-      </div>
+        <div>
+          <label for="city">City:</label>
+          <input type="text" v-model="addressData.city" required />
+        </div>
+        <div>
+          <label for="state">State:</label>
+          <input type="text" v-model="addressData.state" required />
+        </div>
+        <div>
+          <label for="postalCode">Postal Code:</label>
+          <input type="text" v-model="addressData.postalCode" required pattern="[1-9][0-9]{5}" />
+          <small v-if="!validPostalCode">Please enter a valid postal code.</small>
+        </div>
+        <div>
+          <label for="country">Country:</label>
+          <input type="text" v-model="addressData.country" required />
+        </div>
+        <button type="submit">Save</button>
+        <button @click="closeAddressDialog" type="button">Cancel</button>
+      </form>
     </div>
   </div>
 </template>
@@ -218,6 +214,10 @@ export default {
       } catch (error) {
         console.error('Error saving address:', error);
       }
+    },
+    viewOrderHistory() {
+      this.$router.push({ name: 'OrderHistory' }); // Navigate to Order History page
+
     }
   },
   watch: {
@@ -229,235 +229,125 @@ export default {
 </script>
 
 <style scoped>
-/* User Profile Container */
-.user-profile {
-  max-width: 800px;
-  margin: 30px auto;
+/* Profile Container */
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 40px auto;
   padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  background-color: #ffffff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Main Header Styling */
-.user-profile h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: #333333;
-  text-align: center;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-/* Paragraph Styling */
-.user-profile p {
-  font-size: 1.1rem;
-  margin: 10px 0;
-  line-height: 1.8;
-  color: #666666;
   text-align: left;
 }
 
-/* Strong Text Styling */
-.user-profile strong {
-  font-weight: 600;
-  color: #444444;
+/* Profile Information */
+.profile-info {
+  flex: 1;
+  max-width: 50%;
 }
 
-/* Address Section Styling */
-.address-section {
-  margin-top: 40px;
-  border-top: 2px solid #e0e0e0;
-  padding-top: 20px;
-}
-
-/* Address Card Styling */
-.address-card {
-  border: 1px solid #d0d0d0;
-  padding: 20px;
+.profile-info h1 {
+  font-size: 2rem;
   margin-bottom: 20px;
+  color: #333333;
+  text-align: left;
+  font-weight: 600;
+}
+
+.user-profile {
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.address-card p {
-  margin: 5px 0;
-}
-
-/* Button Styling */
-button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
-  background-color: #007bff;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.02);
-}
-
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.3);
-}
-
-/* Dialog Overlay Styling */
-.dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-/* Dialog Content Styling */
-.dialog-content {
-  background-color: #ffffff;
   padding: 20px;
-  border-radius: 8px;
+  background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 500px; /* Adjusted to fit better */
-  position: relative;
-  box-sizing: border-box;
 }
 
-/* Dialog Title */
-.dialog-content h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
+.user-profile h2 {
   font-size: 1.5rem;
-  color: #333333;
-  font-weight: 600;
-}
-
-/* Form Styling */
-.dialog-content form {
-  display: flex;
-  flex-direction: column;
-}
-
-.dialog-content div {
   margin-bottom: 15px;
-}
-
-.dialog-content label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: #444444;
-}
-
-.dialog-content input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d0d0d0;
-  border-radius: 6px;
-  font-size: 1rem;
   color: #333333;
+  font-weight: 600;
 }
 
-.dialog-content small {
-  color: #dc3545;
-  font-size: 0.9rem;
-  margin-top: 5px;
+.user-profile p {
+  font-size: 1rem;
+  margin: 10px 0;
+  line-height: 1.5;
+  color: #666666;
 }
 
-/* Button Container in Dialog */
-.dialog-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px; /* Adds space between buttons */
+/* Address Information */
+.address-info {
+  flex: 1;
+  max-width: 50%;
 }
 
-.dialog-buttons button {
-  margin-left: 10px; /* Optional if you need additional spacing */
-}
-</style>
-
-
-<!-- <style scoped>
-/* Style for user profile container */
-.user-profile {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
+.address-section {
   border: 1px solid #e0e0e0;
-  border-radius: 10px;
+  border-radius: 8px;
+  padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
 }
 
-/* Main header styling */
-.user-profile h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
+.address-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
   color: #333333;
-  text-align: center;
-  font-weight: 700;
+  font-weight: 600;
 }
 
-/* Paragraph styling */
-.user-profile p {
-  font-size: 18px;
-  margin: 10px 0;
-  line-height: 1.6;
-  text-align: left;
-}
-
-/* Strong text styling */
-.user-profile strong {
-  font-weight: 700;
-  color: #444444;
-}
-
-/* Address section styling */
-.address-section {
-  margin-top: 30px;
-}
-
-/* Address card styling */
 .address-card {
   border: 1px solid #d0d0d0;
   padding: 15px;
   margin-bottom: 15px;
   border-radius: 8px;
-  background-color: #fafafa;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Button styling */
-.address-card button,
-.dialog-content button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
+.address-card p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #666666;
+}
+
+.address-card button {
   background-color: #007bff;
   color: #ffffff;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.address-card button:hover,
-.dialog-content button:hover {
+.address-card button:hover {
   background-color: #0056b3;
+  transform: scale(1.02);
 }
 
-/* Dialog overlay styling */
+.address-section button {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.address-section button:hover {
+
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+/* Dialog Styling */
+
 .dialog-overlay {
   position: fixed;
   top: 0;
@@ -465,25 +355,31 @@ button:focus {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 
-/* Dialog content styling */
 .dialog-content {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
-  max-width: 500px;
+
+  max-width: 400px;
+  box-sizing: border-box;
 }
 
 .dialog-content h3 {
   margin-top: 0;
   margin-bottom: 15px;
+  font-size: 1.25rem;
+
+  color: #333333;
+  font-weight: 600;
 }
 
 .dialog-content form {
@@ -492,23 +388,43 @@ button:focus {
 }
 
 .dialog-content div {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+
 }
 
 .dialog-content label {
   display: block;
-  margin-bottom: 5px;
+
+  margin-bottom: 4px;
+
+  font-weight: 600;
+  color: #444444;
 }
 
 .dialog-content input {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #d0d0d0;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+
+  color: #333333;
 }
 
 .dialog-content small {
   color: #dc3545;
+  font-size: 0.75rem;
+  margin-top: 4px;
 }
-</style> -->
+
+.dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.dialog-buttons button {
+  margin-left: 0;
+}
+</style>
 

@@ -99,4 +99,21 @@ public class OrderService : IOrderService
             throw new ApplicationException("An error occurred while deleting the order.", ex);
         }
     }
+
+    public async Task<IEnumerable<OrderDTO>> GetOrdersByUserIdAsync(int id)
+    {
+        try
+        {
+            var order = await _context.Orders.Include(o => o.OrderItems).Where(o => o.UserId == id).ToListAsync();
+            if (order == null)
+            {
+                throw new KeyNotFoundException($"Order for User ID {id} not found.");
+            }
+            return _mapper.Map<IEnumerable<OrderDTO>>(order);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving the order by User ID.", ex);
+        }
+    }
 }
