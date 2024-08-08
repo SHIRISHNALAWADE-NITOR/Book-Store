@@ -1,0 +1,41 @@
+.sidebar {
+    background-color: #f8f9fa; /* Background color for the sidebar */
+    width: fit-content;
+  }
+  .sidebar .list-group-item{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-width: 250px; /* Adjust width of sidebar as needed */
+    background-color: #f8f9fa; /* Background color of sidebar */
+    padding: 15px;
+    border-right: 1px solid #dee2e6; /* Border on the right side of sidebar */
+  }
+  
+  .sidebar-heading {
+    font-size: 1.2rem; /* Font size of sidebar heading */
+    font-weight: bold;
+    margin-bottom: 10px; /* Margin bottom for spacing */
+  }
+  
+  .list-group {
+    padding: 0;
+    list-style-type: none; /* Removes default list styles */
+  }
+  
+  .list-group-item {
+    padding: 10px 15px;
+    color: #333333; /* Text color of list items */
+    text-decoration: none; /* Removes underline from links */
+    display: block;
+  }
+  
+  .list-group-item:hover {
+    background-color: #007bff; /* Background color on hover */
+    color: #ffffff; /* Text color on hover */
+    cursor: pointer; /* Cursor style on hover */
+  }
+  

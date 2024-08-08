@@ -1,0 +1,138 @@
+/* Main container for payment information */
+.payment-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+/* Flex container for layout alignment */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Address selection on the right side */
+.address-selection {
+  flex: 1;
+  margin-right: 20px;
+}
+
+/* Form for CVV and Card Details on the left side */
+.card-form {
+  flex: 1;
+}
+
+/* Styling for form groups */
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Label styling */
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.3s;
+}
+
+/* Form control input styling */
+.form-control {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focus state for form controls */
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Styling for order summary section */
+.order-summary {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Primary button styling */
+.btn-primary {
+  display: inline-block;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover state for primary button */
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Button disabled state styling */
+.btn-primary:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Card styling */
+.card {
+  padding: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Card heading */
+.card h1, .card h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Card paragraph */
+.card p {
+  margin: 5px 0;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .payment-container {
+    padding: 20px;
+  }
+
+  .flex-container {
+    flex-direction: column;
+  }
+
+  .address-selection {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
