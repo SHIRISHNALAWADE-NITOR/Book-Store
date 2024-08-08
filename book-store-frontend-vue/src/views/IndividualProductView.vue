@@ -86,7 +86,7 @@ export default {
 
     async fetchBookDetails() {
       try {
-        const response = await axios.get(`https://localhost:7044/api/Book/${this.$route.params.id}`);
+        const response = await axios.get(`http://localhost:5134/api/Book/${this.$route.params.id}`);
         this.book = response.data;
       } catch (error) {
         console.error('Error fetching book details:', error);
@@ -96,7 +96,7 @@ export default {
     async fetchSimilarProducts() {
       if (this.book && this.book.category) {
         try {
-          const response = await axios.get(`https://localhost:7044/api/Book/category/${this.book.category}`);
+          const response = await axios.get(`http://localhost:5134/api/Book/category/${this.book.category}`);
           this.similarProducts = response.data.slice(0, 12); // Get top 12 products
         } catch (error) {
           console.error('Error fetching similar products:', error);
@@ -125,7 +125,7 @@ export default {
           quantity: this.quantity
         };
         try {
-          await axios.post('https://localhost:7044/api/CartItem', payload);
+          await axios.post('http://localhost:5134/api/CartItem', payload);
           Toastify({
             text: "Added to cart!",
             backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",

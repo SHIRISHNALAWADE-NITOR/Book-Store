@@ -9,11 +9,12 @@ import SignupComponent from "@/views/SignupComponent.vue";
 import LoginComponent from "@/views/LoginComponent.vue";
 import IndividualProductView from "@/views/IndividualProductView.vue";
 import CartView from "@/views/CartView.vue";
-import store from "../store";
+import store from "@/store";
 import AdminView from "@/views/AdminView.vue";
 import UserProfileVue from "@/views/UserProfileView.vue";
 import OrderSummaryView from "@/views/OrderSummaryView.vue";
 import OrderSuccessView from "@/views/OrderSuccessView.vue";
+import OrderHistory from "@/views/OrderHistory.vue";
 
 const routes = [
   { path: "/", name: "Home", component: HomeView },
@@ -35,7 +36,7 @@ const routes = [
     component: IndividualProductView,
     props: true,
   },
-  { path: "/adminview", name: "AdminView", component: AdminView },
+  { path: "/adminview", name: "AdminView", component: AdminView , meta: { requiresAuth: true, requiresAdmin: true }},
   { path: "/cart", name: "CartView", component: CartView },
   {
     path: "/profile",
@@ -53,6 +54,11 @@ const routes = [
     name: "OrderSuccess",
     component: OrderSuccessView,
   },
+  {
+    path: '/order-history',
+    name: 'OrderHistory',
+    component: OrderHistory
+  },
 ];
 
 const router = createRouter({
@@ -64,26 +70,49 @@ const router = createRouter({
   // },
 });
 
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = store.getters.isAuthenticated;
+//   const currentUser = store.getters.currentUser;
+//   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+//   const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
+
+//   // Check if the route requires authentication
+//   if (requiresAuth && !isAuthenticated) {
+//     next({ name: "LoginComponent" }); // Redirect to login if not authenticated
+//   }
+//   // Check if the route requires admin privileges
+//   else if (requiresAdmin && (!isAuthenticated || !currentUser.isAdmin)) {
+//     next({ name: "Home" }); // Redirect to home if not an admin
+//   }
+//   // Restrict admin users to admin view only
+//   else if (isAuthenticated && currentUser.isAdmin && to.name !== "AdminView") {
+//     next({ name: "AdminView" }); // Redirect admin users to AdminView
+//   } else {
+//     next(); // Allow access to the route
+//   }
+// });
+
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated;
   const currentUser = store.getters.currentUser;
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
 
-  // Check if the route requires authentication
+  // If the route requires authentication and the user is not authenticated
   if (requiresAuth && !isAuthenticated) {
-    next({ name: "LoginComponent" }); // Redirect to login if not authenticated
+    next({ name: "LoginComponent" }); // Redirect to login
   }
-  // Check if the route requires admin privileges
+  // If the route requires admin privileges and the user is not an admin
   else if (requiresAdmin && (!isAuthenticated || !currentUser.isAdmin)) {
-    next({ name: "Home" }); // Redirect to home if not an admin
+    next({ name: "Home" }); // Redirect to home
   }
-  // Restrict admin users to admin view only
+  // If the user is an admin and the route is not AdminView, redirect to AdminView
   else if (isAuthenticated && currentUser.isAdmin && to.name !== "AdminView") {
     next({ name: "AdminView" }); // Redirect admin users to AdminView
   } else {
     next(); // Allow access to the route
   }
 });
+
 
 export default router;

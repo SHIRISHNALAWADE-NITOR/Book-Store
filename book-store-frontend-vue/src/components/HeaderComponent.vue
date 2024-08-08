@@ -1,111 +1,3 @@
-<!-- <template>
-  <header class="header">
-    <div class="container">
-      <img src="../assets/PustakParadiselogo.png" class="brandlogo" alt="Pustak Paradise Logo">
-      <div class="logo">
-        <h1>Pustak Paradise</h1>
-      </div>
-      <div v-if="isBooksPage" class="search-bar">
-        <input 
-          type="text" 
-          placeholder="Search books..." 
-          v-model="searchQuery"
-          @input="performSearch"
-        >
-        <button @click="performSearch">Search</button>
-        <div v-if="searchQuery && searchResults.length" class="search-suggestions">
-          <ul>
-            <li v-for="book in searchResults" :key="book.bookId" @click="viewBookDetails(book)">
-              {{ book.title }}
-            </li>
-          </ul>
-        </div>
-      </div>
-      <nav class="nav">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/books">Books</a></li>
-          <li><a href="/cart">Cart</a></li>
-          <li><a href="/profile">Profile</a></li>
-
-          <li>
-            <a v-if="!isLoggedIn" href="/login">Login</a>
-            <a v-else href="#" @click.prevent="logout">Logout</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-</template>
-
-<script>
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
-import axios from 'axios';
-
-export default {
-  name: 'HeaderComponent',
-  data() {
-    return {
-      isLoggedIn: false,
-      searchQuery: '',
-      books: [],
-      searchResults: [],
-    };
-  },
-  computed: {
-    isBooksPage() {
-      return this.$route.path === '/books';
-    }
-  },
-  created() {
-    this.checkAuthStatus();
-    this.fetchBooks();
-  },
-  methods: {
-    async fetchBooks() {
-      try {
-        const response = await axios.get('https://localhost:7044/api/Book');
-        this.books = response.data;
-      } catch (error) {
-        console.error('Error fetching books:', error);
-      }
-    },
-    performSearch() {
-      if (this.searchQuery.trim()) {
-        this.searchResults = this.books
-          .filter(book =>
-            book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-          )
-          .map(book => ({ bookId: book.bookId, title: book.title })) // Only return bookId and title
-          .slice(0, 10); // Limit to top 10 results
-      } else {
-        this.searchResults = [];
-      }
-    },
-    viewBookDetails(book) {
-      this.$router.push({ name: 'ProductDetail', params: { id: book.bookId } });
-    },
-    checkAuthStatus() {
-      this.isLoggedIn = !!localStorage.getItem('authToken');
-    },
-    
-    logout() {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userid');
-      this.isLoggedIn = false;
-      Toastify({
-        text: "Logout successful!",
-        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
-        duration: 3000,
-        close: true
-      }).showToast();
-      this.$router.push('/login');
-    }
-  }
-};
-</script> -->
-
 <template>
   <header class="header">
     <div class="container">
@@ -169,11 +61,15 @@ export default {
   created() {
     this.checkAuthStatus();
     this.fetchBooks();
+    // Listen to route changes to update authentication status
+    this.$router.afterEach(() => {
+      this.checkAuthStatus();
+    });
   },
   methods: {
     async fetchBooks() {
       try {
-        const response = await axios.get('https://localhost:7044/api/Book');
+        const response = await axios.get('http://localhost:5134/api/Book');
         this.books = response.data;
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -185,8 +81,8 @@ export default {
           .filter(book =>
             book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
           )
-          .map(book => ({ bookId: book.bookId, title: book.title })) // Only return bookId and title
-          .slice(0, 10); // Limit to top 10 results
+          .map(book => ({ bookId: book.bookId, title: book.title }))
+          .slice(0, 10);
       } else {
         this.searchResults = [];
       }
@@ -197,10 +93,11 @@ export default {
     checkAuthStatus() {
       this.isLoggedIn = !!localStorage.getItem('authToken');
     },
-    logout() {
+    async logout() {
+      await this.$store.dispatch('logout');
       localStorage.removeItem('authToken');
       localStorage.removeItem('userid');
-      this.isLoggedIn = false;
+      this.isLoggedIn = false; // Update state immediately
       Toastify({
         text: "Logout successful!",
         backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
@@ -341,6 +238,4 @@ export default {
     margin: 10px 0; /* Adds margin for spacing on small screens */
   }
 }
-
 </style>
-

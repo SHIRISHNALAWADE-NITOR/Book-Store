@@ -34,7 +34,7 @@ export default {
 
         const fetchCategories = async () => {
             try {
-                const response = await fetch('https://localhost:7044/api/Book/category/topbooks');
+                const response = await fetch('http://localhost:5134/api/Book/category/topbooks');
                 const data = await response.json();
                 console.log('Fetched data:', data);
                 categories.value = data;

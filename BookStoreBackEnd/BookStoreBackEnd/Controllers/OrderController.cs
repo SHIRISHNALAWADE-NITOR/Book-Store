@@ -115,4 +115,21 @@ public class OrderController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
         }
     }
+    [HttpGet("user/{id}")]
+    public async Task<IActionResult> GetBooksByUserId(int id)
+    {
+        try
+        {
+            var book = await _orderService.GetOrdersByUserIdAsync(id);
+            if (book == null)
+            {
+                return NotFound(new { Message = $"Order with ID {id} not found." });
+            }
+            return Ok(book);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+    }
 }

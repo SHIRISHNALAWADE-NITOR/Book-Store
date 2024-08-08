@@ -91,7 +91,7 @@ export default {
       };
 
       try {
-        const response = await axios.post('https://localhost:7044/api/Auth/Register', requestPayload);
+        const response = await axios.post('http://localhost:5134/api/Auth/Register', requestPayload);
         console.log('Registration successful:', response.data);
         Toastify({
           text: 'Registration successful! Please log in.',

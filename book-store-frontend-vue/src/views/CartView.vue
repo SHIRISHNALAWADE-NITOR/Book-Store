@@ -51,12 +51,12 @@ export default {
   methods: {
     async fetchCartItems() {
       try {
-        const response = await axios.get(`https://localhost:7044/api/CartItem/user/${this.userId}`);
+        const response = await axios.get(`http://localhost:5134/api/CartItem/user/${this.userId}`);
         const cartItems = response.data;
 
         // Fetch book details for each cart item
         const detailedCartItems = await Promise.all(cartItems.map(async (item) => {
-          const bookResponse = await axios.get(`https://localhost:7044/api/Book/${item.bookId}`);
+          const bookResponse = await axios.get(`http://localhost:5134/api/Book/${item.bookId}`);
           return { ...item, book: bookResponse.data };
         }));
 
@@ -69,7 +69,7 @@ export default {
     async deleteItem(cartItemId) {
       try {
         // Send request to delete the item
-        await axios.delete(`https://localhost:7044/api/CartItem/${cartItemId}`);
+        await axios.delete(`http://localhost:5134/api/CartItem/${cartItemId}`);
         // Remove item from local state
         this.cartItems = this.cartItems.filter(item => item.cartItemId !== cartItemId);
 
@@ -163,12 +163,12 @@ export default {
   methods: {
     async fetchCartItems() {
       try {
-        const response = await axios.get(`https://localhost:7044/api/CartItem/user/${this.userId}`);
+        const response = await axios.get(`http://localhost:5134/api/CartItem/user/${this.userId}`);
         const cartItems = response.data;
 
         // Fetch book details for each cart item
         const detailedCartItems = await Promise.all(cartItems.map(async (item) => {
-          const bookResponse = await axios.get(`https://localhost:7044/api/Book/${item.bookId}`);
+          const bookResponse = await axios.get(`http://localhost:5134/api/Book/${item.bookId}`);
           return { ...item, book: bookResponse.data };
         }));
 
@@ -181,7 +181,7 @@ export default {
     async deleteItem(cartItemId) {
       try {
         // Send request to delete the item
-        await axios.delete(`https://localhost:7044/api/CartItem/${cartItemId}`);
+        await axios.delete(`http://localhost:5134/api/CartItem/${cartItemId}`);
         // Remove item from local state
         this.cartItems = this.cartItems.filter(item => item.cartItemId !== cartItemId);
 
@@ -208,7 +208,7 @@ export default {
     // async checkout() {
     //   try {
     //     // Check if user has an address
-    //     const addressResponse = await axios.get(`https://localhost:7044/api/Address/${this.userId}`);
+    //     const addressResponse = await axios.get(`http://localhost:5134/api/Address/${this.userId}`);
     //     if (addressResponse.data && addressResponse.data.length > 0) {
     //       // Address exists, proceed to OrderSummary component
     //       this.$router.push('/order-summary');
@@ -237,7 +237,7 @@ export default {
 
     async checkout() {
       try {
-        const addressResponse = await axios.get(`https://localhost:7044/api/Address/${this.userId}`);
+        const addressResponse = await axios.get(`http://localhost:5134/api/Address/${this.userId}`);
         if (addressResponse.data && addressResponse.data.length > 0) {
           // Serialize cartItems into a query string
           const queryString = encodeURIComponent(JSON.stringify(this.cartItems));

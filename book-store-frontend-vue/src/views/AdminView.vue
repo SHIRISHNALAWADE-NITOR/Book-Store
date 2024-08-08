@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="admin-view">
         <header class="header">
             <h1>Admin Dashboard</h1>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="book-actions">
                         <button @click="editBook(book)">Edit</button>
-                        
+
                         <button class="delete-icon" @click="confirmDelete(book.bookId)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -117,7 +117,7 @@ export default {
     },
     methods: {
         fetchBooks() {
-            fetch('https://localhost:7044/api/Book')
+            fetch('http://localhost:5134/api/Book')
                 .then(response => response.json())
                 .then(data => {
                     this.books = data;
@@ -132,11 +132,19 @@ export default {
             }
         },
         previousPage() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             if (this.currentPage > 1) {
                 this.currentPage--;
             }
         },
         nextPage() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             if (this.currentPage < this.totalPages) {
                 this.currentPage++;
             }
@@ -158,7 +166,7 @@ export default {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
-            fetch('https://localhost:7044/api/Book', {
+            fetch('http://localhost:5134/api/Book', {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(this.currentBook)
@@ -190,9 +198,14 @@ export default {
                 });
         },
         editBook(book) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             this.currentBook = { ...book };
             this.editMode = true;
             this.showForm = true;
+
         },
         updateBook() {
             const token = localStorage.getItem('authToken');
@@ -203,7 +216,7 @@ export default {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
-            fetch(`https://localhost:7044/api/Book/${this.currentBook.bookId}`, {
+            fetch(`http://localhost:5134/api/Book/${this.currentBook.bookId}`, {
                 method: 'PUT',
                 headers: headers,
                 body: JSON.stringify(this.currentBook)
@@ -254,7 +267,7 @@ export default {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
-            fetch(`https://localhost:7044/api/Book/${bookId}`, {
+            fetch(`http://localhost:5134/api/Book/${bookId}`, {
                 method: 'DELETE',
                 headers: headers
             })
@@ -318,7 +331,340 @@ export default {
         this.fetchBooks();
     }
 }
-</script>
+</script> -->
+
+<template>
+    <div class="admin-view">
+      <header class="header">
+        <h1>Admin Dashboard</h1>
+      </header>
+      <main class="main-content">
+        <button @click="showAddBookModal" class="add-book-button">Add New Book</button>
+  
+        <!-- Modal -->
+        <div v-if="showModal" class="modal-overlay" @click.self="hideModal">
+          <div class="modal-content">
+            <h2>{{ editMode ? 'Edit Book' : 'Add Book' }}</h2>
+            <form @submit.prevent="editMode ? updateBook() : addBook()">
+              <label>
+                Title:
+                <input v-model="currentBook.title" required />
+              </label>
+              <label>
+                Author:
+                <input v-model="currentBook.author" required />
+              </label>
+              <label>
+                Category:
+                <input v-model="currentBook.category" required />
+              </label>
+              <label>
+                ISBN:
+                <input v-model="currentBook.isbn" required />
+              </label>
+              <label>
+                Number of Pages:
+                <input type="number" v-model.number="currentBook.numberOfPages" required />
+              </label>
+              <label>
+                Rating:
+                <input type="number" v-model.number="currentBook.rating" step="0.1" min="0" max="5" required />
+              </label>
+              <label>
+                Price:
+                <input type="number" v-model.number="currentBook.price" step="0.01" min="0" required />
+              </label>
+              <label>
+                Description:
+                <textarea v-model="currentBook.description" required></textarea>
+              </label>
+              <label>
+                Image URL:
+                <input v-model="currentBook.imageUrl" required />
+              </label>
+              <div class="modal-buttons">
+                <button type="submit">{{ editMode ? 'Update Book' : 'Add Book' }}</button>
+                <button type="button" @click="hideModal">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+  
+        <div class="book-list">
+          <div v-for="book in paginatedBooks" :key="book.bookId" class="book-item">
+            <img :src="book.imageUrl" alt="Book Cover" class="book-cover" />
+            <div class="book-details">
+              <h2>{{ book.title }}</h2>
+              <p><strong>Author:</strong> {{ book.author }}</p>
+              <p><strong>Category:</strong> {{ book.category }}</p>
+            </div>
+            <div class="book-actions">
+              <button @click="editBook(book)">Edit</button>
+              <button class="delete-icon" @click="confirmDelete(book.bookId)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-trash-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="pagination-controls">
+          <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
+          <span>Page {{ currentPage }} of {{ totalPages }}</span>
+          <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+        </div>
+      </main>
+    </div>
+  </template>
+  
+  <script>
+  import Toastify from 'toastify-js';
+  import 'toastify-js/src/toastify.css';
+  
+  export default {
+    name: 'AdminView',
+    data() {
+      return {
+        books: [],
+        currentPage: 1,
+        booksPerPage: 15,
+        totalPages: 1,
+        showModal: false,
+        editMode: false,
+        currentBook: {
+          bookId: 0,
+          title: '',
+          author: '',
+          category: '',
+          isbn: '',
+          numberOfPages: 0,
+          rating: 0,
+          price: 0,
+          description: '',
+          imageUrl: ''
+        }
+      };
+    },
+    computed: {
+      paginatedBooks() {
+        const start = (this.currentPage - 1) * this.booksPerPage;
+        const end = start + this.booksPerPage;
+        return this.books.slice(start, end);
+      }
+    },
+    methods: {
+      fetchBooks() {
+        fetch('http://localhost:5134/api/Book')
+          .then(response => response.json())
+          .then(data => {
+            this.books = data;
+            this.totalPages = Math.ceil(this.books.length / this.booksPerPage);
+          })
+          .catch(error => console.error('Error fetching books:', error));
+      },
+      confirmDelete(bookId) {
+        const confirmed = window.confirm('Are you sure you want to delete this book?');
+        if (confirmed) {
+          this.deleteBook(bookId);
+        }
+      },
+      previousPage() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+        if (this.currentPage > 1) {
+          this.currentPage--;
+        }
+      },
+      nextPage() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+        if (this.currentPage < this.totalPages) {
+          this.currentPage++;
+        }
+      },
+      showAddBookModal() {
+        this.resetForm();
+        this.showModal = true;
+      },
+      hideModal() {
+        this.showModal = false;
+        this.resetForm();
+      },
+      addBook() {
+        const token = localStorage.getItem('authToken');
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+  
+        fetch('http://localhost:5134/api/Book', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(this.currentBook)
+        })
+          .then(response => response.json())
+          .then(data => {
+            this.books.push(data);
+            this.totalPages = Math.ceil(this.books.length / this.booksPerPage);
+            this.hideModal();
+            Toastify({
+              text: "Book added successfully!",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "#4CAF50",
+            }).showToast();
+          })
+          .catch(error => {
+            console.error('Error adding book:', error);
+            Toastify({
+              text: "Failed to add book!",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "#dc3545",
+            }).showToast();
+          });
+      },
+      editBook(book) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+        this.currentBook = { ...book };
+        this.editMode = true;
+        this.showModal = true;
+      },
+      updateBook() {
+        const token = localStorage.getItem('authToken');
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+  
+        fetch(`http://localhost:5134/api/Book/${this.currentBook.bookId}`, {
+          method: 'PUT',
+          headers: headers,
+          body: JSON.stringify(this.currentBook)
+        })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(errorData => {
+                throw new Error(`Error ${response.status}: ${errorData.message}`);
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            const index = this.books.findIndex(book => book.bookId === this.currentBook.bookId);
+            if (index !== -1) {
+              this.books[index] = data;
+            }
+            this.hideModal();
+            Toastify({
+              text: "Book updated successfully!",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "#4CAF50",
+            }).showToast();
+          })
+          .catch(error => {
+            console.error('Error updating book:', error);
+            Toastify({
+              text: `Failed to update book! Error: ${error.message}`,
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "#dc3545",
+            }).showToast();
+          });
+      },
+      deleteBook(bookId) {
+        const token = localStorage.getItem('authToken');
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+  
+        fetch(`http://localhost:5134/api/Book/${bookId}`, {
+          method: 'DELETE',
+          headers: headers
+        })
+          .then(response => {
+            if (response.ok) {
+              this.books = this.books.filter(book => book.bookId !== bookId);
+              this.totalPages = Math.ceil(this.books.length / this.booksPerPage);
+              Toastify({
+                text: "Book deleted successfully!",
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#4CAF50",
+              }).showToast();
+            } else {
+              response.json().then(errorData => {
+                Toastify({
+                  text: `Failed to delete book! Error: ${errorData.message}`,
+                  duration: 3000,
+                  close: true,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "#dc3545",
+                }).showToast();
+              });
+            }
+          })
+          .catch(error => {
+            console.error('Error deleting book:', error);
+            Toastify({
+              text: "Failed to delete book!",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "#dc3545",
+            }).showToast();
+          });
+      },
+      resetForm() {
+        this.currentBook = {
+          bookId: 0,
+          title: '',
+          author: '',
+          category: '',
+          isbn: '',
+          numberOfPages: 0,
+          rating: 0,
+          price: 0,
+          description: '',
+          imageUrl: ''
+        };
+        this.editMode = false;
+      }
+    },
+    mounted() {
+      this.fetchBooks();
+    }
+  };
+  </script>
 
 <style scoped>
 .admin-view {
@@ -513,7 +859,9 @@ export default {
 }
 
 .pagination-controls button:hover {
-    background-color: #e9ecef;
+    background-color: black;
+    color: white;
+    
 }
 
 .pagination-controls button:disabled {
@@ -526,5 +874,39 @@ export default {
     align-self: center;
     font-size: 1rem;
     color: #495057;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal content */
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal buttons */
+.modal-buttons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-buttons button {
+  margin-left: 0.5rem;
 }
 </style>
