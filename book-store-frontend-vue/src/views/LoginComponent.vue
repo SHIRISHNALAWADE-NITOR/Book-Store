@@ -1,3 +1,4 @@
+
 <!-- <template>
   <div class="login-container">
     <img src="../assets/girlreading.png" alt="Login Image" class="girl">
@@ -112,7 +113,9 @@ export default {
 import axios from 'axios';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+
 import { mapActions } from 'vuex';
+
 
 export default {
   name: 'LoginComponent',
@@ -123,7 +126,9 @@ export default {
     };
   },
   methods: {
+
     ...mapActions(['login']), // Map Vuex actions to component methods
+
     async login() {
       try {
         const response = await axios.post('http://localhost:5134/api/Auth/Login', {
@@ -140,6 +145,7 @@ export default {
           close: true
         }).showToast();
 
+
         const user = {
           token: response.data.token,
           userId: response.data.userId,
@@ -155,6 +161,7 @@ export default {
           this.$router.push('/adminview');
         } else {
           this.$router.push('/');
+
         }
       } catch (error) {
         console.error('Login failed:', error.response ? error.response.data : error.message);

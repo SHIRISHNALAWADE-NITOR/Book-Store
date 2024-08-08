@@ -10,11 +10,13 @@ import LoginComponent from "@/views/LoginComponent.vue";
 import IndividualProductView from "@/views/IndividualProductView.vue";
 import CartView from "@/views/CartView.vue";
 import store from "@/store";
+
 import AdminView from "@/views/AdminView.vue";
 import UserProfileVue from "@/views/UserProfileView.vue";
 import OrderSummaryView from "@/views/OrderSummaryView.vue";
 import OrderSuccessView from "@/views/OrderSuccessView.vue";
 import OrderHistory from "@/views/OrderHistory.vue";
+
 
 const routes = [
   { path: "/", name: "Home", component: HomeView },
@@ -42,8 +44,12 @@ const routes = [
     path: "/profile",
     name: "UserProfile",
     component: UserProfileVue,
+
   },
+  { path: "/adminview", name: "AdminView", component: AdminView },
+  { path: "/cart", name: "CartView", component: CartView },
   {
+
     path: "/order-summary",
     name: "OrderSummary",
     component: OrderSummaryView, // Route for the OrderSummary component
@@ -58,6 +64,7 @@ const routes = [
     path: '/order-history',
     name: 'OrderHistory',
     component: OrderHistory
+
   },
 ];
 

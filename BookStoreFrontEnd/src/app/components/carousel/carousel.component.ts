@@ -9,9 +9,12 @@ export class CarouselComponent implements OnInit, OnDestroy {
 
   // Static data for the carousel slides
   carouselSlides = [
-    { image: '/assets/images/baner/fictionBaner.png', caption: 'Fiction Books' },
-    { image: '/assets/images/baner/offerBaner.png', caption: 'Special Offers' },
-    { image: '/assets/images/baner/SummerSale.png', caption: 'Summer Sale' }
+    { image: '/assets/images/baner/79_inr.jpg', caption: 'Fiction Books' },
+    { image: '/assets/images/baner/80_inr.jpg', caption: 'Special Offers' },
+    { image: '/assets/images/baner/81_inr.jpg', caption: 'Special Offers' },
+    { image: '/assets/images/baner/83_inr.jpg', caption: 'Special Offers' },
+    { image: '/assets/images/baner/84_inr.jpg', caption: 'Special Offers' },
+    { image: '/assets/images/baner/85_inr.jpg', caption: 'Special Offers' },
   ];
 
   currentSlideIndex: number = 0;

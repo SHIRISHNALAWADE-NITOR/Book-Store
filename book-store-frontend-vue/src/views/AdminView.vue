@@ -1,4 +1,5 @@
 <!-- <template>
+
     <div class="admin-view">
         <header class="header">
             <h1>Admin Dashboard</h1>
@@ -60,6 +61,8 @@
                     </div>
                     <div class="book-actions">
                         <button @click="editBook(book)">Edit</button>
+
+
 
                         <button class="delete-icon" @click="confirmDelete(book.bookId)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -132,19 +135,23 @@ export default {
             }
         },
         previousPage() {
+
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
+
             if (this.currentPage > 1) {
                 this.currentPage--;
             }
         },
         nextPage() {
+
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
+
             if (this.currentPage < this.totalPages) {
                 this.currentPage++;
             }
@@ -206,6 +213,7 @@ export default {
             this.editMode = true;
             this.showForm = true;
 
+
         },
         updateBook() {
             const token = localStorage.getItem('authToken');
@@ -257,7 +265,6 @@ export default {
                     }).showToast();
                 });
         },
-
         deleteBook(bookId) {
             const token = localStorage.getItem('authToken');
             const headers = {

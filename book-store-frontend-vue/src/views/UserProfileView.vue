@@ -217,6 +217,7 @@ export default {
     },
     viewOrderHistory() {
       this.$router.push({ name: 'OrderHistory' }); // Navigate to Order History page
+
     }
   },
   watch: {
@@ -340,11 +341,13 @@ export default {
 }
 
 .address-section button:hover {
+
   background-color: #0056b3;
   transform: scale(1.02);
 }
 
 /* Dialog Styling */
+
 .dialog-overlay {
   position: fixed;
   top: 0;
@@ -352,6 +355,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -364,6 +368,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
+
   max-width: 400px;
   box-sizing: border-box;
 }
@@ -372,6 +377,7 @@ export default {
   margin-top: 0;
   margin-bottom: 15px;
   font-size: 1.25rem;
+
   color: #333333;
   font-weight: 600;
 }
@@ -383,11 +389,14 @@ export default {
 
 .dialog-content div {
   margin-bottom: 12px;
+
 }
 
 .dialog-content label {
   display: block;
+
   margin-bottom: 4px;
+
   font-weight: 600;
   color: #444444;
 }
@@ -398,6 +407,7 @@ export default {
   border: 1px solid #d0d0d0;
   border-radius: 6px;
   font-size: 0.875rem;
+
   color: #333333;
 }
 
@@ -417,3 +427,4 @@ export default {
   margin-left: 0;
 }
 </style>
+

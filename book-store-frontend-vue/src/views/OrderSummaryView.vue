@@ -240,6 +240,7 @@ button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .modal-content {
