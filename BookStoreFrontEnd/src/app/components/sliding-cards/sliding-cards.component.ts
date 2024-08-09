@@ -27,6 +27,6 @@ export class SlidingCardsComponent implements OnInit {
   }
 
   handleClick(category: any) {
-    this.router.navigate(['home/books'], { queryParams: { category: category.category } });
+    this.router.navigate(['home/categories'], { queryParams: { category: category.category } });
   }
 }

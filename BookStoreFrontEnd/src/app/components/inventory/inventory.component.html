@@ -116,15 +116,15 @@
     </ul>
 
     <!-- Pagination controls -->
-    <div class="pagination-buttons">
-      <button class="btn btn-primary me-2" (click)="prevPage()" [disabled]="currentPage === 1">
-        <!-- <i class="bi bi-arrow-left"></i> -->
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">
-        <!-- <i class="bi bi-arrow-right"></i> -->
-        <i style="text-align: center;margin-left: 30%;" class="fa-solid fa-arrow-right"></i>
-      </button>
-    </div>
+    <!-- Pagination controls -->
+<div class="pagination-buttons">
+  <button class="btn btn-primary me-2" (click)="prevPage()" [disabled]="currentPage === 1">
+    <i class="fa-solid fa-arrow-left"></i>
+  </button>
+  <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+    <i class="fa-solid fa-arrow-right"></i>
+  </button>
+</div>
+
   </div>
 </div>
