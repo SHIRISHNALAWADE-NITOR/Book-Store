@@ -3,7 +3,7 @@
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    { 
+    {
     }
 
     public DbSet<User> Users { get; set; }
@@ -75,12 +75,16 @@ public class ApplicationDbContext : DbContext
             .Property(b => b.Rating)
             .HasColumnType("decimal(18,2)");
 
+        modelBuilder.Entity<Review>()
+            .Property(b => b.Rating)
+            .HasColumnType("decimal(18,2)");
+
         modelBuilder.Entity<Order>()
         .HasOne(o => o.User)
         .WithMany(u => u.Orders)
         .HasForeignKey(o => o.UserId)
         .OnDelete(DeleteBehavior.NoAction);
-        
+
         modelBuilder.Entity<Address>()
             .HasOne(o => o.User)
             .WithMany(u => u.Addresses)
