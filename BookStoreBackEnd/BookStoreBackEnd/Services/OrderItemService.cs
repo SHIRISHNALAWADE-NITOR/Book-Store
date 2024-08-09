@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public class OrderItemService : IOrderItemService
 {
@@ -50,6 +47,15 @@ public class OrderItemService : IOrderItemService
         try
         {
             var orderItem = _mapper.Map<OrderItem>(orderItemDto);
+            var book = await _context.Books.FirstOrDefaultAsync(b => b.BookId == orderItem.BookId);
+            if (book == null)
+            {
+                throw new KeyNotFoundException($"Book with ID {orderItem.BookId} not found.");
+            }
+            if (orderItem.Quantity > book.Quantity)
+            {
+                throw new ApplicationException("The Quantity of books ordered is more than Quantity available");
+            }
             _context.OrderItems.Add(orderItem);
             await _context.SaveChangesAsync();
             return _mapper.Map<OrderItemDTO>(orderItem);

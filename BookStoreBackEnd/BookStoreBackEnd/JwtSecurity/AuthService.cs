@@ -1,7 +1,5 @@
 ﻿
-using Azure.Core;
-using Microsoft.AspNetCore.Identity;
-using System;
+using AutoMapper;
 
 public class AuthService : IAuthService
 {
@@ -9,12 +7,14 @@ public class AuthService : IAuthService
     private readonly IPasswordHasher _passwordHasher;
     //private readonly IRoleService _roleService;
     private readonly ITokenService _tokenService;
-    public AuthService (IUserService userService, IPasswordHasher passwordHasher, ITokenService tokenService)
+    private readonly IMapper _mapper;
+    public AuthService(IUserService userService, IPasswordHasher passwordHasher, ITokenService tokenService, IMapper mapper)
     {
-        _userService = userService; 
+        _userService = userService;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
         //_roleService = roleService;
+        _mapper = mapper;
     }
     public async Task<AuthResponse> Login(LoginDTO loginDto)
     {
@@ -51,7 +51,7 @@ public class AuthService : IAuthService
         try
         {
             var saltedPassword = userDto.PasswordHash + "yoSaltedPasswordyo";
-        // Role role = await _roleService.RoleById(userDto.RoleId); // Uncomment and use if needed
+            // Role role = await _roleService.RoleById(userDto.RoleId); // Uncomment and use if needed
             var hashedPassword = _passwordHasher.HashPassword(saltedPassword);
             var user = new User
             {
@@ -60,7 +60,7 @@ public class AuthService : IAuthService
                 Email = userDto.Email,
                 PhoneNumber = userDto.PhoneNumber,
                 DateOfBirth = userDto.DateOfBirth,
-                PasswordHash = hashedPassword, // Null is okay because user is not yet created
+                PasswordHash = hashedPassword,
                 // Salt = salt, // Uncomment and use if needed
                 RoleId = userDto.RoleId,
                 // Role = role // Uncomment and use if needed
@@ -83,5 +83,53 @@ public class AuthService : IAuthService
         {
             throw new ApplicationException(" An error occurred during registration", ex);
         }
+    }
+
+    public async Task<AuthResponse> ForgotPassword(ForgotPasswordDTO forgotPasswordDto)
+    {
+        try
+        {
+            if (forgotPasswordDto == null) throw new ApplicationException("Invalid DTO");
+
+            var user = await _userService.GetUserByEmail(forgotPasswordDto.Email);
+            if (user == null)
+                throw new ApplicationException("Invalid email.");
+
+            var token = _tokenService.GeneratePasswordResetToken(user);
+
+            return new AuthResponse
+            {
+                UserId = user.UserId,
+                Token = token,
+                RoleId = user.RoleId,
+                Username = user.Username
+            };
+        }
+        catch (Exception ex)
+        {
+
+            throw new ApplicationException(ex.Message);
+        }
+    }
+
+    public async Task ResetPasswordAsync(string email, string dob, string token, string newPassword)
+    {
+        User user = await _userService.GetUserByEmail(email);
+        if (user == null) throw new ApplicationException("User not found.");
+
+        if (user.DateOfBirth.ToString("yyyy-MM-dd") != dob)
+        {
+            throw new ApplicationException("Invalid Date of Birth.");
+        }
+
+        if (!_tokenService.ValidatePasswordResetToken(user, token))
+        {
+            throw new ApplicationException("Invalid or expired reset token.");
+        }
+
+        var saltedPassword = newPassword + "yoSaltedPasswordyo";
+        user.PasswordHash = _passwordHasher.HashPassword(saltedPassword);
+
+        await _userService.UpdateUserAsync(user);
     }
 }

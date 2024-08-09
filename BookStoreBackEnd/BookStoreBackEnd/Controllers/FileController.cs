@@ -1,9 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net;
-using System.Threading.Tasks;
 
 [Route("api/files")]
 [ApiController]
@@ -57,7 +53,7 @@ public class FilesController : ControllerBase
     }
 
     [HttpGet("video/{bookId}")]
-    public async Task<IActionResult> GetVideoFile([FromKeyedServices("audio")] IBookFileService bookFileService, int bookId)
+    public async Task<IActionResult> GetVideoFile([FromKeyedServices("video")] IBookFileService bookFileService, int bookId)
     {
         try
         {
@@ -67,13 +63,15 @@ public class FilesController : ControllerBase
                 return NotFound(new { Message = $"Video file with ID {bookId} not found." });
             }
 
-            return File(file, "video/mp4"); // Adjust MIME type as per your file type
+            //return File(file, "video/mp4"); 
+            return File(file, "video/mp4");
         }
         catch (ApplicationException ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
         }
     }
+
 
     [HttpGet("pdf/{bookId}")]
     public async Task<IActionResult> GetPdfFile([FromKeyedServices("pdf")] IBookFileService bookFileService, int bookId)
