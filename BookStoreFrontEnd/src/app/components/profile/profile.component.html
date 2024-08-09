@@ -47,11 +47,11 @@
       <!-- Order Items -->
       <ul *ngIf="order.orderItems.length > 0">
         <li *ngFor="let item of order.orderItems">
-          <strong>Book ID:</strong> {{item.bookId}}, <strong>Quantity:</strong> {{item.quantity}}, <strong>Price:</strong> {{item.price | currency}}
+          <strong>Book ID:</strong> {{ item.bookId }}, <strong>Quantity:</strong> {{ item.quantity }}, <strong>Price:</strong> {{ item.price | currency }}
           <div class="file-download-links">
-            <button (click)="downloadFile(item.bookId, 'audio')">Download Audio</button>
-            <button (click)="downloadFile(item.bookId, 'video')">Download Video</button>
-            <button (click)="downloadFile(item.bookId, 'pdf')">Download PDF</button>
+            <button (click)="openFile(item.bookId, 'audio')">Open Audio</button>
+            <button (click)="openFile(item.bookId, 'video')">Open Video</button>
+            <button (click)="openFile(item.bookId, 'pdf')">Open PDF</button>
           </div>
         </li>
       </ul>
@@ -59,6 +59,23 @@
     </li>
   </ul>
   <p *ngIf="orders.length === 0">No orders available.</p>
+</div>
+
+<!-- File Preview Section -->
+<div *ngIf="fileToShow" class="file-preview">
+  <ng-container [ngSwitch]="fileType">
+    <audio *ngSwitchCase="'audio'" controls>
+      <source [src]="fileUrl" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <video *ngSwitchCase="'video'" controls>
+      <source [src]="fileUrl" type="video/mp4">
+      Your browser does not support the video element.
+    </video>
+    <iframe *ngSwitchCase="'pdf'" [src]="fileUrl" type="application/pdf" width="100%" height="600px">
+      Your browser does not support PDFs. <a [href]="fileUrl">Download the PDF</a>.
+    </iframe>
+  </ng-container>
 </div>
  
  

@@ -17,8 +17,9 @@
           
         </div>
         <h4 class="price">
-          ₹ {{ (book.price * 0.5) | number:'1.0-0' }}&nbsp;
-          <span style="text-decoration: line-through;color: black;">₹ {{ book.price | number:'1.0-0' }}</span>
+          <!-- ₹ {{ (book.price * 0.5) | number:'1.0-0' }}&nbsp; -->
+          <!-- <span style="text-decoration: line-through;color: black;">₹ {{ book.price | number:'1.0-0' }}</span> -->
+          <span style="color: black;">₹ {{ book.price | number:'1.0-0' }}</span>
         </h4>
       </div>
     </li>

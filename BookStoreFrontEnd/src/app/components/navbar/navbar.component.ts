@@ -93,7 +93,7 @@ export class NavbarComponent implements OnInit {
         });
       } else {
         // Navigate to the inventory page with the search query if not on the relevant pages
-        this.router.navigate(['/home/inventory'], { queryParams: { search: this.searchQuery } });
+        this.router.navigate(['/home'], { queryParams: { search: this.searchQuery } });
       }
     } else {
       // Handle the case where search query is empty (optional)

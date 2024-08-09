@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'home/login', component: LoginComponent },
   { path: 'home/inventory', component: InventoryComponent },
   { path: 'home/signup', component: SignupComponent },
-  { path: 'home/individualBook/:id', component: IndividualBookComponent },
+  { path: 'home/individualBook/:id', component: IndividualBookComponent,canActivate:[AuthGuard] },
   { path: 'home/cart', component: CartComponent },
   { path: 'home/payment', component: PaymentComponent },
   { path: 'home/fileform/:id', component: FileformComponent },

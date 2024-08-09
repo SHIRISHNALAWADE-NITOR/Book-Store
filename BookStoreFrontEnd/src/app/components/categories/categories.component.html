@@ -12,7 +12,7 @@
     <ul class="list-unstyled">
       <li *ngFor="let book of currentBooks" (click)="navigateToBook(book.bookId)">
         <img [src]="book.imageUrl" class="book-image" alt="{{ book.title }}">
-        <div class="book-details">
+        <div class="book-details" (click)="navigateToBook(book.bookId)">
           <h4 class="book-title">{{ book.title }}</h4>
           <div class="rating-container">
             <div class="stars">

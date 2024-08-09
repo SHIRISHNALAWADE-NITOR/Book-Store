@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { AddressService } from 'src/app/services/address.service'; // Adjust the path as needed
-import { MessageService, ConfirmationService } from 'primeng/api'; // Import MessageService and ConfirmationService
-import { Address } from 'src/app/services/address.model'; // Import Address interface
+import { AddressService } from 'src/app/services/address.service';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { Address } from 'src/app/services/address.model';
 import { UserService } from 'src/app/services/user.service';
 import { UserDTO } from 'src/app/services/profile.dto';
 import { OrderService } from 'src/app/services/order.service';
 import { FileService } from 'src/app/services/file.service';
 import { Observable } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export interface Order {
   orderId: number;
   userId: number;
-  orderDate: string; // ISO 8601 date format
+  orderDate: string;
   totalAmount: number;
   shippingAddressId: number;
   orderItems: OrderItem[];
@@ -28,27 +29,27 @@ export interface OrderItem {
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [MessageService, ConfirmationService] // Add providers for MessageService and ConfirmationService
+  providers: [MessageService, ConfirmationService]
 })
-
-
 export class ProfileComponent implements OnInit {
-  
-  
+
   displayDialog: boolean = false;
   newAddress: Address = { street: '', city: '', state: '', postalCode: '', country: '' };
-   profile: UserDTO = new UserDTO();
+  profile: UserDTO = new UserDTO();
   addresses: Address[] = [];
   orders: Order[] = [];
-  
+  fileToShow: Blob | undefined;
+  fileUrl: SafeResourceUrl | undefined;
+  fileType: string | undefined;
 
   constructor(
     private addressService: AddressService,
     private messageService: MessageService,
     private userService: UserService,
-    private confirmationService: ConfirmationService, // Inject ConfirmationService
-    private orderService:OrderService,
-    private fileService:FileService
+    private confirmationService: ConfirmationService,
+    private orderService: OrderService,
+    private fileService: FileService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -61,6 +62,7 @@ export class ProfileComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'User ID Missing', detail: 'Unable to load profile and addresses without a user ID.' });
     }
   }
+
   loadUserProfile(userId: string) {
     this.userService.getUserProfile(userId).subscribe(
       (response: UserDTO) => {
@@ -73,13 +75,14 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
   loadAddresses(userId: string) {
     this.addressService.getAddresses(userId).subscribe(
       (response: Address[]) => {
         this.addresses = response;
         console.log('Loaded addresses:', this.addresses);
         if (this.addresses.length > 0) {
-          this.profile.address = this.addresses[0]; // Example logic
+          this.profile.address = this.addresses[0];
         }
       },
       (error: any) => {
@@ -99,23 +102,21 @@ export class ProfileComponent implements OnInit {
     }
   
     const addressData: Address = {
-      addressId:this.newAddress.addressId,
+      addressId: this.newAddress.addressId,
       street: this.newAddress.street,
       city: this.newAddress.city,
       state: this.newAddress.state,
       postalCode: this.newAddress.postalCode,
       country: this.newAddress.country,
       userId: userId
-      
     };
-    console.log(userId)
+  
     if (this.newAddress.addressId) {
-      console.log(this.newAddress.addressId)
       this.addressService.updateAddress(this.newAddress.addressId, addressData).subscribe(
         (response: Address) => {
           this.messageService.add({ severity: 'success', summary: 'Address Updated', detail: 'Your address has been successfully updated.' });
           this.displayDialog = false;
-          this.loadAddresses(userId); // Refresh the list
+          this.loadAddresses(userId);
         },
         (error: any) => {
           console.error('Failed to update address:', error);
@@ -127,7 +128,7 @@ export class ProfileComponent implements OnInit {
         (response: Address) => {
           this.messageService.add({ severity: 'success', summary: 'Address Added', detail: 'Your address has been successfully added.' });
           this.displayDialog = false;
-          this.loadAddresses(userId); // Refresh the list
+          this.loadAddresses(userId);
         },
         (error: any) => {
           console.error('Failed to add address:', error);
@@ -148,55 +149,35 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmDeleteAddress(address: Address) {
-    const testAddressId = address.addressId!; // Use a valid ID for testing
-  this.addressService.deleteAddress(testAddressId).subscribe(
-    () => {console.log('Delete successful');
-      this.loadAddresses(address.userId!)
-    },
-    (error) => console.error('Delete failed', error)
-  );
+    const addressId = address.addressId!;
+    this.addressService.deleteAddress(addressId).subscribe(
+      () => {
+        this.loadAddresses(address.userId!);
+      },
+      (error) => console.error('Delete failed', error)
+    );
   }
-  
 
-  // getOrders(){
-  //   return this.orderService.getOrder().subscribe(
-  //     (responce:Order[])=>{
-  //       this.orders=responce
-  //     }
-  //   );
-  // }
-  // showOrders: boolean = false; // Flag to toggle orders visibility
-
-  // Method to toggle orders visibility
-  // toggleOrders() {
-  //   if (!this.showOrders) {
-  //     this.getOrders();
-  //   } else {
-  //     this.orders = []; // Clear orders if they are currently visible
-  //   }
-  //   this.showOrders = !this.showOrders; // Toggle visibility flag
-  // }
-
-  getOrders(){
-    return this.orderService.getOrder().subscribe(
-      (responce:Order[])=>{
-        this.orders=responce
+  getOrders() {
+    this.orderService.getOrder().subscribe(
+      (response: Order[]) => {
+        this.orders = response;
       }
     );
   }
-  showOrders: boolean = false; // Flag to toggle orders visibility
- 
-  // Method to toggle orders visibility
+
+  showOrders: boolean = false;
+
   toggleOrders() {
     if (!this.showOrders) {
       this.getOrders();
     } else {
-      this.orders = []; // Clear orders if they are currently visible
+      this.orders = [];
     }
-    this.showOrders = !this.showOrders; // Toggle visibility flag
+    this.showOrders = !this.showOrders;
   }
 
-  downloadFile(bookId: number, fileType: string) {
+  openFile(bookId: number, fileType: string) {
     let fileObservable: Observable<Blob>;
     switch (fileType) {
       case 'audio':
@@ -216,19 +197,14 @@ export class ProfileComponent implements OnInit {
     fileObservable.subscribe(
       (blob: Blob) => {
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${bookId}.${fileType}`; // Set the file name here
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url); // Clean up the URL object
+        this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+        this.fileType = fileType;
+        this.fileToShow = blob;
       },
       (error: any) => {
-        console.error('Failed to download file:', error);
-        this.messageService.add({ severity: 'error', summary: 'Download Failed', detail: 'There was an error downloading the file.' });
+        console.error('Failed to open file:', error);
+        this.messageService.add({ severity: 'error', summary: 'File Open Failed', detail: 'There was an error opening the file.' });
       }
     );
   }
-  
 }
