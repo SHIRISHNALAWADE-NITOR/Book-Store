@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public class UserService : IUserService
 {
@@ -108,6 +105,20 @@ public class UserService : IUserService
         catch (Exception ex)
         {
             throw new ApplicationException("An error occurred while retrieving the user by email.", ex);
+        }
+    }
+
+    public async Task<User> UpdateUserAsync(User user)
+    {
+        try
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while updating the user.", ex);
         }
     }
 }
