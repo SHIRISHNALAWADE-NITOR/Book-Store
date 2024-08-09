@@ -74,12 +74,32 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  onSearch() {
+  onSearch(): void {
     if (this.searchQuery.trim()) {
-      this.router.navigate(['/home/books'], { queryParams: { search: this.searchQuery } });
+      const currentUrl = this.router.url;
+  
+      // Check if we are currently on the inventory page
+      if (currentUrl.includes('/home/inventory')) {
+        // If currently on the inventory page, perform a search within that page
+        this.router.navigate([], {
+          queryParams: { search: this.searchQuery },
+          queryParamsHandling: 'merge' // Keep existing query params
+        });
+      } else if (currentUrl.includes('/home/books')) {
+        // If currently on the books page, perform a search within that page
+        this.router.navigate([], {
+          queryParams: { search: this.searchQuery },
+          queryParamsHandling: 'merge' // Keep existing query params
+        });
+      } else {
+        // Navigate to the inventory page with the search query if not on the relevant pages
+        this.router.navigate(['/home/inventory'], { queryParams: { search: this.searchQuery } });
+      }
     } else {
-      // Clear search results or handle empty search case
-      this.router.navigate(['/home']);
+      // Handle the case where search query is empty (optional)
+      this.router.navigate(['/home']); // Redirect to home or any default page
     }
   }
+  
+  
 }

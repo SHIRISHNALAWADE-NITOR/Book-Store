@@ -29,7 +29,8 @@ import { MessageService } from 'primeng/api'; // Import MessageService
 import { DialogModule } from 'primeng/dialog'; // Import DialogModule
 import { ButtonModule } from 'primeng/button';
 import { SlidingCardsComponent } from './components/sliding-cards/sliding-cards.component';
-import { NewArrivalsComponent } from './components/new-arrivals/new-arrivals.component'; 
+import { NewArrivalsComponent } from './components/new-arrivals/new-arrivals.component';
+import { CategoriesComponent } from './components/categories/categories.component'; 
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { NewArrivalsComponent } from './components/new-arrivals/new-arrivals.com
     ProfileComponent,
     SlidingCardsComponent,
     NewArrivalsComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,

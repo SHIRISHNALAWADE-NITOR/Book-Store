@@ -12,6 +12,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { FileformComponent } from './components/fileform/fileform.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from 'src/app/services/auth.guard'; // Import AuthGuard
+import { CategoriesComponent } from './components/categories/categories.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'home/payment', component: PaymentComponent },
   { path: 'home/fileform/:id', component: FileformComponent },
   { path: 'home/profile', component: ProfileComponent },
+  { path: 'home/categories', component: CategoriesComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
