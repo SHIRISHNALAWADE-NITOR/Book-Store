@@ -1,0 +1,39 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand anav" href="#">
+      <img src="http://localhost:4200/assets/icon.jpg" alt="" width="50" height="50" class="d-inline-block align-text-top" style="margin-right: 5%;">
+      <strong>Pustak Paradise</strong>
+    </a>
+    <div class="d-flex" *ngIf="searchVisible">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+        name="search"
+        class="form-control me-2"
+        placeholder="Search books by Title and Author"
+      />
+    </div>
+    <div class="navbtn">
+      
+      <div class="cart">
+        <a [routerLink]="['/home']"><i class="fa-solid fa-house"></i>&nbsp;Home</a>
+      </div>
+      <div class="cart">
+        <a [routerLink]="['home/books']"><i class="fa-solid fa-book"></i>&nbsp;Books</a>
+      </div>
+      <div class="cart">
+        <a [routerLink]="['/home/cart']"><i class="fa-solid fa-cart-shopping"></i>&nbsp;Cart</a>
+      </div>
+      <div class="login">
+        <a *ngIf="isLoggedIn" routerLink="home/profile"><i class="fa-solid fa-user"></i>&nbsp;Profile</a>
+        <a *ngIf="isLoggedIn && roleId === 1" (click)="manageBooks()"><i class="bi bi-briefcase-fill"></i>&nbsp;Inventory</a>
+       
+        <a *ngIf="!isLoggedIn" routerLink="/home/login"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;Login</a>
+        <a *ngIf="isLoggedIn" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;Logout</a>
+       
+        
+      </div>
+    </div>
+  </div>
+</nav>

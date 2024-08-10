@@ -1,0 +1,106 @@
+<template>
+  <div class="page-wrapper">
+    <div class="main-content">
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2024 Pustak Paradise. All rights reserved.</p>
+          <nav class="footer-nav">
+            <ul>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/terms">Terms of Service</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/about">About Us</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'FooterComponent'
+}
+</script>
+
+<style scoped>
+/* Ensure the html and body take up the full height */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wrapper for the entire page content */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh; /* Ensure the page takes at least the full viewport height */
+}
+
+/* Main content area */
+.main-content {
+  flex: 1; /* This makes the main content area grow and push the footer down */
+}
+
+.footer {
+  background-color: #fff; /* Match the header background color */
+  color: #000; /* Match the header text color */
+  padding: 20px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Match the header box-shadow */
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content in the footer */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 2%; /* Match the header padding */
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: #000; /* Match the header link color */
+  font-weight: bold; /* Make the text bold */
+  transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+  background-color: #CCD5AE;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .footer-nav ul {
+    flex-direction: column; /* Stack links vertically on smaller screens */
+    align-items: center; /* Center links horizontally */
+  }
+
+  .footer-nav li {
+    margin-bottom: 10px; /* Add space between links */
+  }
+}
+</style>

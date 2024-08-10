@@ -1,0 +1,80 @@
+<div class="login-container">
+  <!-- <img src="../assets/girlreading.png" alt="Login Image" class="girl"> -->
+  <div class="form-container">
+    <!-- <img src="../assets/PustakParadise.png" alt="Login Image" class="logoimage"> -->
+    <p class="subtitle">Login to your account</p>
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" [(ngModel)]="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Password" required>
+      </div>
+      <button type="submit" *ngIf="!isLoggedIn">LOGIN</button>
+      <button type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
+    </form>
+    
+    <div class="links">
+      <!-- <a href="#" class="forgot-password">Forgot password?</a> -->
+      <p>
+        Don't have an account? <a href="home/signup">Register here</a>
+      </p>
+      <p class="terms">
+        <a href="#">Terms of use</a>     &nbsp;<a href="/home/forgotpassword">Forgot Password</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <div class="login-container">
+  <img src="../assets/girlreading.png" alt="Login Image" class="girl">
+  <div class="form-container">
+    <img src="../assets/PustakParadise.png" alt="Login Image" class="logoimage">
+    <p class="subtitle">Login to your account</p>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="username" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" required />
+      </div>
+      <button type="submit" *ngIf="!isLoggedIn">LOGIN</button>
+      <button type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
+    </form>
+    <div class="links">
+      <a href="#" class="forgot-password">Forgot password?</a>
+      <p>
+        Don't have an account? <a href="/signup">Register here</a>
+      </p>
+      <p class="terms">
+        <a href="#">Terms of use</a>. <a href="#">Privacy policy</a>
+      </p>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<!-- <div>
+  <h2>Login</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" [(ngModel)]="username" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required>
+    </div>
+    <button type="submit" *ngIf="!isLoggedIn">Login</button>
+    <button type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
+  </form>
+</div> -->

@@ -1,0 +1,64 @@
+*{
+  margin: 0;
+  overflow-x: hidden;
+}
+.row {
+  /* Adjust according to your navbar height */
+    display: flex;
+    flex-direction: row;
+    
+  }
+  @media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 100%;
+    }
+}
+  .landingpage{
+    margin: 0;
+    padding: 0%;
+    
+  }
+  .sidebar{
+    display: flex;
+    flex-direction: column;
+  }
+.books-data{
+    margin: 0%;
+    padding: 0%;
+    
+    width: 100%;
+  }
+  
+
+  .sidebar-toggle {
+    cursor: pointer; /* Change cursor to pointer on hover */
+    width: 30px; /* Adjust width of the image */
+    height: auto; /* Maintain aspect ratio */
+    margin-left: 5px;
+  }
+  
+  .sidebar-toggle:hover {
+    opacity: 0.8; /* Reduce opacity slightly on hover for visual feedback */
+  }
+
+  .sidebar-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f8f9fa; /* Sidebar background color */
+    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds shadow to the sidebar */
+    transform: translateY(100%); /* Initially move sidebar below the screen */
+    transition: transform 0.3s ease; /* Smooth transition for sidebar animation */
+    z-index: 1000; /* Ensure sidebar appears above other content */
+  }
+  
+  .sidebar-content {
+    padding: 20px; /* Padding inside the sidebar */
+  }
+  
+  .sidebar-open {
+    transform: translateY(0); /* Move sidebar back into view when open */
+  }
+  
+  

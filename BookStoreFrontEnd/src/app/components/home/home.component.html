@@ -1,0 +1,29 @@
+<div class="container">
+  <!-- <div class="navbar">
+    <app-navbar></app-navbar>
+  </div> -->
+  <div class="row">
+    <!-- <div class="sidebar">
+      <div class="col-md-3">
+          <img src="assets/menu.png" alt="" (click)="toggleSidebar()" class="sidebar-toggle">
+        </div>
+        <div *ngIf="showSidebar" class="col-md-3">
+          <app-sidebar></app-sidebar>
+        </div>
+    </div> -->
+    <div class="landingpage">
+      <div class="books-data col-md-9">
+
+        <app-carousel ></app-carousel>
+      </div>
+      
+      <div class="books-data col-md-9">
+        <!-- <app-books></app-books> -->
+         <app-sliding-cards></app-sliding-cards>
+         <app-new-arrivals></app-new-arrivals>
+      </div>
+  
+
+    </div>
+      </div>
+</div>

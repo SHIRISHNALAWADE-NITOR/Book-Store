@@ -1,0 +1,261 @@
+/* General container styles */
+.container {
+  margin-top: 20px;
+}
+
+.headings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Book list styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Flexible grid with minimum width of 200px */
+  gap: 20px; /* Gap between grid items */
+}
+
+.book-card {
+  padding: 15px; /* Increased padding for better spacing */
+  background-color: #ffffff; /* Slightly off-white background */
+  border: 1px solid #e0e0e0; /* Lighter border for a subtle look */
+  border-radius: 6px; /* Slightly more rounded corners */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 400px; /* Fixed height for consistency */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  overflow: hidden; /* Hide overflow to ensure content stays within bounds */
+}
+
+.book-image {
+  width: 150px; /* Fixed width for consistency */
+  height: 200px; /* Fixed height for consistency */
+  object-fit: cover; /* Maintain aspect ratio */
+  border-radius: 6px; /* Slightly more rounded corners */
+  margin-bottom: 10px; /* Space between image and details */
+}
+
+.book-details {
+  flex: 1; /* Allow details section to grow and fill available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center details vertically */
+  padding: 0 10px; /* Add padding to avoid text touching edges */
+}
+
+.book-title,
+.book-author {
+  margin: 0;
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+
+.book-title {
+  font-size: 1.2rem; /* Adjust font size for titles */
+  margin-bottom: 0.5rem; /* Space around title */
+  font-weight: 700; /* Bold title */
+}
+
+.book-author {
+  font-size: 1rem; /* Font size for author */
+  color: #666; /* Slightly lighter color for author */
+}
+
+.book-actions {
+  margin-top: 0; /* Push actions to bottom of card */
+  display: flex;
+  flex-direction: row;
+  gap: 10px; /* Space between action buttons */
+  justify-content: center; /* Center buttons */
+}
+.tit{
+ 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+}
+
+/* Pagination buttons */
+.pagination-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; /* Center pagination buttons container */
+  align-items: center; /* Center items vertically */
+}
+
+.pagination-buttons button {
+  min-width: 50px;
+  height: 50px;
+  font-size: 1rem; /* Adjust font size for better fit */
+  background-color: #f8f9fa; /* Light background color */
+  border-color: #e0e0e0; /* Light border color */
+  color: #495057; /* Darker text color for contrast */
+  margin: 0 5px; /* Space between buttons */
+}
+
+.pagination-buttons button:hover {
+  background-color: #e2e6ea; /* Slightly darker on hover */
+  border-color: #d6d9db; /* Slightly darker border on hover */
+}
+
+/* Icon size in buttons */
+.btn i {
+  font-size: 1.5rem;
+}
+
+/* Form styling */
+.form-container {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h3 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+  margin-right: 90%;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333; /* Slightly darker text color for better readability */
+}
+
+.form-control {
+  border-radius: 4px;
+  border-color: #b0bec5; /* Subtle border color */
+}
+
+.btn-primary {
+  background-color: #66bb6a; /* Light cyan background */
+  border-color: #b2ebf2; /* Light cyan border */
+  color: #00796b; /* Dark teal text color for contrast */
+  margin-right: 0px;
+}
+
+.btn-primary:hover {
+  background-color: #b2ebf2; /* Slightly darker cyan on hover */
+  border-color: #80deea; /* Slightly darker border on hover */
+}
+
+.btn-secondary {
+  background-color: #f1f8e9; /* Light lime background */
+  border-color: #c5e1a5; /* Light lime border */
+  color: #33691e; /* Dark green text color for contrast */
+}
+
+.btn-secondary:hover {
+  background-color: #c5e1a5; /* Slightly darker lime on hover */
+  border-color: #9ccc65; /* Slightly darker border on hover */
+}
+
+/* Specific button colors */
+.btn-edit {
+  background-color: #ffecb3; /* Light yellow background */
+  border-color: #ffe082; /* Light yellow border */
+  color: #ff6f00; /* Dark orange text color for contrast */
+}
+
+.btn-edit:hover {
+  background-color: #ffe082; /* Slightly darker yellow on hover */
+  border-color: #ffd54f; /* Slightly darker border on hover */
+}
+
+.btn-delete {
+  background-color: #ffebee; /* Light red background */
+  border-color: #ffcdd2; /* Light red border */
+  color: #c62828; /* Dark red text color for contrast */
+}
+
+.btn-delete:hover {
+  background-color: #ffcdd2; /* Slightly darker red on hover */
+  border-color: #ef9a9a; /* Slightly darker border on hover */
+}
+
+.btn-add-files {
+  background-color: #e8f5e9; /* Light green background */
+  border-color: #c8e6c9; /* Light green border */
+  color: #2e7d32; /* Dark green text color for contrast */
+}
+
+.btn-add-files:hover {
+  background-color: #c8e6c9; /* Slightly darker green on hover */
+  border-color: #a5d6a7; /* Slightly darker border on hover */
+}
+
+/* Align dropdown with the ISBN field */
+.dropdown-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.dropdown-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown-container select {
+  display: block;
+  width: 100%; /* Make the select input take full width of its container */
+  border-radius: 4px;
+  border: 1px solid #b0bec5; /* Subtle border color */
+  padding: 0.375rem 0.75rem; /* Same padding as form-control */
+}
+
+/* Make sure dropdown aligns with form controls */
+.form-container .row .col {
+  margin-bottom: 1rem; /* Consistent margin for alignment */
+}
+
+/* Button styles */
+.btn-group {
+  display: flex; /* Use flexbox to align buttons in a row */
+  gap: 10px; /* Space between buttons */
+  justify-content: center; /* Center buttons */
+}
+
+/* Align icons in buttons */
+.btn i {
+  margin-right: 4px; /* Space between icon and text */
+  font-size: 1.1rem; /* Size of the icon */
+  vertical-align: middle; /* Align icon vertically centered */
+}
+
+/* General button styles */
+.btn {
+  border-radius: 4px; /* Rounded corners */
+  padding: 6px 12px; /* Padding for smaller buttons */
+  border: none; /* Remove default border */
+  color: #ffffff; /* White text color */
+  font-weight: 500; /* Slightly bolder text */
+  font-size: 0.75rem; /* Smaller font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex; /* Flexbox for aligning content */
+  align-items: center; /* Center items vertically */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+/* Ensure buttons don't have extra margin or padding */
+.btn {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Ensure that the text inside buttons is properly aligned */
+.btn span {
+  display: inline-flex;
+  align-items: center;
+}

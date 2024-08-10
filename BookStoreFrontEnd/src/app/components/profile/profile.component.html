@@ -1,0 +1,122 @@
+<!-- Profile Component HTML -->
+<div class="profile-container">
+  <div class="profile-header">
+    <!-- <img [src]="profile.photoUrl" alt="Profile Photo" class="profile-photo" /> -->
+    <div class="profile-info">
+      <h2>Name: {{ profile.username }} </h2>
+      <p>Email: {{ profile.email }}</p>
+      <p>Phone: {{ profile.phoneNumber }}</p>
+      <p *ngIf="addresses.length > 0">Address:</p>
+      <ul *ngIf="addresses.length > 0">
+        <li *ngFor="let address of addresses">
+          {{ address.street }}, {{ address.city }}, {{ address.state }}, {{ address.postalCode }}, {{ address.country }}
+          <!-- Edit Button -->
+          <button type="button" class="btn-icon" (click)="openEditDialog(address)" aria-label="Edit Address">
+            <i class="bi bi-pencil"></i>
+          </button>
+         
+          <!-- Delete Button -->
+          <button type="button" class="btn-icon" (click)="confirmDeleteAddress(address)" aria-label="Delete Address">
+            <i class="bi bi-trash"></i>
+          </button>
+        </li>
+      </ul>
+      <p *ngIf="addresses.length === 0">No addresses available.</p>
+    </div>
+  </div>
+ 
+  <div class="add-order-buttons">
+    <button type="button" class="btn btn-primary" (click)="openAddDialog()" aria-label="Add Address">
+       Add Address
+    </button>
+    <button type="button" class="btn btn-primary"  (click)="toggleOrders()">
+      Orders
+    </button>
+  </div>
+ 
+  <!-- Orders Section -->
+ <!-- Orders Section -->
+<!-- Orders Section -->
+<div class="orders">
+  <ul *ngIf="orders.length > 0">
+    <li *ngFor="let order of orders">
+      <strong>Order ID:</strong> {{order.orderId}}<br>
+      <strong>Shipping Address ID:</strong> {{order.shippingAddressId}}<br>
+      <strong>Order Date:</strong> {{order.orderDate}}<br>
+      <strong>Total Amount:</strong>₹ {{order.totalAmount}}<br>
+      <!-- Order Items -->
+      <ul *ngIf="order.orderItems.length > 0">
+        <li *ngFor="let item of order.orderItems">
+          <strong>Book ID:</strong> {{ item.bookId }}, <strong>Quantity:</strong> {{ item.quantity }}, <strong>Price:</strong> {{ item.price | currency }}
+          <div class="file-download-links">
+            <button (click)="openFile(item.bookId, 'audio')">Open Audio</button>
+            <button (click)="openFile(item.bookId, 'video')">Open Video</button>
+            <button (click)="openFile(item.bookId, 'pdf')">Open PDF</button>
+          </div>
+        </li>
+      </ul>
+      <p *ngIf="order.orderItems.length === 0">No items in this order.</p>
+    </li>
+  </ul>
+  <p *ngIf="orders.length === 0">No orders available.</p>
+</div>
+
+<!-- File Preview Section -->
+<div *ngIf="fileToShow" class="file-preview">
+  <ng-container [ngSwitch]="fileType">
+    <audio *ngSwitchCase="'audio'" controls>
+      <source [src]="fileUrl" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <video *ngSwitchCase="'video'" controls>
+      <source [src]="fileUrl" type="video/mp4">
+      Your browser does not support the video element.
+    </video>
+    <iframe *ngSwitchCase="'pdf'" [src]="fileUrl" type="application/pdf" width="100%" height="600px">
+      Your browser does not support PDFs. <a [href]="fileUrl">Download the PDF</a>.
+    </iframe>
+  </ng-container>
+</div>
+ 
+ 
+<!-- Address dialog -->
+<p-dialog class="pdialog" header="{{ newAddress.addressId ? 'Edit Address' : 'Add Address' }}" [(visible)]="displayDialog" [modal]="true"  [style]="{'width': '50vw', 'max-width': '90vw', 'background-color': 'green','color':'black'}"  [responsive]="true">
+  <div class="dialog-content">
+    <div class="ui-grid ui-grid-responsive">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+          <label for="street">Address</label>
+          <input type="text" id="street" [(ngModel)]="newAddress.street" name="street" pInputText />
+        </div>
+        <div class="ui-grid-col-12">
+          <label for="city">City</label>
+          <input type="text" id="city" [(ngModel)]="newAddress.city" name="city" pInputText />
+        </div>
+        <div class="ui-grid-col-12">
+          <label for="state">State</label>
+          <input type="text" id="state" [(ngModel)]="newAddress.state" name="state" pInputText />
+        </div>
+        <div class="ui-grid-col-12">
+          <label for="postalCode">Postal Code</label>
+          <input type="text" id="postalCode" [(ngModel)]="newAddress.postalCode" name="postalCode" pInputText />
+        </div>
+        <div class="ui-grid-col-12">
+          <label for="country">Country</label>
+          <input type="text" id="country" [(ngModel)]="newAddress.country" name="country" pInputText />
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <!-- Save/Update Button -->
+    <button pButton type="button" class="btn-save" label="{{ newAddress.addressId ? 'Update' : 'Add' }}" (click)="saveAddress()">
+      <i class="pi pi-save"></i> <!-- Save Icon -->
+    </button>
+ 
+    <!-- Cancel Button -->
+    <button pButton type="button" class="btn-cancel" label="Cancel" icon="pi pi-times" (click)="displayDialog = false">
+      <i class="pi pi-times"></i> <!-- Close Icon -->
+    </button>
+  </p-footer>
+ 
+</p-dialog>
