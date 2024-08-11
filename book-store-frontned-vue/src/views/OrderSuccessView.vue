@@ -18,6 +18,10 @@ export default {
 </script>
 
 <style scoped>
+.order-success{
+  min-height: 350px;
+}
+
 h1 {
   color: #4CAF50;
 }

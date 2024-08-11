@@ -42,7 +42,7 @@ body {
 .page-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 50vh; /* Ensure the page takes at least the full viewport height */
+  
 }
 
 /* Main content area */

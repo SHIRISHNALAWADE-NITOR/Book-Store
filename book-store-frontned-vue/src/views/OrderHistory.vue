@@ -5,7 +5,7 @@
       <div v-for="order in orders" :key="order.orderId" class="order-card">
         <p><strong>Order ID:</strong> {{ order.orderId }}</p>
         <p><strong>Date:</strong> {{ formatDate(order.orderDate) }}</p>
-        <p><strong>Total Amount:</strong> {{ formatCurrency(order.totalAmount) }}</p>
+        <p><strong>Total Amount:</strong> ₹ {{ (order.totalAmount) }}</p>
         <p><strong>Shipping Address ID:</strong> {{ order.shippingAddressId }}</p>
         <button @click="viewOrderDetails(order)">View Details</button>
  
@@ -17,7 +17,7 @@
               <div class="book-details">
                 <p><strong>Book ID:</strong> {{ item.bookId }}</p>
                 <p><strong>Quantity:</strong> {{ item.quantity }}</p>
-                <p><strong>Price:</strong> {{ formatCurrency(item.price) }} </p>
+                <p><strong>Price:</strong> ₹ {{ (item.price) }} </p>
                 <p><strong>Title:</strong> {{ bookDetails[item.bookId].title }}</p>
                 <p><strong>Author:</strong> {{ bookDetails[item.bookId].author }}</p>
                 <div class="download-buttons">
@@ -34,7 +34,7 @@
     <p v-else>No orders found.</p>
   </div>
 </template>
-
+ 
 <script>
 export default {
   name: 'OrderHistory',
@@ -93,10 +93,6 @@ export default {
     formatDate(dateString) {
       return new Date(dateString).toLocaleDateString();
     },
-    formatCurrency(value) {
-      if (!value) return '$0.00';
-      return parseFloat(value).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    },
     viewOrderDetails(order) {
       this.selectedOrder = this.selectedOrder && this.selectedOrder.orderId === order.orderId ? null : order;
     },
@@ -106,7 +102,7 @@ export default {
   }
 };
 </script>
-
+ 
 <style scoped>
 .order-history-container {
   padding: 20px;
@@ -197,11 +193,11 @@ h1 {
   display: block;
   margin-top: 10px;
 }
-
+ 
 .download-buttons {
   margin-top: 10px;
 }
-
+ 
 .download-button {
   display: inline-block;
   margin-right: 10px;
@@ -213,7 +209,7 @@ h1 {
   font-size: 0.9rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
+ 
 .download-button:hover {
   background-color: #218838;
   transform: scale(1.05);

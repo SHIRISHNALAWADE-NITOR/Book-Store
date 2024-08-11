@@ -3,10 +3,10 @@
   <div class="profile-header">
     <!-- <img [src]="profile.photoUrl" alt="Profile Photo" class="profile-photo" /> -->
     <div class="profile-info">
-      <h2>Name: {{ profile.username }} </h2>
-      <p>Email: {{ profile.email }}</p>
-      <p>Phone: {{ profile.phoneNumber }}</p>
-      <p *ngIf="addresses.length > 0">Address:</p>
+      <h2>Name {{ profile.username }} </h2>
+      <p>Email {{ profile.email }}</p>
+      <p>Phone {{ profile.phoneNumber }}</p>
+      <p *ngIf="addresses.length > 0">Address</p>
       <ul *ngIf="addresses.length > 0">
         <li *ngFor="let address of addresses">
           {{ address.street }}, {{ address.city }}, {{ address.state }}, {{ address.postalCode }}, {{ address.country }}
@@ -40,14 +40,14 @@
 <div class="orders">
   <ul *ngIf="orders.length > 0">
     <li *ngFor="let order of orders">
-      <strong>Order ID:</strong> {{order.orderId}}<br>
-      <strong>Shipping Address ID:</strong> {{order.shippingAddressId}}<br>
-      <strong>Order Date:</strong> {{order.orderDate}}<br>
-      <strong>Total Amount:</strong>₹ {{order.totalAmount}}<br>
+      <strong>Order ID</strong> {{order.orderId}}<br>
+      <strong>Shipping Address ID</strong> {{order.shippingAddressId}}<br>
+      <strong>Order Date</strong> {{order.orderDate}}<br>
+      <strong>Total Amount</strong>&nbsp;₹ {{order.totalAmount}}<br>
       <!-- Order Items -->
       <ul *ngIf="order.orderItems.length > 0">
         <li *ngFor="let item of order.orderItems">
-          <strong>Book ID:</strong> {{ item.bookId }}, <strong>Quantity:</strong> {{ item.quantity }}, <strong>Price:</strong> {{ item.price | currency }}
+          <strong>Book ID:</strong> {{ item.bookId }}, <strong>Quantity:</strong> {{ item.quantity }}, <strong>Price:</strong> ₹{{ item.price  }}
           <div class="file-download-links">
             <button (click)="openFile(item.bookId, 'audio')">Open Audio</button>
             <button (click)="openFile(item.bookId, 'video')">Open Video</button>

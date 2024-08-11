@@ -64,6 +64,7 @@ export default {
     position: relative;
     width: 100%;
     height: 400px;
+    
 }
 
 
@@ -73,6 +74,7 @@ export default {
     /* Adjusted animation speed */
     width: calc(200px * 20 * 2);
     /* Width for narrower cards */
+    
 }
 
 
@@ -107,6 +109,10 @@ export default {
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
     /* Enhanced shadow on hover */
     
+}
+.slider:hover .slider-container {
+    /* Pause the animation when hovering over the slider */
+    animation-play-state: paused;
 }
 
 .card-icon {

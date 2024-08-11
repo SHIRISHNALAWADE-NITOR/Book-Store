@@ -15,10 +15,10 @@
           <h1>{{ book.title }}</h1>
           <div class="rating">{{ book.rating }} ★</div>
         </div>
-        <p class="author">Author: {{ book.author }}</p>
-        <p class="category"><strong>Category:</strong> {{ book.category }}</p>
-        <p class="pages"><strong>Number of Pages:</strong> {{ book.numberOfPages }}</p>
-        <p class="price">{{ book.price }} ₹</p>
+        <p class="author"><strong>Author</strong> {{ book.author }}</p>
+        <p class="category"><strong>Category</strong> {{ book.category }}</p>
+        <p class="pages"><strong>Number of Pages</strong> {{ book.numberOfPages }}</p>
+        <p class="price">₹&nbsp;{{ book.price }} </p>
         <p class="description" @mouseover="showFullDescription" @mouseleave="hideFullDescription"
           :class="{ 'show-full': isDescriptionFull }">
           {{ book.description }}
@@ -38,7 +38,7 @@
           @click="handleClick(product)">
           <img :src="product.imageUrl" alt="Similar Product Image" class="similar-product-image" />
           <div class="similar-product-name">{{ product.title }}</div>
-          <div class="similar-product-price">{{ product.price }} ₹</div>
+          <div style="color: black;" class="similar-product-price">₹{{ product.price }} </div>
         </div>
       </div>
       <div v-else>No similar products found.</div>
