@@ -16,9 +16,8 @@
           <div><span class="rating-text averageratingbox">{{ book.rating | number:'1.1-1'}}★</span></div>
           
         </div>
-        <h4 class="price">
-          ₹ {{ (book.price * 0.5) | number:'1.0-0' }}&nbsp;
-          <span style="text-decoration: line-through;color: black;">₹ {{ book.price | number:'1.0-0' }}</span>
+        <h4 >
+          ₹ {{ book.price | number:'1.0-0' }}
         </h4>
       </div>
     </li>

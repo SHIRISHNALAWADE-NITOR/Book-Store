@@ -102,6 +102,10 @@ export default {
     transform: translateY(-7px);
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
 }
+.slider:hover .slider-container {
+    /* Pause the animation when hovering over the slider */
+    animation-play-state: paused;
+}
 
 .card-icon {
     width: 100%;

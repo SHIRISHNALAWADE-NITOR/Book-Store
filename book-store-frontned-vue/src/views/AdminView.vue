@@ -11,19 +11,19 @@
       <button @click="showAddBookModal" class="add-book-button">Add New Book</button>
       <!-- Modal -->
       <div v-if="showModal" class="modal-overlay" @click.self="hideModal">
-        <div class="modal-content">
+        <div class="form-container modal-content">
           <h2>{{ editMode ? 'Edit Book' : 'Add Book' }}</h2>
-          <form @submit.prevent="editMode ? updateBook() : addBook()">
+          <!-- <form @submit.prevent="editMode ? updateBook() : addBook()">
             <label>
-              Title:
+              Title
               <input v-model="currentBook.title" required />
             </label>
             <label>
-              Author:
+              Author
               <input v-model="currentBook.author" required />
             </label>
             <label>
-              Category:
+              Category
               <input v-model="currentBook.category" required />
             </label>
             <label>
@@ -54,7 +54,93 @@
               <button type="submit">{{ editMode ? 'Update Book' : 'Add Book' }}</button>
               <button type="button" @click="hideModal">Cancel</button>
             </div>
-          </form>
+          </form> -->
+         
+        <form @submit.prevent="editMode ? updateBook() : addBook()">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <label for="isbn" class="form-label">ISBN</label>
+              <input id="isbn"  v-model.number="currentBook.isbn"  name="isbn" class="form-control" type="number" required>
+            </div>
+            <div class="dropdown-container">
+    <label for="category-select">Select a Category:</label>
+    <select id="category-select" v-model="currentBook.category" name="category" required>
+      <option value="" disabled>Select a category</option>
+      <option v-for="category in categories" :key="category" :value="category">
+        {{ category }}
+      </option>
+    </select>
+  </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col">
+              <label for="title" class="form-label">Title</label>
+              <input id="title" v-model="currentBook.title" name="title" class="form-control" type="text" required>
+             
+            </div>
+            <div class="col">
+              <label for="author" class="form-label">Author</label>
+              <input id="author" v-model="currentBook.author" name="author" class="form-control" type="text"
+                required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="price" class="form-label">Price</label>
+              <input id="price" v-model="currentBook.price" name="price" class="form-control" type="number"
+                step="0.01" required>
+            </div>
+            <div class="col"> <label for="numberOfPages" class="form-label">Number of Pages</label>
+              <input id="numberOfPages"  v-model="currentBook.numberOfPages" name="numberOfPages"
+                class="form-control" type="number">
+            </div>
+            <div class="col"> <label for="rating" class="form-label">Rating</label>
+              <input id="rating"  v-model="currentBook.rating" name="rating" class="form-control" type="number"
+                step="0.1">
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description"  v-model="currentBook.description" name="description"
+              class="form-control"></textarea>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="imageUrl" class="form-label">Image URL</label>
+              <input id="imageUrl"  v-model="currentBook.imageUrl" name="imageUrl" class="form-control" type="text">
+            </div>
+
+            <div class="col">
+              <label for="createdAt" class="form-label">Created At</label>
+              <input id="createdAt"  v-model="currentBook.createdAt" name="createdAt" class="form-control"
+                type="datetime-local">
+            </div>
+            <div class="col">
+              <label for="quantity" class="form-label">Quantity </label>
+              <input id="quantity"  v-model="currentBook.quantity" name="quantity" class="form-control"
+                type="number">
+            </div>
+
+
+          </div>
+
+          <br>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">{{ editMode ? 'Update Book' : 'Add Book' }}</button>
+            <button type="button" class="btn btn-secondary"  @click="hideModal">Cancel</button>
+          </div>
+          <!-- <div class="modal-buttons">
+              <button type="submit">{{ editMode ? 'Update Book' : 'Add Book' }}</button>
+              <button type="button" @click="hideModal">Cancel</button>
+            </div> -->
+
+        </div>
+      </form>
         </div>
       </div>
 
@@ -63,19 +149,17 @@
           <img :src="book.imageUrl" alt="Book Cover" class="book-cover" />
           <div class="book-details">
             <h2>{{ book.title }}</h2>
-            <p><strong>Author:</strong> {{ book.author }}</p>
-            <p><strong>Category:</strong> {{ book.category }}</p>
-          </div>
-          <div class="book-actions">
-            <button @click="editBook(book)">Edit</button>
+            <p><strong>Author</strong> {{ book.author }}</p>
+            <p><strong>Category</strong> {{ book.category }}</p>
+            <div class="book-actions">
+            <button @click="editBook(book)"><i class="fa-solid fa-pen-to-square"></i>&nbsp;<span style="font-size: medium;">Edit</span></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="delete-icon" @click="confirmDelete(book.bookId)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-trash-fill" viewBox="0 0 16 16">
-                <path
-                  d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-              </svg>
+              <i class="fa-solid fa-trash"></i>&nbsp;<span style="font-size: medium;">Delete</span>
             </button>
           </div>
+          </div>
+          
         </div>
       </div>
       <div class="pagination-controls">
@@ -111,9 +195,13 @@ export default {
         rating: 0,
         price: 0,
         description: '',
-        imageUrl: ''
+        imageUrl: '',
+        quantity:0,
+        createdAt:''
       },
-      searchQuery: ''
+      searchQuery: '',
+      categories: ['Fiction,Biography & Autobiography','History','Science','Literary Criticism','Poetry','Art','Drama','Philosophy','Performing Arts','Social Science','Literary Collections','Juvenile Fiction','Juvenile Nonfiction','Language Arts & Disciplines','Adventure stories','Business & Economics','Psychology','Religion']
+      
     };
   },
   computed: {
@@ -472,21 +560,35 @@ export default {
 }
  
 .book-details {
-  flex: 1;
+  text-align: left;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; */
+
 }
+
  
 .book-details h2 {
   margin: 0;
   font-size: 1.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
  
 .book-details p {
   margin: 0.5rem 0;
   color: #495057;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
  
 .book-actions {
-  display: grid;
+  display: block;
   gap: 0.5rem;
   margin-top: 1rem;
 }
@@ -570,6 +672,7 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
 }
  
 /* Modal content */
@@ -577,10 +680,11 @@ export default {
   background: #fff;
   padding: 15px;
   border-radius: 8px;
-  width: 90%;
-  max-width: 400px; /* Smaller width */
+  width: 100%;
+  max-width: 500px; /* Smaller width */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
+  z-index: 1001; /* Ensure it's above the overlay */
 }
  
 /* Modal header */
@@ -661,5 +765,6 @@ button[type="button"]:hover {
     padding: 10px;
   }
 }
- 
+
+
 </style>

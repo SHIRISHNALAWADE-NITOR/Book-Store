@@ -8,9 +8,10 @@
             <img :src="item.book.imageUrl" alt="Book Image" class="book-image" />
             <div class="book-details">
               <h3>{{ item.book.title }}</h3>
-              <p><strong>Quantity :</strong> {{ item.quantity }}</p>
-              <p><strong>Price :</strong> {{ item.book.price.toFixed(2) }}</p>
-              <button @click="deleteItem(item.cartItemId)">Delete</button>
+              <h5>{{ item.book.author }}</h5>
+              <h6>Quantity {{ item.quantity }}</h6>
+              <h6>Price&nbsp;₹ {{ item.book.price.toFixed(2) }}</h6>
+              <button @click="deleteItem(item.cartItemId)">Remove</button>
             </div>
           </div>
         </li>
@@ -137,6 +138,9 @@ export default {
 .cart-container {
   display: flex;
   justify-content: space-between;
+  min-height: 400px;
+  
+  padding: 0 5%;
 }
 
 .cart-items {
@@ -164,11 +168,13 @@ li {
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
+  text-align: left;
+  
 }
 
 .book-image {
-  width: 100px;
-  height: 150px;
+  width: 150px;
+  height: 200px;
   margin-right: 20px;
 }
 
