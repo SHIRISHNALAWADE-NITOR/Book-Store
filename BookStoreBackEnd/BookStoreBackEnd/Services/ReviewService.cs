@@ -99,4 +99,17 @@ public class ReviewService : IReviewService
             throw new ApplicationException("An error occurred while deleting the review.", ex);
         }
     }
+
+    public async Task<IEnumerable<ReviewDTO>> GetReviewsByUserId(int userId)
+    {
+        try
+        {
+            var reviews = await _context.Reviews.Where(r=> r.UserId == userId).ToListAsync();
+            return _mapper.Map<IEnumerable<ReviewDTO>>(reviews);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("An error occurred while retrieving all reviews given by user.", ex);
+        }
+    }
 }

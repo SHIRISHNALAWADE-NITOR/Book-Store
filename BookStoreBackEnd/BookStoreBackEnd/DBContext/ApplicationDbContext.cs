@@ -3,11 +3,12 @@
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {
+    { 
     }
 
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<RolePrivilege> RolePrivilege { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Book> Books { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -84,7 +85,7 @@ public class ApplicationDbContext : DbContext
         .WithMany(u => u.Orders)
         .HasForeignKey(o => o.UserId)
         .OnDelete(DeleteBehavior.NoAction);
-
+        
         modelBuilder.Entity<Address>()
             .HasOne(o => o.User)
             .WithMany(u => u.Addresses)

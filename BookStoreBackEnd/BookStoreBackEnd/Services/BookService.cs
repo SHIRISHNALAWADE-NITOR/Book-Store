@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class BookService : IBookService
 {
@@ -16,7 +19,7 @@ public class BookService : IBookService
     {
         try
         {
-            var books = await _context.Books.Where(b => b.Quantity != 0).ToListAsync();
+            var books = await _context.Books.ToListAsync();
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
         catch (Exception ex)
@@ -121,45 +124,14 @@ public class BookService : IBookService
                                            .GroupBy(b => b.Category)
                                            .Select(g => new CategoryDTO
                                            {
-                                               Category = g.Key,
-                                               Count = g.Count()
+                                                Category = g.Key,
+                                                Count = g.Count()
                                            });
             return groupedCategories;
         }
         catch (Exception ex)
         {
             throw new ApplicationException("An error occurred while retrieving all books.", ex);
-        }
-    }
-
-    public async Task<IEnumerable<BookDTO>> GetTopBooksOfEachCategoryAsync(int no)
-    {
-        try
-        {
-            var books = await _context.Books
-                                      .GroupBy(b => b.Category)
-                                      .Select(g => g.OrderByDescending(b => b.Rating).FirstOrDefault())
-                                      .ToListAsync();
-            return _mapper.Map<IEnumerable<BookDTO>>(books);
-        }
-        catch (Exception ex)
-        {
-            throw new ApplicationException("An error occurred while retrieving all books.", ex);
-        }
-    }
-
-    public async Task<IEnumerable<BookDTO>> GetBooksByYear(int year)
-    {
-        try
-        {
-            var books = await _context.Books
-                                      .Where(b => b.CreatedAt.Year == year)
-                                      .ToListAsync();
-            return _mapper.Map<IEnumerable<BookDTO>>(books);
-        }
-        catch (Exception ex)
-        {
-            throw new ApplicationException($"An error occurred while retrieving {year} books.", ex);
         }
     }
 }

@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class RoleService : IRoleService
 {
     private readonly IMapper _mapper;
     private readonly ApplicationDbContext _context;
-    private readonly INotificationService _notificationService;
 
-    public RoleService(IMapper mapper, ApplicationDbContext context, INotificationService notificationService)
+    public RoleService(IMapper mapper, ApplicationDbContext context)
     {
         _mapper = mapper;
         _context = context;
-        _notificationService = notificationService;
     }
 
     public async Task<RoleDTO> AddRole(RoleDTO roleDto)

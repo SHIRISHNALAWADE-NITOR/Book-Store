@@ -5,5 +5,6 @@
     Task<ReviewDTO> AddReviewAsync(ReviewDTO reviewDto);
     Task<ReviewDTO> UpdateReviewAsync(int id, ReviewDTO reviewDto);
     Task<bool> DeleteReviewAsync(int id);
+    Task<IEnumerable<ReviewDTO>> GetReviewsByUserId(int userId);
 }
 

@@ -125,4 +125,21 @@ public class ReviewController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
         }
     }
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetAllReviewsByUser(int userId)
+    {
+        try
+        {
+            var reviews = await _reviewService.GetReviewsByUserId(userId);
+            return Ok(reviews);
+        }
+        catch (ApplicationException ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Internal server error: {ex.Message}" });
+        }
+    }
 }
