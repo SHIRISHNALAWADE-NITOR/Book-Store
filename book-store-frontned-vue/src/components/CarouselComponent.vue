@@ -129,6 +129,8 @@ export default {
   transform: translateX(-50%);
   display: flex;
   gap: 5px;
+  padding-left: 0;
+  margin-left: 0%;
 }
 
 .carousel-indicators span {
@@ -137,6 +139,8 @@ export default {
   background: #ddd;
   border-radius: 50%;
   cursor: pointer;
+  padding-left: 0;
+  margin-left: 0%;
 }
 
 .carousel-indicators .active {

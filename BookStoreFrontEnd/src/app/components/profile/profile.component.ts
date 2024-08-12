@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AddressService } from 'src/app/services/address.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { Address } from 'src/app/services/address.model';
@@ -8,7 +8,7 @@ import { OrderService } from 'src/app/services/order.service';
 import { FileService } from 'src/app/services/file.service';
 import { Observable } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
+ 
 export interface Order {
   orderId: number;
   userId: number;
@@ -17,14 +17,14 @@ export interface Order {
   shippingAddressId: number;
   orderItems: OrderItem[];
 }
-
+ 
 export interface OrderItem {
   orderItemId: number;
   bookId: number;
   quantity: number;
   price: number;
 }
-
+ 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -32,7 +32,7 @@ export interface OrderItem {
   providers: [MessageService, ConfirmationService]
 })
 export class ProfileComponent implements OnInit {
-
+ 
   displayDialog: boolean = false;
   newAddress: Address = { street: '', city: '', state: '', postalCode: '', country: '' };
   profile: UserDTO = new UserDTO();
@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
   fileToShow: Blob | undefined;
   fileUrl: SafeResourceUrl | undefined;
   fileType: string | undefined;
-
+ 
   constructor(
     private addressService: AddressService,
     private messageService: MessageService,
@@ -49,20 +49,22 @@ export class ProfileComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private orderService: OrderService,
     private fileService: FileService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private changeDetector: ChangeDetectorRef
   ) {}
-
+ 
   ngOnInit() {
     const userId = localStorage.getItem("userId");
     if (userId) {
       this.loadUserProfile(userId);
       this.loadAddresses(userId);
+      this.changeDetector.detectChanges();
     } else {
       console.error('User ID not found');
       this.messageService.add({ severity: 'error', summary: 'User ID Missing', detail: 'Unable to load profile and addresses without a user ID.' });
     }
   }
-
+ 
   loadUserProfile(userId: string) {
     this.userService.getUserProfile(userId).subscribe(
       (response: UserDTO) => {
@@ -75,7 +77,7 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
+ 
   loadAddresses(userId: string) {
     this.addressService.getAddresses(userId).subscribe(
       (response: Address[]) => {
@@ -91,16 +93,17 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
+ 
   saveAddress() {
+    this.changeDetector.detectChanges();
     const userId = localStorage.getItem("userId");
-  
+ 
     if (!userId) {
       console.error('User ID is missing');
       this.messageService.add({ severity: 'error', summary: 'Save Failed', detail: 'User ID is missing.' });
       return;
     }
-  
+ 
     const addressData: Address = {
       addressId: this.newAddress.addressId,
       street: this.newAddress.street,
@@ -110,7 +113,7 @@ export class ProfileComponent implements OnInit {
       country: this.newAddress.country,
       userId: userId
     };
-  
+ 
     if (this.newAddress.addressId) {
       this.addressService.updateAddress(this.newAddress.addressId, addressData).subscribe(
         (response: Address) => {
@@ -137,17 +140,17 @@ export class ProfileComponent implements OnInit {
       );
     }
   }
-
+ 
   openAddDialog() {
     this.newAddress = { street: '', city: '', state: '', postalCode: '', country: '' };
     this.displayDialog = true;
   }
-
+ 
   openEditDialog(address: Address) {
     this.newAddress = { ...address };
     this.displayDialog = true;
   }
-
+ 
   confirmDeleteAddress(address: Address) {
     const addressId = address.addressId!;
     this.addressService.deleteAddress(addressId).subscribe(
@@ -157,17 +160,18 @@ export class ProfileComponent implements OnInit {
       (error) => console.error('Delete failed', error)
     );
   }
-
+ 
   getOrders() {
+    this.changeDetector.detectChanges();
     this.orderService.getOrder().subscribe(
       (response: Order[]) => {
         this.orders = response;
       }
     );
   }
-
+ 
   showOrders: boolean = false;
-
+ 
   toggleOrders() {
     if (!this.showOrders) {
       this.getOrders();
@@ -176,7 +180,7 @@ export class ProfileComponent implements OnInit {
     }
     this.showOrders = !this.showOrders;
   }
-
+ 
   openFile(bookId: number, fileType: string) {
     let fileObservable: Observable<Blob>;
     switch (fileType) {
@@ -193,7 +197,7 @@ export class ProfileComponent implements OnInit {
         console.error('Invalid file type');
         return;
     }
-
+ 
     fileObservable.subscribe(
       (blob: Blob) => {
         const url = URL.createObjectURL(blob);

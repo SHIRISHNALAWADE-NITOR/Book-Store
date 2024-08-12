@@ -1,5 +1,6 @@
 <template>
-    <div class="forgot-password">
+    <div class="back">
+ <div class="forgot-password">
         <h1>Forgot Password</h1>
         <form @submit.prevent="handleSubmit">
             <div>
@@ -14,6 +15,8 @@
         </form>
         <p v-if="message">{{ message }}</p>
     </div>
+    </div>
+   
 </template>
 
 <script>
@@ -56,12 +59,17 @@ export default {
 </script>
 
 <style scoped>
+.back{
+    background: url('../assets/WhiteLibrary.png') no-repeat center center/cover;
+}
 .forgot-password {
-    max-width: 400px;
+    max-width: 450px;
     margin: 0 auto;
     padding: 1em;
     border: 1px solid #ddd;
     border-radius: 8px;
+    min-height: 400px;
+   background-color: white;
 }
 
 form div {

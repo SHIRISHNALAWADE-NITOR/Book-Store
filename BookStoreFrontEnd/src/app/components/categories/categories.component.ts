@@ -84,7 +84,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   navigateToBook(bookId: number): void {
-    this.router.navigate(['/home/book', bookId]);
+    this.router.navigate(['/home/individualBook', bookId]);
   }
 
   roundedRating(rating: number | undefined): number {
