@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-password-change',
@@ -13,13 +14,15 @@ export class PasswordChangeDialogComponent implements OnInit {
   token: string = '';
   otp:string='';
   newPassword: string = '';
+  cPassword:string='';
 
   private resetPasswordUrl = 'http://localhost:5134/api/Auth/ResetPasswordEmail';
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toast:ToastService
   ) {}
 
   ngOnInit(): void {
@@ -32,11 +35,13 @@ export class PasswordChangeDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.email || !this.dateOfBirth || !this.token || !this.newPassword || !this.otp) {
+    if (!this.email || !this.dateOfBirth || !this.token || !this.newPassword || !this.otp ) {
       console.error('All fields are required.');
       return;
     }
-
+    if(this.cPassword!=this.newPassword){
+      this.toast.show("Password must be same",'error');
+    }
     const resetPayload = {
       email: this.email,
       dateOfBirth: this.dateOfBirth,
@@ -55,6 +60,7 @@ export class PasswordChangeDialogComponent implements OnInit {
         this.router.navigate(['/home/login']);
       },
       error: (error) => {
+        this.toast.show("Something went wrong",'error');
         console.error('Password reset error:', error);
       }
     });

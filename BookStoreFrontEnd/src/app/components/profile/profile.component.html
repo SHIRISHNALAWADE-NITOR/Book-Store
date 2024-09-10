@@ -47,7 +47,7 @@
       <!-- Order Items -->
       <ul *ngIf="order.orderItems.length > 0">
         <li *ngFor="let item of order.orderItems">
-          <strong>Book ID:</strong> {{ item.bookId }}, <strong>Quantity:</strong> {{ item.quantity }}, <strong>Price:</strong> {{ item.price | currency }}
+          <strong>Book ID:</strong> {{ item.bookId }}, <strong>Quantity:</strong> {{ item.quantity }}, <strong>Price: ₹</strong> {{ item.price}}
           <div class="file-download-links">
             <button (click)="openFile(item.bookId, 'audio')">Open Audio</button>
             <button (click)="openFile(item.bookId, 'video')">Open Video</button>

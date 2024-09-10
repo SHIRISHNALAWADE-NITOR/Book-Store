@@ -35,7 +35,7 @@ export class CarouselComponent implements OnInit, OnDestroy {
   startAutoSlide(): void {
     this.intervalId = setInterval(() => {
       this.nextSlide();
-    }, 3000); // Change slide every 3 seconds
+    }, 4000); // Change slide every 3 seconds
   }
 
   nextSlide(): void {

@@ -43,3 +43,26 @@
   .footer-nav a:hover {
     color: #007bff;
   }
+
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+   
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+   
+  /* Wrapper for the entire page content */
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh; /* Ensure the page takes at least the full viewport height */
+  }
+   
+  /* Main content area */
+  .main-content {
+    flex: 1; /* This makes the main content area grow and push the footer down */
+  }
